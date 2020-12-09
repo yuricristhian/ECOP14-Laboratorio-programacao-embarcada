@@ -1,0 +1,1167 @@
+gplink-1.4.0 #1106 (Oct  6 2014)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 9-1-2016  09:23:18
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Sep 01 08:44:39 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_MudaDigito
+                                           	global	_AtualizaDisplay
+                                           	global	_InicializaDisplays
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           PCL	equ	0xff9
+                                           PCLATH	equ	0xffa
+                                           PCLATU	equ	0xffb
+                                           WREG	equ	0xfe8
+                                           TBLPTRL	equ	0xff6
+                                           TBLPTRH	equ	0xff7
+                                           TBLPTRU	equ	0xff8
+                                           TABLAT	equ	0xff5
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           
+                                           udata_disp7seg_0	udata
+                                           _display	res	1
+                                           
+                                           udata_disp7seg_1	udata
+                                           _v0	res	1
+                                           
+                                           udata_disp7seg_2	udata
+                                           _v1	res	1
+                                           
+                                           udata_disp7seg_3	udata
+                                           _v2	res	1
+                                           
+                                           udata_disp7seg_4	udata
+                                           _v3	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_disp7seg__InicializaDisplays	code
+                                           _InicializaDisplays:
+                                           ;	.line	73; disp7seg.c	void InicializaDisplays(void)
+00055e   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000560   ffe5
+000562   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000564   ffd9
+000566   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000568   ffe5
+                                           ;	.line	76; disp7seg.c	BitClr(TRISA,2);
+00056a   ee0f     lfsr    0x0, 0xf92       	LFSR	0x00, 0xf92
+00056c   f092
+00056e   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000570   f000
+000572   9400     bcf     0x00, 0x2, 0x0   	BCF	r0x00, 2
+000574   ee0f     lfsr    0x0, 0xf92       	LFSR	0x00, 0xf92
+000576   f092
+000578   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+00057a   ffef
+                                           ;	.line	77; disp7seg.c	BitClr(TRISA,5);
+00057c   ee0f     lfsr    0x0, 0xf92       	LFSR	0x00, 0xf92
+00057e   f092
+000580   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000582   f000
+000584   9a00     bcf     0x00, 0x5, 0x0   	BCF	r0x00, 5
+000586   ee0f     lfsr    0x0, 0xf92       	LFSR	0x00, 0xf92
+000588   f092
+00058a   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+00058c   ffef
+                                           ;	.line	78; disp7seg.c	BitClr(TRISE,0);
+00058e   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+000590   f096
+000592   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000594   f000
+000596   9000     bcf     0x00, 0x0, 0x0   	BCF	r0x00, 0
+000598   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+00059a   f096
+00059c   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+00059e   ffef
+                                           ;	.line	79; disp7seg.c	BitClr(TRISE,2);
+0005a0   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+0005a2   f096
+0005a4   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+0005a6   f000
+0005a8   9400     bcf     0x00, 0x2, 0x0   	BCF	r0x00, 2
+0005aa   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+0005ac   f096
+0005ae   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+0005b0   ffef
+                                           ;	.line	80; disp7seg.c	ADCON1 = 0x0E; //apenas AN0 é analogico, a referencia é baseada na fonte
+0005b2   ee0f     lfsr    0x0, 0xfc1       	LFSR	0x00, 0xfc1
+0005b4   f0c1
+0005b6   0e0e     movlw   0x0e             	MOVLW	0x0e
+0005b8   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	81; disp7seg.c	TRISD = 0x00;	//Porta de dados
+0005ba   ee0f     lfsr    0x0, 0xf95       	LFSR	0x00, 0xf95
+0005bc   f095
+0005be   0e00     movlw   0x00             	MOVLW	0x00
+0005c0   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+0005c2   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+0005c4   f000
+0005c6   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0005c8   ffd9
+0005ca   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_disp7seg__AtualizaDisplay	code
+                                           _AtualizaDisplay:
+                                           ;	.line	32; disp7seg.c	void AtualizaDisplay(void)
+000004   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000006   ffe5
+000008   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00000a   ffd9
+00000c   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+00000e   ffe5
+000010   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000012   ffe5
+000014   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000016   ffe5
+                                           ;	.line	35; disp7seg.c	PORTA = 0x00;
+000018   ee0f     lfsr    0x0, 0xf80       	LFSR	0x00, 0xf80
+00001a   f080
+00001c   0e00     movlw   0x00             	MOVLW	0x00
+00001e   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	36; disp7seg.c	PORTE = 0x00;
+000020   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000022   f084
+000024   0e00     movlw   0x00             	MOVLW	0x00
+000026   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	38; disp7seg.c	PORTD = 0x00;
+000028   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+00002a   f083
+00002c   0e00     movlw   0x00             	MOVLW	0x00
+00002e   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	40; disp7seg.c	switch(display) //liga apenas o display da vez
+000030   80d8     bsf     0xd8, 0x0, 0x0   	BSF	STATUS, 0
+000032   0100     movlb   0x0              	BANKSEL	_display
+000034   af84     btfss   0x84, 0x7, 0x1   	BTFSS	_display, 7, B
+000036   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+000038   b0d8     btfsc   0xd8, 0x0, 0x0   	BTFSC	STATUS, 0
+00003a   d0c5     bra     0x0001c6         	BRA	_00141_DS_
+00003c   0100     movlb   0x0              	BANKSEL	_display
+00003e   5184     movf    0x84, 0x0, 0x1   	MOVF	_display, W, B
+000040   0f80     addlw   0x80             	ADDLW	0x80
+000042   0f7c     addlw   0x7c             	ADDLW	0x7c
+000044   b0d8     btfsc   0xd8, 0x0, 0x0   	BTFSC	STATUS, 0
+000046   d0bf     bra     0x0001c6         	BRA	_00141_DS_
+000048   6afa     clrf    0xfa, 0x0        	CLRF	PCLATH
+00004a   6afb     clrf    0xfb, 0x0        	CLRF	PCLATU
+00004c   0100     movlb   0x0              	BANKSEL	_display
+00004e   3584     rlcf    0x84, 0x0, 0x1   	RLCF	_display, W, B
+000050   36fa     rlcf    0xfa, 0x1, 0x0   	RLCF	PCLATH, F
+000052   34e8     rlcf    0xe8, 0x0, 0x0   	RLCF	WREG, W
+000054   36fa     rlcf    0xfa, 0x1, 0x0   	RLCF	PCLATH, F
+000056   0bfc     andlw   0xfc             	ANDLW	0xfc
+000058   0f68     addlw   0x68             	ADDLW	LOW(_00152_DS_)
+00005a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00005c   0e00     movlw   0x00             	MOVLW	HIGH(_00152_DS_)
+00005e   22fa     addwfc  0xfa, 0x1, 0x0   	ADDWFC	PCLATH, F
+000060   0e00     movlw   0x00             	MOVLW	UPPER(_00152_DS_)
+000062   22fb     addwfc  0xfb, 0x1, 0x0   	ADDWFC	PCLATU, F
+000064   50e4     movf    0xe4, 0x0, 0x0   	MOVF	PREINC1, W
+000066   6ef9     movwf   0xf9, 0x0        	MOVWF	PCL
+                                           _00152_DS_:
+000068   ef3c     goto    0x000078         	GOTO	_00137_DS_
+00006a   f000
+00006c   ef66     goto    0x0000cc         	GOTO	_00138_DS_
+00006e   f000
+000070   ef90     goto    0x000120         	GOTO	_00139_DS_
+000072   f000
+000074   efba     goto    0x000174         	GOTO	_00140_DS_
+000076   f000
+                                           _00137_DS_:
+                                           ;	.line	43; disp7seg.c	PORTD = valor[v0];
+000078   0e66     movlw   0x66             	MOVLW	LOW(_valor)
+00007a   0100     movlb   0x0              	BANKSEL	_v0
+00007c   2585     addwf   0x85, 0x0, 0x1   	ADDWF	_v0, W, B
+00007e   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000080   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+000082   0100     movlb   0x0              	BANKSEL	_v0
+000084   bf85     btfsc   0x85, 0x7, 0x1   	BTFSC	_v0, 7, B
+000086   6801     setf    0x01, 0x0        	SETF	r0x01
+000088   0e06     movlw   0x06             	MOVLW	HIGH(_valor)
+00008a   2201     addwfc  0x01, 0x1, 0x0   	ADDWFC	r0x01, F
+00008c   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+00008e   0100     movlb   0x0              	BANKSEL	_v0
+000090   bf85     btfsc   0x85, 0x7, 0x1   	BTFSC	_v0, 7, B
+000092   6802     setf    0x02, 0x0        	SETF	r0x02
+000094   0e00     movlw   0x00             	MOVLW	UPPER(_valor)
+000096   2202     addwfc  0x02, 0x1, 0x0   	ADDWFC	r0x02, F
+000098   c000     movff   0x000, 0xff6     	MOVFF	r0x00, TBLPTRL
+00009a   fff6
+00009c   c001     movff   0x001, 0xff7     	MOVFF	r0x01, TBLPTRH
+00009e   fff7
+0000a0   c002     movff   0x002, 0xff8     	MOVFF	r0x02, TBLPTRU
+0000a2   fff8
+0000a4   0009     tblrd*+                  	TBLRD*+	
+0000a6   cff5     movff   0xff5, 0x000     	MOVFF	TABLAT, r0x00
+0000a8   f000
+0000aa   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0000ac   f083
+0000ae   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+0000b0   ffef
+                                           ;	.line	44; disp7seg.c	BitSet(PORTA,5);
+0000b2   ee0f     lfsr    0x0, 0xf80       	LFSR	0x00, 0xf80
+0000b4   f080
+0000b6   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+0000b8   f000
+0000ba   8a00     bsf     0x00, 0x5, 0x0   	BSF	r0x00, 5
+0000bc   ee0f     lfsr    0x0, 0xf80       	LFSR	0x00, 0xf80
+0000be   f080
+0000c0   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+0000c2   ffef
+                                           ;	.line	45; disp7seg.c	display = 1;
+0000c4   0e01     movlw   0x01             	MOVLW	0x01
+0000c6   0100     movlb   0x0              	BANKSEL	_display
+0000c8   6f84     movwf   0x84, 0x1        	MOVWF	_display, B
+                                           ;	.line	46; disp7seg.c	break;
+0000ca   d07f     bra     0x0001ca         	BRA	_00143_DS_
+                                           _00138_DS_:
+                                           ;	.line	49; disp7seg.c	PORTD = valor[v1];
+0000cc   0e66     movlw   0x66             	MOVLW	LOW(_valor)
+0000ce   0100     movlb   0x0              	BANKSEL	_v1
+0000d0   2586     addwf   0x86, 0x0, 0x1   	ADDWF	_v1, W, B
+0000d2   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+0000d4   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+0000d6   0100     movlb   0x0              	BANKSEL	_v1
+0000d8   bf86     btfsc   0x86, 0x7, 0x1   	BTFSC	_v1, 7, B
+0000da   6801     setf    0x01, 0x0        	SETF	r0x01
+0000dc   0e06     movlw   0x06             	MOVLW	HIGH(_valor)
+0000de   2201     addwfc  0x01, 0x1, 0x0   	ADDWFC	r0x01, F
+0000e0   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+0000e2   0100     movlb   0x0              	BANKSEL	_v1
+0000e4   bf86     btfsc   0x86, 0x7, 0x1   	BTFSC	_v1, 7, B
+0000e6   6802     setf    0x02, 0x0        	SETF	r0x02
+0000e8   0e00     movlw   0x00             	MOVLW	UPPER(_valor)
+0000ea   2202     addwfc  0x02, 0x1, 0x0   	ADDWFC	r0x02, F
+0000ec   c000     movff   0x000, 0xff6     	MOVFF	r0x00, TBLPTRL
+0000ee   fff6
+0000f0   c001     movff   0x001, 0xff7     	MOVFF	r0x01, TBLPTRH
+0000f2   fff7
+0000f4   c002     movff   0x002, 0xff8     	MOVFF	r0x02, TBLPTRU
+0000f6   fff8
+0000f8   0009     tblrd*+                  	TBLRD*+	
+0000fa   cff5     movff   0xff5, 0x000     	MOVFF	TABLAT, r0x00
+0000fc   f000
+0000fe   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+000100   f083
+000102   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000104   ffef
+                                           ;	.line	50; disp7seg.c	BitSet(PORTA,2);
+000106   ee0f     lfsr    0x0, 0xf80       	LFSR	0x00, 0xf80
+000108   f080
+00010a   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+00010c   f000
+00010e   8400     bsf     0x00, 0x2, 0x0   	BSF	r0x00, 2
+000110   ee0f     lfsr    0x0, 0xf80       	LFSR	0x00, 0xf80
+000112   f080
+000114   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000116   ffef
+                                           ;	.line	51; disp7seg.c	display = 2;
+000118   0e02     movlw   0x02             	MOVLW	0x02
+00011a   0100     movlb   0x0              	BANKSEL	_display
+00011c   6f84     movwf   0x84, 0x1        	MOVWF	_display, B
+                                           ;	.line	52; disp7seg.c	break;
+00011e   d055     bra     0x0001ca         	BRA	_00143_DS_
+                                           _00139_DS_:
+                                           ;	.line	55; disp7seg.c	PORTD = valor[v2];
+000120   0e66     movlw   0x66             	MOVLW	LOW(_valor)
+000122   0100     movlb   0x0              	BANKSEL	_v2
+000124   2587     addwf   0x87, 0x0, 0x1   	ADDWF	_v2, W, B
+000126   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000128   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+00012a   0100     movlb   0x0              	BANKSEL	_v2
+00012c   bf87     btfsc   0x87, 0x7, 0x1   	BTFSC	_v2, 7, B
+00012e   6801     setf    0x01, 0x0        	SETF	r0x01
+000130   0e06     movlw   0x06             	MOVLW	HIGH(_valor)
+000132   2201     addwfc  0x01, 0x1, 0x0   	ADDWFC	r0x01, F
+000134   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+000136   0100     movlb   0x0              	BANKSEL	_v2
+000138   bf87     btfsc   0x87, 0x7, 0x1   	BTFSC	_v2, 7, B
+00013a   6802     setf    0x02, 0x0        	SETF	r0x02
+00013c   0e00     movlw   0x00             	MOVLW	UPPER(_valor)
+00013e   2202     addwfc  0x02, 0x1, 0x0   	ADDWFC	r0x02, F
+000140   c000     movff   0x000, 0xff6     	MOVFF	r0x00, TBLPTRL
+000142   fff6
+000144   c001     movff   0x001, 0xff7     	MOVFF	r0x01, TBLPTRH
+000146   fff7
+000148   c002     movff   0x002, 0xff8     	MOVFF	r0x02, TBLPTRU
+00014a   fff8
+00014c   0009     tblrd*+                  	TBLRD*+	
+00014e   cff5     movff   0xff5, 0x000     	MOVFF	TABLAT, r0x00
+000150   f000
+000152   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+000154   f083
+000156   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000158   ffef
+                                           ;	.line	56; disp7seg.c	BitSet(PORTE,0);
+00015a   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+00015c   f084
+00015e   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000160   f000
+000162   8000     bsf     0x00, 0x0, 0x0   	BSF	r0x00, 0
+000164   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000166   f084
+000168   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+00016a   ffef
+                                           ;	.line	57; disp7seg.c	display = 3;
+00016c   0e03     movlw   0x03             	MOVLW	0x03
+00016e   0100     movlb   0x0              	BANKSEL	_display
+000170   6f84     movwf   0x84, 0x1        	MOVWF	_display, B
+                                           ;	.line	58; disp7seg.c	break;
+000172   d02b     bra     0x0001ca         	BRA	_00143_DS_
+                                           _00140_DS_:
+                                           ;	.line	61; disp7seg.c	PORTD = valor[v3];
+000174   0e66     movlw   0x66             	MOVLW	LOW(_valor)
+000176   0100     movlb   0x0              	BANKSEL	_v3
+000178   2588     addwf   0x88, 0x0, 0x1   	ADDWF	_v3, W, B
+00017a   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+00017c   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+00017e   0100     movlb   0x0              	BANKSEL	_v3
+000180   bf88     btfsc   0x88, 0x7, 0x1   	BTFSC	_v3, 7, B
+000182   6801     setf    0x01, 0x0        	SETF	r0x01
+000184   0e06     movlw   0x06             	MOVLW	HIGH(_valor)
+000186   2201     addwfc  0x01, 0x1, 0x0   	ADDWFC	r0x01, F
+000188   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+00018a   0100     movlb   0x0              	BANKSEL	_v3
+00018c   bf88     btfsc   0x88, 0x7, 0x1   	BTFSC	_v3, 7, B
+00018e   6802     setf    0x02, 0x0        	SETF	r0x02
+000190   0e00     movlw   0x00             	MOVLW	UPPER(_valor)
+000192   2202     addwfc  0x02, 0x1, 0x0   	ADDWFC	r0x02, F
+000194   c000     movff   0x000, 0xff6     	MOVFF	r0x00, TBLPTRL
+000196   fff6
+000198   c001     movff   0x001, 0xff7     	MOVFF	r0x01, TBLPTRH
+00019a   fff7
+00019c   c002     movff   0x002, 0xff8     	MOVFF	r0x02, TBLPTRU
+00019e   fff8
+0001a0   0009     tblrd*+                  	TBLRD*+	
+0001a2   cff5     movff   0xff5, 0x000     	MOVFF	TABLAT, r0x00
+0001a4   f000
+0001a6   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0001a8   f083
+0001aa   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+0001ac   ffef
+                                           ;	.line	62; disp7seg.c	BitSet(PORTE,2);
+0001ae   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+0001b0   f084
+0001b2   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+0001b4   f000
+0001b6   8400     bsf     0x00, 0x2, 0x0   	BSF	r0x00, 2
+0001b8   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+0001ba   f084
+0001bc   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+0001be   ffef
+0001c0   0100     movlb   0x0              	BANKSEL	_display
+                                           ;	.line	63; disp7seg.c	display = 0;
+0001c2   6b84     clrf    0x84, 0x1        	CLRF	_display, B
+                                           ;	.line	64; disp7seg.c	break;
+0001c4   d002     bra     0x0001ca         	BRA	_00143_DS_
+                                           _00141_DS_:
+0001c6   0100     movlb   0x0              	BANKSEL	_display
+                                           ;	.line	67; disp7seg.c	display = 0;
+0001c8   6b84     clrf    0x84, 0x1        	CLRF	_display, B
+                                           _00143_DS_:
+                                           ;	.line	69; disp7seg.c	}
+0001ca   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+0001cc   f002
+0001ce   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+0001d0   f001
+0001d2   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+0001d4   f000
+0001d6   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0001d8   ffd9
+0001da   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_disp7seg__MudaDigito	code
+                                           _MudaDigito:
+                                           ;	.line	11; disp7seg.c	void MudaDigito(char val, char pos)
+0005cc   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0005ce   ffe5
+0005d0   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0005d2   ffd9
+0005d4   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0005d6   ffe5
+0005d8   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+0005da   ffe5
+0005dc   0e02     movlw   0x02             	MOVLW	0x02
+0005de   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+0005e0   f000
+0005e2   0e03     movlw   0x03             	MOVLW	0x03
+0005e4   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+0005e6   f001
+                                           ;	.line	13; disp7seg.c	if (pos == 0)
+0005e8   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0005ea   e102     bnz     0x0005f0         	BNZ	_00106_DS_
+                                           ;	.line	15; disp7seg.c	v0 = val;
+0005ec   c000     movff   0x000, 0x085     	MOVFF	r0x00, _v0
+0005ee   f085
+                                           _00106_DS_:
+                                           ;	.line	17; disp7seg.c	if (pos == 1)
+0005f0   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0005f2   0a01     xorlw   0x01             	XORLW	0x01
+0005f4   e102     bnz     0x0005fa         	BNZ	_00108_DS_
+                                           ;	.line	19; disp7seg.c	v1 = val;
+0005f6   c000     movff   0x000, 0x086     	MOVFF	r0x00, _v1
+0005f8   f086
+                                           _00108_DS_:
+                                           ;	.line	21; disp7seg.c	if (pos == 2)
+0005fa   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0005fc   0a02     xorlw   0x02             	XORLW	0x02
+0005fe   e102     bnz     0x000604         	BNZ	_00110_DS_
+                                           ;	.line	23; disp7seg.c	v2 = val;
+000600   c000     movff   0x000, 0x087     	MOVFF	r0x00, _v2
+000602   f087
+                                           _00110_DS_:
+                                           ;	.line	25; disp7seg.c	if (pos == 3)
+000604   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000606   0a03     xorlw   0x03             	XORLW	0x03
+000608   e102     bnz     0x00060e         	BNZ	_00113_DS_
+                                           ;	.line	27; disp7seg.c	v3 = val;
+00060a   c000     movff   0x000, 0x088     	MOVFF	r0x00, _v3
+00060c   f088
+                                           _00113_DS_:
+00060e   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000610   f001
+000612   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000614   f000
+000616   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000618   ffd9
+00061a   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block for Ival
+                                           	code
+                                           _valor:
+000666   063f     decf    0x3f, 0x1, 0x0   	DB	0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c
+000668   4f5b     dcfsnz  0x5b, 0x1, 0x1   
+00066a   6d66     negf    0x66, 0x1        
+00066c   077d     decf    0x7d, 0x1, 0x1   
+00066e   6f7f     movwf   0x7f, 0x1        
+000670   7c77     btg     0x77, 0x6, 0x0   
+000672   5e39     subwf   0x39, 0x1, 0x0   	DB	0x39, 0x5e, 0x79, 0x71
+000674   7179     btg     0x79, 0x0, 0x1   
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  668 (0x029c) bytes ( 0.51%)
+                                           ;           	  334 (0x014e) words
+                                           ; udata size:	    5 (0x0005) bytes ( 0.39%)
+                                           ; access size:	    3 (0x0003) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Sep 01 08:44:39 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_LerTeclas
+                                           	global	_DebounceTeclas
+                                           	global	_InicializaTeclado
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           WREG	equ	0xfe8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           
+                                           
+                                           	idata
+                                           _valor	db	0x00
+                                           _DebounceTeclas_valorNovo_1_7	db	0x00
+                                           _DebounceTeclas_valorAntigo_1_7	db	0x00
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           r0x05	res	1
+                                           r0x06	res	1
+                                           r0x07	res	1
+                                           r0x08	res	1
+                                           r0x09	res	1
+                                           
+                                           udata_teclado_0	udata
+                                           _DebounceTeclas_tempo_1_7	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_teclado__InicializaTeclado	code
+                                           _InicializaTeclado:
+                                           ;	.line	65; teclado.c	void InicializaTeclado(void) {
+00061c   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+00061e   ffe5
+000620   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000622   ffd9
+000624   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000626   ffe5
+                                           ;	.line	66; teclado.c	TRISB = 0xF0; //quatro entradas e quatro saidas
+000628   ee0f     lfsr    0x0, 0xf93       	LFSR	0x00, 0xf93
+00062a   f093
+00062c   0ef0     movlw   0xf0             	MOVLW	0xf0
+00062e   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	67; teclado.c	BitClr(INTCON2, 7); //liga pull up
+000630   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+000632   f0f1
+000634   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000636   f000
+000638   9e00     bcf     0x00, 0x7, 0x0   	BCF	r0x00, 7
+00063a   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+00063c   f0f1
+00063e   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000640   ffef
+                                           ;	.line	68; teclado.c	ADCON1 = 0b00001110; //apenas AN0 é analogico, a referencia é baseada na fonte
+000642   ee0f     lfsr    0x0, 0xfc1       	LFSR	0x00, 0xfc1
+000644   f0c1
+000646   0e0e     movlw   0x0e             	MOVLW	0x0e
+000648   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+00064a   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+00064c   f000
+00064e   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000650   ffd9
+000652   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_teclado__DebounceTeclas	code
+                                           _DebounceTeclas:
+                                           ;	.line	29; teclado.c	void DebounceTeclas(void) {
+0001dc   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0001de   ffe5
+0001e0   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0001e2   ffd9
+0001e4   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0001e6   ffe5
+0001e8   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+0001ea   ffe5
+0001ec   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+0001ee   ffe5
+0001f0   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+0001f2   ffe5
+0001f4   c004     movff   0x004, 0xfe5     	MOVFF	r0x04, POSTDEC1
+0001f6   ffe5
+0001f8   c005     movff   0x005, 0xfe5     	MOVFF	r0x05, POSTDEC1
+0001fa   ffe5
+0001fc   c006     movff   0x006, 0xfe5     	MOVFF	r0x06, POSTDEC1
+0001fe   ffe5
+000200   c007     movff   0x007, 0xfe5     	MOVFF	r0x07, POSTDEC1
+000202   ffe5
+000204   c008     movff   0x008, 0xfe5     	MOVFF	r0x08, POSTDEC1
+000206   ffe5
+000208   c009     movff   0x009, 0xfe5     	MOVFF	r0x09, POSTDEC1
+00020a   ffe5
+                                           ;	.line	35; teclado.c	for (i = 0; i < 4; i++) {
+00020c   6a00     clrf    0x00, 0x0        	CLRF	r0x00
+00020e   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+000210   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+                                           _00126_DS_:
+                                           ;	.line	38; teclado.c	PORTB |= 0x0F;
+000212   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+000214   f081
+000216   cfef     movff   0xfef, 0x003     	MOVFF	INDF0, r0x03
+000218   f003
+00021a   0e0f     movlw   0x0f             	MOVLW	0x0f
+00021c   1203     iorwf   0x03, 0x1, 0x0   	IORWF	r0x03, F
+00021e   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+000220   f081
+000222   c003     movff   0x003, 0xfef     	MOVFF	r0x03, INDF0
+000224   ffef
+                                           ;	.line	39; teclado.c	BitClr(PORTB, (i)); //liga a coluna correspondente
+000226   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+000228   f081
+00022a   cfef     movff   0xfef, 0x003     	MOVFF	INDF0, r0x03
+00022c   f003
+00022e   0e01     movlw   0x01             	MOVLW	0x01
+000230   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000232   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000234   e005     bz      0x000240         	BZ	_00160_DS_
+000236   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+000238   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00161_DS_:
+00023a   3604     rlcf    0x04, 0x1, 0x0   	RLCF	r0x04, F
+00023c   0f01     addlw   0x01             	ADDLW	0x01
+00023e   e3fd     bnc     0x00023a         	BNC	_00161_DS_
+                                           _00160_DS_:
+000240   1e04     comf    0x04, 0x1, 0x0   	COMF	r0x04, F
+000242   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000244   1603     andwf   0x03, 0x1, 0x0   	ANDWF	r0x03, F
+000246   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+000248   f081
+00024a   c003     movff   0x003, 0xfef     	MOVFF	r0x03, INDF0
+00024c   ffef
+                                           ;	.line	41; teclado.c	for (j = 0; j < 100; j++);
+00024e   0e64     movlw   0x64             	MOVLW	0x64
+000250   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+                                           _00123_DS_:
+000252   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000254   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000256   0404     decf    0x04, 0x0, 0x0   	DECF	r0x04, W
+000258   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+00025a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00025c   e1fa     bnz     0x000252         	BNZ	_00123_DS_
+                                           ;	.line	44; teclado.c	for (j = 0; j < 2; j++) {
+00025e   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+                                           _00124_DS_:
+                                           ;	.line	45; teclado.c	if (!BitTst(PORTB, j + 4)) {
+000260   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+000262   f081
+000264   cfef     movff   0xfef, 0x004     	MOVFF	INDF0, r0x04
+000266   f004
+000268   c003     movff   0x003, 0x005     	MOVFF	r0x03, r0x05
+00026a   f005
+00026c   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+00026e   0e04     movlw   0x04             	MOVLW	0x04
+000270   2605     addwf   0x05, 0x1, 0x0   	ADDWF	r0x05, F
+000272   b0d8     btfsc   0xd8, 0x0, 0x0   	BTFSC	STATUS, 0
+000274   2a06     incf    0x06, 0x1, 0x0   	INCF	r0x06, F
+000276   0e01     movlw   0x01             	MOVLW	0x01
+000278   6e07     movwf   0x07, 0x0        	MOVWF	r0x07
+00027a   0e00     movlw   0x00             	MOVLW	0x00
+00027c   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+00027e   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000280   e00f     bz      0x0002a0         	BZ	_00163_DS_
+000282   e607     bn      0x000292         	BN	_00166_DS_
+000284   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+000286   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00164_DS_:
+000288   3607     rlcf    0x07, 0x1, 0x0   	RLCF	r0x07, F
+00028a   3608     rlcf    0x08, 0x1, 0x0   	RLCF	r0x08, F
+00028c   0f01     addlw   0x01             	ADDLW	0x01
+00028e   e3fc     bnc     0x000288         	BNC	_00164_DS_
+000290   d007     bra     0x0002a0         	BRA	_00163_DS_
+                                           _00166_DS_:
+000292   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00165_DS_:
+000294   be08     btfsc   0x08, 0x7, 0x0   	BTFSC	r0x08, 7
+000296   80d8     bsf     0xd8, 0x0, 0x0   	BSF	STATUS, 0
+000298   3208     rrcf    0x08, 0x1, 0x0   	RRCF	r0x08, F
+00029a   3207     rrcf    0x07, 0x1, 0x0   	RRCF	r0x07, F
+00029c   0f01     addlw   0x01             	ADDLW	0x01
+00029e   e3fa     bnc     0x000294         	BNC	_00165_DS_
+                                           _00163_DS_:
+0002a0   6a09     clrf    0x09, 0x0        	CLRF	r0x09
+0002a2   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002a4   1607     andwf   0x07, 0x1, 0x0   	ANDWF	r0x07, F
+0002a6   5009     movf    0x09, 0x0, 0x0   	MOVF	r0x09, W
+0002a8   1608     andwf   0x08, 0x1, 0x0   	ANDWF	r0x08, F
+0002aa   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0002ac   1008     iorwf   0x08, 0x0, 0x0   	IORWF	r0x08, W
+0002ae   e110     bnz     0x0002d0         	BNZ	_00112_DS_
+                                           ;	.line	46; teclado.c	BitSet(valorNovo, (i * 2) + j);
+0002b0   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0002b2   2402     addwf   0x02, 0x0, 0x0   	ADDWF	r0x02, W
+0002b4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0002b6   0e01     movlw   0x01             	MOVLW	0x01
+0002b8   6e05     movwf   0x05, 0x0        	MOVWF	r0x05
+0002ba   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002bc   e005     bz      0x0002c8         	BZ	_00167_DS_
+0002be   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+0002c0   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00168_DS_:
+0002c2   3605     rlcf    0x05, 0x1, 0x0   	RLCF	r0x05, F
+0002c4   0f01     addlw   0x01             	ADDLW	0x01
+0002c6   e3fd     bnc     0x0002c2         	BNC	_00168_DS_
+                                           _00167_DS_:
+0002c8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0002ca   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorNovo_1_7
+0002cc   1381     iorwf   0x81, 0x1, 0x1   	IORWF	_DebounceTeclas_valorNovo_1_7, F, B
+0002ce   d011     bra     0x0002f2         	BRA	_00125_DS_
+                                           _00112_DS_:
+                                           ;	.line	48; teclado.c	BitClr(valorNovo, (i * 2) + j);
+0002d0   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0002d2   2401     addwf   0x01, 0x0, 0x0   	ADDWF	r0x01, W
+0002d4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0002d6   0e01     movlw   0x01             	MOVLW	0x01
+0002d8   6e05     movwf   0x05, 0x0        	MOVWF	r0x05
+0002da   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002dc   e005     bz      0x0002e8         	BZ	_00170_DS_
+0002de   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+0002e0   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00171_DS_:
+0002e2   3605     rlcf    0x05, 0x1, 0x0   	RLCF	r0x05, F
+0002e4   0f01     addlw   0x01             	ADDLW	0x01
+0002e6   e3fd     bnc     0x0002e2         	BNC	_00171_DS_
+                                           _00170_DS_:
+0002e8   1c05     comf    0x05, 0x0, 0x0   	COMF	r0x05, W
+0002ea   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0002ec   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002ee   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorNovo_1_7
+0002f0   1781     andwf   0x81, 0x1, 0x1   	ANDWF	_DebounceTeclas_valorNovo_1_7, F, B
+                                           _00125_DS_:
+                                           ;	.line	44; teclado.c	for (j = 0; j < 2; j++) {
+0002f2   2a03     incf    0x03, 0x1, 0x0   	INCF	r0x03, F
+0002f4   0e02     movlw   0x02             	MOVLW	0x02
+0002f6   5c03     subwf   0x03, 0x0, 0x0   	SUBWF	r0x03, W
+0002f8   a0d8     btfss   0xd8, 0x0, 0x0   	BTFSS	STATUS, 0
+0002fa   d7b2     bra     0x000260         	BRA	_00124_DS_
+                                           ;	.line	35; teclado.c	for (i = 0; i < 4; i++) {
+0002fc   2a01     incf    0x01, 0x1, 0x0   	INCF	r0x01, F
+0002fe   2a01     incf    0x01, 0x1, 0x0   	INCF	r0x01, F
+000300   2a02     incf    0x02, 0x1, 0x0   	INCF	r0x02, F
+000302   2a02     incf    0x02, 0x1, 0x0   	INCF	r0x02, F
+000304   2a00     incf    0x00, 0x1, 0x0   	INCF	r0x00, F
+000306   0e04     movlw   0x04             	MOVLW	0x04
+000308   5c00     subwf   0x00, 0x0, 0x0   	SUBWF	r0x00, W
+00030a   a0d8     btfss   0xd8, 0x0, 0x0   	BTFSS	STATUS, 0
+00030c   d782     bra     0x000212         	BRA	_00126_DS_
+00030e   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorAntigo_1_7
+                                           ;	.line	54; teclado.c	if (valorAntigo == valorNovo) {
+000310   5182     movf    0x82, 0x0, 0x1   	MOVF	_DebounceTeclas_valorAntigo_1_7, W, B
+000312   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorNovo_1_7
+000314   1981     xorwf   0x81, 0x0, 0x1   	XORWF	_DebounceTeclas_valorNovo_1_7, W, B
+000316   e103     bnz     0x00031e         	BNZ	_00117_DS_
+                                           _00176_DS_:
+000318   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_tempo_1_7
+                                           ;	.line	55; teclado.c	tempo--;
+00031a   0789     decf    0x89, 0x1, 0x1   	DECF	_DebounceTeclas_tempo_1_7, F, B
+00031c   d005     bra     0x000328         	BRA	_00118_DS_
+                                           _00117_DS_:
+                                           ;	.line	57; teclado.c	tempo = 10;
+00031e   0e0a     movlw   0x0a             	MOVLW	0x0a
+000320   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_tempo_1_7
+000322   6f89     movwf   0x89, 0x1        	MOVWF	_DebounceTeclas_tempo_1_7, B
+                                           ;	.line	58; teclado.c	valorAntigo = valorNovo;
+000324   c081     movff   0x081, 0x082     	MOVFF	_DebounceTeclas_valorNovo_1_7, _DebounceTeclas_valorAntigo_1_7
+000326   f082
+                                           _00118_DS_:
+000328   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_tempo_1_7
+                                           ;	.line	60; teclado.c	if (tempo == 0) {
+00032a   5189     movf    0x89, 0x0, 0x1   	MOVF	_DebounceTeclas_tempo_1_7, W, B
+00032c   e102     bnz     0x000332         	BNZ	_00128_DS_
+                                           ;	.line	61; teclado.c	valor = valorAntigo;
+00032e   c082     movff   0x082, 0x080     	MOVFF	_DebounceTeclas_valorAntigo_1_7, _valor
+000330   f080
+                                           _00128_DS_:
+000332   cfe4     movff   0xfe4, 0x009     	MOVFF	PREINC1, r0x09
+000334   f009
+000336   cfe4     movff   0xfe4, 0x008     	MOVFF	PREINC1, r0x08
+000338   f008
+00033a   cfe4     movff   0xfe4, 0x007     	MOVFF	PREINC1, r0x07
+00033c   f007
+00033e   cfe4     movff   0xfe4, 0x006     	MOVFF	PREINC1, r0x06
+000340   f006
+000342   cfe4     movff   0xfe4, 0x005     	MOVFF	PREINC1, r0x05
+000344   f005
+000346   cfe4     movff   0xfe4, 0x004     	MOVFF	PREINC1, r0x04
+000348   f004
+00034a   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+00034c   f003
+00034e   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+000350   f002
+000352   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000354   f001
+000356   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000358   f000
+00035a   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+00035c   ffd9
+00035e   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_teclado__LerTeclas	code
+                                           _LerTeclas:
+                                           ;	.line	25; teclado.c	unsigned char LerTeclas(void) {
+000654   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000656   ffe5
+000658   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00065a   ffd9
+00065c   0100     movlb   0x0              	BANKSEL	_valor
+                                           ;	.line	26; teclado.c	return valor;
+00065e   5180     movf    0x80, 0x0, 0x1   	MOVF	_valor, W, B
+000660   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000662   ffd9
+000664   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  462 (0x01ce) bytes ( 0.35%)
+                                           ;           	  231 (0x00e7) words
+                                           ; udata size:	    1 (0x0001) bytes ( 0.08%)
+                                           ; access size:	   10 (0x000a) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Sep 01 09:23:18 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           	CONFIG	MCLRE=ON
+                                           	CONFIG	OSC=HS
+                                           	CONFIG	WDT=OFF
+                                           	CONFIG	LVP=OFF
+                                           	CONFIG	DEBUG=OFF
+                                           	CONFIG	WDTPS=1
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	_tempo
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           WREG	equ	0xfe8
+                                           INDF0	equ	0xfef
+                                           POSTINC1	equ	0xfe6
+                                           POSTDEC1	equ	0xfe5
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; interrupt vector
+                                           ;--------------------------------------------------------
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_Aula03__main	code
+                                           _main:
+                                           ;	.line	17; Aula03.c	TRISA = 0x00; //config da porta A
+000360   ee0f     lfsr    0x0, 0xf92       	LFSR	0x00, 0xf92
+000362   f092
+000364   0e00     movlw   0x00             	MOVLW	0x00
+000366   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	18; Aula03.c	TRISE = 0x00; //config da porta E
+000368   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+00036a   f096
+00036c   0e00     movlw   0x00             	MOVLW	0x00
+00036e   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	19; Aula03.c	BitClr(INTCON2, 7); //liga pull up
+000370   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+000372   f0f1
+000374   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000376   f000
+000378   9e00     bcf     0x00, 0x7, 0x0   	BCF	r0x00, 7
+00037a   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+00037c   f0f1
+00037e   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000380   ffef
+                                           ;	.line	20; Aula03.c	ADCON1 = 0x0E; //config AD
+000382   ee0f     lfsr    0x0, 0xfc1       	LFSR	0x00, 0xfc1
+000384   f0c1
+000386   0e0e     movlw   0x0e             	MOVLW	0x0e
+000388   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	21; Aula03.c	TRISD = 0x00; //config. a porta D
+00038a   ee0f     lfsr    0x0, 0xf95       	LFSR	0x00, 0xf95
+00038c   f095
+00038e   0e00     movlw   0x00             	MOVLW	0x00
+000390   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	24; Aula03.c	BitClr(INTCON2, 7); //liga pull up
+000392   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+000394   f0f1
+000396   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000398   f000
+00039a   9e00     bcf     0x00, 0x7, 0x0   	BCF	r0x00, 7
+00039c   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+00039e   f0f1
+0003a0   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+0003a2   ffef
+                                           ;	.line	25; Aula03.c	ADCON1 = 0x0E; //config AD
+0003a4   ee0f     lfsr    0x0, 0xfc1       	LFSR	0x00, 0xfc1
+0003a6   f0c1
+0003a8   0e0e     movlw   0x0e             	MOVLW	0x0e
+0003aa   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	26; Aula03.c	TRISB = 0xF0; //config da porta B
+0003ac   ee0f     lfsr    0x0, 0xf93       	LFSR	0x00, 0xf93
+0003ae   f093
+0003b0   0ef0     movlw   0xf0             	MOVLW	0xf0
+0003b2   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	27; Aula03.c	PORTB = 0x0E; //config da porta B
+0003b4   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+0003b6   f081
+0003b8   0e0e     movlw   0x0e             	MOVLW	0x0e
+0003ba   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           _00109_DS_:
+                                           ;	.line	47; Aula03.c	PORTD = 0xFF;
+0003bc   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0003be   f083
+0003c0   0eff     movlw   0xff             	MOVLW	0xff
+0003c2   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	48; Aula03.c	tempo(2000);
+0003c4   0e07     movlw   0x07             	MOVLW	0x07
+0003c6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003c8   0ed0     movlw   0xd0             	MOVLW	0xd0
+0003ca   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003cc   ec6a     call    0x0004d4, 0x0call    0x0004d4, 0x0 	CALL	_tempo
+0003ce   f002
+0003d0   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+0003d2   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	49; Aula03.c	for(j=0; j<8; j++){
+0003d4   6a00     clrf    0x00, 0x0        	CLRF	r0x00
+0003d6   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+                                           _00107_DS_:
+                                           ;	.line	50; Aula03.c	BitFlp(PORTD, j);
+0003d8   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0003da   f083
+0003dc   cfef     movff   0xfef, 0x002     	MOVFF	INDF0, r0x02
+0003de   f002
+0003e0   0e01     movlw   0x01             	MOVLW	0x01
+0003e2   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+0003e4   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0003e6   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0003e8   e00d     bz      0x000404         	BZ	_00125_DS_
+0003ea   e607     bn      0x0003fa         	BN	_00128_DS_
+0003ec   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+0003ee   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00126_DS_:
+0003f0   3603     rlcf    0x03, 0x1, 0x0   	RLCF	r0x03, F
+0003f2   3604     rlcf    0x04, 0x1, 0x0   	RLCF	r0x04, F
+0003f4   0f01     addlw   0x01             	ADDLW	0x01
+0003f6   e3fc     bnc     0x0003f0         	BNC	_00126_DS_
+0003f8   d005     bra     0x000404         	BRA	_00125_DS_
+                                           _00128_DS_:
+0003fa   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00127_DS_:
+0003fc   3204     rrcf    0x04, 0x1, 0x0   	RRCF	r0x04, F
+0003fe   3203     rrcf    0x03, 0x1, 0x0   	RRCF	r0x03, F
+000400   0f01     addlw   0x01             	ADDLW	0x01
+000402   e3fc     bnc     0x0003fc         	BNC	_00127_DS_
+                                           _00125_DS_:
+000404   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000406   1a02     xorwf   0x02, 0x1, 0x0   	XORWF	r0x02, F
+000408   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+00040a   f083
+00040c   c002     movff   0x002, 0xfef     	MOVFF	r0x02, INDF0
+00040e   ffef
+                                           ;	.line	51; Aula03.c	tempo(2000);
+000410   0e07     movlw   0x07             	MOVLW	0x07
+000412   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000414   0ed0     movlw   0xd0             	MOVLW	0xd0
+000416   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000418   ec6a     call    0x0004d4, 0x0call    0x0004d4, 0x0 	CALL	_tempo
+00041a   f002
+00041c   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+00041e   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	49; Aula03.c	for(j=0; j<8; j++){
+000420   4a00     infsnz  0x00, 0x1, 0x0   	INFSNZ	r0x00, F
+000422   2a01     incf    0x01, 0x1, 0x0   	INCF	r0x01, F
+000424   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000426   0f80     addlw   0x80             	ADDLW	0x80
+000428   0f80     addlw   0x80             	ADDLW	0x80
+00042a   e102     bnz     0x000430         	BNZ	_00130_DS_
+00042c   0e08     movlw   0x08             	MOVLW	0x08
+00042e   5c00     subwf   0x00, 0x0, 0x0   	SUBWF	r0x00, W
+                                           _00130_DS_:
+000430   e3d3     bnc     0x0003d8         	BNC	_00107_DS_
+000432   d7c4     bra     0x0003bc         	BRA	_00109_DS_
+000434   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  214 (0x00d6) bytes ( 0.16%)
+                                           ;           	  107 (0x006b) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    5 (0x0005) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Sep 01 08:44:39 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_tempo
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           r0x05	res	1
+                                           r0x06	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_delay__tempo	code
+                                           _tempo:
+                                           ;	.line	2; delay.c	void tempo(int ms) {
+0004d4   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0004d6   ffe5
+0004d8   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0004da   ffd9
+0004dc   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0004de   ffe5
+0004e0   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+0004e2   ffe5
+0004e4   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+0004e6   ffe5
+0004e8   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+0004ea   ffe5
+0004ec   c004     movff   0x004, 0xfe5     	MOVFF	r0x04, POSTDEC1
+0004ee   ffe5
+0004f0   c005     movff   0x005, 0xfe5     	MOVFF	r0x05, POSTDEC1
+0004f2   ffe5
+0004f4   c006     movff   0x006, 0xfe5     	MOVFF	r0x06, POSTDEC1
+0004f6   ffe5
+0004f8   0e02     movlw   0x02             	MOVLW	0x02
+0004fa   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+0004fc   f000
+0004fe   0e03     movlw   0x03             	MOVLW	0x03
+000500   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+000502   f001
+                                           ;	.line	5; delay.c	do {
+000504   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+000506   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+                                           _00119_DS_:
+                                           ;	.line	6; delay.c	for (j = 0; j < 41; j++) {
+000508   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+                                           _00113_DS_:
+                                           ;	.line	7; delay.c	for (k = 0; k < 3; k++);
+00050a   0e03     movlw   0x03             	MOVLW	0x03
+00050c   6e05     movwf   0x05, 0x0        	MOVWF	r0x05
+                                           _00112_DS_:
+00050e   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000510   6e06     movwf   0x06, 0x0        	MOVWF	r0x06
+000512   0606     decf    0x06, 0x1, 0x0   	DECF	r0x06, F
+000514   c006     movff   0x006, 0x005     	MOVFF	r0x06, r0x05
+000516   f005
+000518   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00051a   e1f9     bnz     0x00050e         	BNZ	_00112_DS_
+                                           ;	.line	6; delay.c	for (j = 0; j < 41; j++) {
+00051c   2a04     incf    0x04, 0x1, 0x0   	INCF	r0x04, F
+00051e   0e29     movlw   0x29             	MOVLW	0x29
+000520   5c04     subwf   0x04, 0x0, 0x0   	SUBWF	r0x04, W
+000522   e3f3     bnc     0x00050a         	BNC	_00113_DS_
+                                           ;	.line	9; delay.c	t++;
+000524   4a02     infsnz  0x02, 0x1, 0x0   	INFSNZ	r0x02, F
+000526   2a03     incf    0x03, 0x1, 0x0   	INCF	r0x03, F
+                                           ;	.line	10; delay.c	} while (t < ms);
+000528   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00052a   0f80     addlw   0x80             	ADDLW	0x80
+00052c   6ef3     movwf   0xf3, 0x0        	MOVWF	PRODL
+00052e   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000530   0f80     addlw   0x80             	ADDLW	0x80
+000532   5cf3     subwf   0xf3, 0x0, 0x0   	SUBWF	PRODL, W
+000534   e102     bnz     0x00053a         	BNZ	_00135_DS_
+000536   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000538   5c02     subwf   0x02, 0x0, 0x0   	SUBWF	r0x02, W
+                                           _00135_DS_:
+00053a   e3e6     bnc     0x000508         	BNC	_00119_DS_
+00053c   cfe4     movff   0xfe4, 0x006     	MOVFF	PREINC1, r0x06
+00053e   f006
+000540   cfe4     movff   0xfe4, 0x005     	MOVFF	PREINC1, r0x05
+000542   f005
+000544   cfe4     movff   0xfe4, 0x004     	MOVFF	PREINC1, r0x04
+000546   f004
+000548   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+00054a   f003
+00054c   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+00054e   f002
+000550   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000552   f001
+000554   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000556   f000
+000558   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+00055a   ffd9
+00055c   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  138 (0x008a) bytes ( 0.11%)
+                                           ;           	   69 (0x0045) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    7 (0x0007) bytes
+                                           
+                                           
+                                           	end

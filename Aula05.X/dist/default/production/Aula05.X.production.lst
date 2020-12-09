@@ -1,0 +1,2087 @@
+gplink-1.4.0 #1106 (Oct  6 2014)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 9-15-2016  09:41:20
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Sep 15 09:41:18 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_configled
+                                           	global	_ligaled
+                                           	global	_desligaled
+                                           	global	_sequencial
+                                           	global	_atoa
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	___fslt
+                                           	extern	___fsadd
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           WREG	equ	0xfe8
+                                           FSR0L	equ	0xfe9
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTINC1	equ	0xfe6
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           r0x05	res	1
+                                           r0x06	res	1
+                                           r0x07	res	1
+                                           r0x08	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_led__atoa	code
+                                           _atoa:
+                                           ;	.line	55; led.c	void atoa(float tempo) {
+0007f2   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0007f4   ffe5
+0007f6   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0007f8   ffd9
+0007fa   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0007fc   ffe5
+0007fe   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000800   ffe5
+000802   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000804   ffe5
+000806   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+000808   ffe5
+00080a   c004     movff   0x004, 0xfe5     	MOVFF	r0x04, POSTDEC1
+00080c   ffe5
+00080e   c005     movff   0x005, 0xfe5     	MOVFF	r0x05, POSTDEC1
+000810   ffe5
+000812   c006     movff   0x006, 0xfe5     	MOVFF	r0x06, POSTDEC1
+000814   ffe5
+000816   c007     movff   0x007, 0xfe5     	MOVFF	r0x07, POSTDEC1
+000818   ffe5
+00081a   c008     movff   0x008, 0xfe5     	MOVFF	r0x08, POSTDEC1
+00081c   ffe5
+00081e   0e02     movlw   0x02             	MOVLW	0x02
+000820   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+000822   f000
+000824   0e03     movlw   0x03             	MOVLW	0x03
+000826   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+000828   f001
+00082a   0e04     movlw   0x04             	MOVLW	0x04
+00082c   cfdb     movff   0xfdb, 0x002     	MOVFF	PLUSW2, r0x02
+00082e   f002
+000830   0e05     movlw   0x05             	MOVLW	0x05
+000832   cfdb     movff   0xfdb, 0x003     	MOVFF	PLUSW2, r0x03
+000834   f003
+                                           ;	.line	57; led.c	ligaled(3);
+000836   0e03     movlw   0x03             	MOVLW	0x03
+000838   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00083a   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+00083c   f009
+00083e   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	58; led.c	ligaled(4);
+000840   0e04     movlw   0x04             	MOVLW	0x04
+000842   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000844   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+000846   f009
+000848   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	59; led.c	for(j = 0; j< tempo ; j++);
+00084a   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+00084c   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+00084e   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000850   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00208_DS_:
+000852   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000854   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000856   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000858   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00085a   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+00085c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00085e   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000860   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000862   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000864   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000866   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000868   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00086a   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00086c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00086e   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000870   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000872   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000874   f008
+000876   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000878   0e08     movlw   0x08             	MOVLW	0x08
+00087a   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00087c   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+00087e   e01c     bz      0x0008b8         	BZ	_00199_DS_
+000880   0e3f     movlw   0x3f             	MOVLW	0x3f
+000882   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000884   0e80     movlw   0x80             	MOVLW	0x80
+000886   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000888   0e00     movlw   0x00             	MOVLW	0x00
+00088a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00088c   0e00     movlw   0x00             	MOVLW	0x00
+00088e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000890   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000892   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000894   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000896   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000898   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00089a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00089c   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+00089e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008a0   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0008a2   f006
+0008a4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0008a6   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0008a8   f005
+0008aa   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0008ac   f006
+0008ae   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0008b0   f007
+0008b2   0e08     movlw   0x08             	MOVLW	0x08
+0008b4   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0008b6   d7cd     bra     0x000852         	BRA	_00208_DS_
+                                           _00199_DS_:
+                                           ;	.line	60; led.c	ligaled(5);
+0008b8   0e05     movlw   0x05             	MOVLW	0x05
+0008ba   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008bc   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+0008be   f009
+0008c0   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	61; led.c	ligaled(2);
+0008c2   0e02     movlw   0x02             	MOVLW	0x02
+0008c4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008c6   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+0008c8   f009
+0008ca   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	62; led.c	for(j = 0; j < tempo; j++);
+0008cc   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0008ce   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+0008d0   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0008d2   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00211_DS_:
+0008d4   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0008d6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008d8   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0008da   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008dc   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0008de   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008e0   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0008e2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008e4   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0008e6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008e8   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0008ea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008ec   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0008ee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008f0   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0008f2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0008f4   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0008f6   f008
+0008f8   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0008fa   0e08     movlw   0x08             	MOVLW	0x08
+0008fc   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0008fe   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000900   e01c     bz      0x00093a         	BZ	_00200_DS_
+000902   0e3f     movlw   0x3f             	MOVLW	0x3f
+000904   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000906   0e80     movlw   0x80             	MOVLW	0x80
+000908   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00090a   0e00     movlw   0x00             	MOVLW	0x00
+00090c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00090e   0e00     movlw   0x00             	MOVLW	0x00
+000910   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000912   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000914   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000916   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000918   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00091a   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00091c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00091e   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000920   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000922   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000924   f006
+000926   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000928   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+00092a   f005
+00092c   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+00092e   f006
+000930   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000932   f007
+000934   0e08     movlw   0x08             	MOVLW	0x08
+000936   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000938   d7cd     bra     0x0008d4         	BRA	_00211_DS_
+                                           _00200_DS_:
+                                           ;	.line	63; led.c	ligaled(6);
+00093a   0e06     movlw   0x06             	MOVLW	0x06
+00093c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00093e   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+000940   f009
+000942   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	64; led.c	ligaled(1);
+000944   0e01     movlw   0x01             	MOVLW	0x01
+000946   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000948   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+00094a   f009
+00094c   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	65; led.c	for(j = 0; j < tempo; j++);
+00094e   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000950   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000952   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000954   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00214_DS_:
+000956   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000958   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00095a   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+00095c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00095e   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000960   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000962   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000964   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000966   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000968   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00096a   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00096c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00096e   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000970   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000972   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000974   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000976   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000978   f008
+00097a   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+00097c   0e08     movlw   0x08             	MOVLW	0x08
+00097e   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000980   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000982   e01c     bz      0x0009bc         	BZ	_00201_DS_
+000984   0e3f     movlw   0x3f             	MOVLW	0x3f
+000986   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000988   0e80     movlw   0x80             	MOVLW	0x80
+00098a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00098c   0e00     movlw   0x00             	MOVLW	0x00
+00098e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000990   0e00     movlw   0x00             	MOVLW	0x00
+000992   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000994   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000996   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000998   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00099a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00099c   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00099e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009a0   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0009a2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009a4   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0009a6   f006
+0009a8   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0009aa   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0009ac   f005
+0009ae   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0009b0   f006
+0009b2   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0009b4   f007
+0009b6   0e08     movlw   0x08             	MOVLW	0x08
+0009b8   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0009ba   d7cd     bra     0x000956         	BRA	_00214_DS_
+                                           _00201_DS_:
+                                           ;	.line	66; led.c	ligaled(7);
+0009bc   0e07     movlw   0x07             	MOVLW	0x07
+0009be   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009c0   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+0009c2   f009
+0009c4   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	67; led.c	ligaled(0);
+0009c6   0e00     movlw   0x00             	MOVLW	0x00
+0009c8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009ca   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+0009cc   f009
+0009ce   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	68; led.c	for(j = 0; j < tempo; j++);
+0009d0   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0009d2   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+0009d4   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0009d6   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00217_DS_:
+0009d8   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0009da   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009dc   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0009de   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009e0   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0009e2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009e4   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0009e6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009e8   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0009ea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009ec   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0009ee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009f0   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0009f2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009f4   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0009f6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0009f8   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0009fa   f008
+0009fc   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0009fe   0e08     movlw   0x08             	MOVLW	0x08
+000a00   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000a02   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000a04   e01c     bz      0x000a3e         	BZ	_00202_DS_
+000a06   0e3f     movlw   0x3f             	MOVLW	0x3f
+000a08   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a0a   0e80     movlw   0x80             	MOVLW	0x80
+000a0c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a0e   0e00     movlw   0x00             	MOVLW	0x00
+000a10   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a12   0e00     movlw   0x00             	MOVLW	0x00
+000a14   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a16   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000a18   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a1a   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000a1c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a1e   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000a20   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a22   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000a24   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a26   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000a28   f006
+000a2a   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000a2c   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000a2e   f005
+000a30   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000a32   f006
+000a34   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000a36   f007
+000a38   0e08     movlw   0x08             	MOVLW	0x08
+000a3a   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000a3c   d7cd     bra     0x0009d8         	BRA	_00217_DS_
+                                           _00202_DS_:
+                                           ;	.line	69; led.c	desligaled(3);
+000a3e   0e03     movlw   0x03             	MOVLW	0x03
+000a40   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a42   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000a44   f009
+000a46   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	70; led.c	desligaled(4);
+000a48   0e04     movlw   0x04             	MOVLW	0x04
+000a4a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a4c   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000a4e   f009
+000a50   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	71; led.c	for(j = 0; j < tempo; j++);
+000a52   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000a54   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000a56   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000a58   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00220_DS_:
+000a5a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000a5c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a5e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000a60   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a62   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000a64   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a66   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000a68   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a6a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000a6c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a6e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000a70   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a72   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000a74   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a76   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000a78   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a7a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000a7c   f008
+000a7e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000a80   0e08     movlw   0x08             	MOVLW	0x08
+000a82   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000a84   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000a86   e01c     bz      0x000ac0         	BZ	_00203_DS_
+000a88   0e3f     movlw   0x3f             	MOVLW	0x3f
+000a8a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a8c   0e80     movlw   0x80             	MOVLW	0x80
+000a8e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a90   0e00     movlw   0x00             	MOVLW	0x00
+000a92   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a94   0e00     movlw   0x00             	MOVLW	0x00
+000a96   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a98   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000a9a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000a9c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000a9e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000aa0   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000aa2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000aa4   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000aa6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000aa8   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000aaa   f006
+000aac   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000aae   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000ab0   f005
+000ab2   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000ab4   f006
+000ab6   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000ab8   f007
+000aba   0e08     movlw   0x08             	MOVLW	0x08
+000abc   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000abe   d7cd     bra     0x000a5a         	BRA	_00220_DS_
+                                           _00203_DS_:
+                                           ;	.line	72; led.c	desligaled(5);
+000ac0   0e05     movlw   0x05             	MOVLW	0x05
+000ac2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ac4   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000ac6   f009
+000ac8   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	73; led.c	desligaled(2);
+000aca   0e02     movlw   0x02             	MOVLW	0x02
+000acc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ace   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000ad0   f009
+000ad2   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	74; led.c	for(j = 0; j < tempo; j++);
+000ad4   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000ad6   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000ad8   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000ada   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00223_DS_:
+000adc   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000ade   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ae0   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000ae2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ae4   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000ae6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ae8   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000aea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000aec   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000aee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000af0   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000af2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000af4   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000af6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000af8   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000afa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000afc   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000afe   f008
+000b00   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000b02   0e08     movlw   0x08             	MOVLW	0x08
+000b04   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000b06   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000b08   e01c     bz      0x000b42         	BZ	_00204_DS_
+000b0a   0e3f     movlw   0x3f             	MOVLW	0x3f
+000b0c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b0e   0e80     movlw   0x80             	MOVLW	0x80
+000b10   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b12   0e00     movlw   0x00             	MOVLW	0x00
+000b14   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b16   0e00     movlw   0x00             	MOVLW	0x00
+000b18   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b1a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000b1c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b1e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000b20   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b22   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000b24   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b26   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000b28   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b2a   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000b2c   f006
+000b2e   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000b30   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000b32   f005
+000b34   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000b36   f006
+000b38   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000b3a   f007
+000b3c   0e08     movlw   0x08             	MOVLW	0x08
+000b3e   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000b40   d7cd     bra     0x000adc         	BRA	_00223_DS_
+                                           _00204_DS_:
+                                           ;	.line	75; led.c	desligaled(6);
+000b42   0e06     movlw   0x06             	MOVLW	0x06
+000b44   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b46   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000b48   f009
+000b4a   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	76; led.c	desligaled(1);
+000b4c   0e01     movlw   0x01             	MOVLW	0x01
+000b4e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b50   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000b52   f009
+000b54   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	77; led.c	for(j = 0; j < tempo; j++);
+000b56   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000b58   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000b5a   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000b5c   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00226_DS_:
+000b5e   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000b60   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b62   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000b64   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b66   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000b68   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b6a   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000b6c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b6e   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000b70   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b72   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000b74   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b76   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000b78   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b7a   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000b7c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b7e   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000b80   f008
+000b82   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000b84   0e08     movlw   0x08             	MOVLW	0x08
+000b86   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000b88   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000b8a   e01c     bz      0x000bc4         	BZ	_00205_DS_
+000b8c   0e3f     movlw   0x3f             	MOVLW	0x3f
+000b8e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b90   0e80     movlw   0x80             	MOVLW	0x80
+000b92   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b94   0e00     movlw   0x00             	MOVLW	0x00
+000b96   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b98   0e00     movlw   0x00             	MOVLW	0x00
+000b9a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000b9c   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000b9e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ba0   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000ba2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ba4   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000ba6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ba8   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000baa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bac   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000bae   f006
+000bb0   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000bb2   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000bb4   f005
+000bb6   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000bb8   f006
+000bba   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000bbc   f007
+000bbe   0e08     movlw   0x08             	MOVLW	0x08
+000bc0   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000bc2   d7cd     bra     0x000b5e         	BRA	_00226_DS_
+                                           _00205_DS_:
+                                           ;	.line	78; led.c	desligaled(0);
+000bc4   0e00     movlw   0x00             	MOVLW	0x00
+000bc6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bc8   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000bca   f009
+000bcc   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	79; led.c	desligaled(7);
+000bce   0e07     movlw   0x07             	MOVLW	0x07
+000bd0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bd2   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000bd4   f009
+000bd6   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	80; led.c	for(j = 0; j < tempo; j++);
+000bd8   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000bda   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000bdc   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000bde   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00229_DS_:
+000be0   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000be2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000be4   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000be6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000be8   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000bea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bec   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000bee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bf0   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000bf2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bf4   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000bf6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bf8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000bfa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000bfc   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000bfe   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c00   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000c02   f008
+000c04   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000c06   0e08     movlw   0x08             	MOVLW	0x08
+000c08   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000c0a   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000c0c   e01c     bz      0x000c46         	BZ	_00231_DS_
+000c0e   0e3f     movlw   0x3f             	MOVLW	0x3f
+000c10   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c12   0e80     movlw   0x80             	MOVLW	0x80
+000c14   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c16   0e00     movlw   0x00             	MOVLW	0x00
+000c18   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c1a   0e00     movlw   0x00             	MOVLW	0x00
+000c1c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c1e   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000c20   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c22   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000c24   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c26   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000c28   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c2a   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000c2c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000c2e   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000c30   f006
+000c32   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000c34   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000c36   f005
+000c38   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000c3a   f006
+000c3c   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000c3e   f007
+000c40   0e08     movlw   0x08             	MOVLW	0x08
+000c42   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000c44   d7cd     bra     0x000be0         	BRA	_00229_DS_
+                                           _00231_DS_:
+000c46   cfe4     movff   0xfe4, 0x008     	MOVFF	PREINC1, r0x08
+000c48   f008
+000c4a   cfe4     movff   0xfe4, 0x007     	MOVFF	PREINC1, r0x07
+000c4c   f007
+000c4e   cfe4     movff   0xfe4, 0x006     	MOVFF	PREINC1, r0x06
+000c50   f006
+000c52   cfe4     movff   0xfe4, 0x005     	MOVFF	PREINC1, r0x05
+000c54   f005
+000c56   cfe4     movff   0xfe4, 0x004     	MOVFF	PREINC1, r0x04
+000c58   f004
+000c5a   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+000c5c   f003
+000c5e   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+000c60   f002
+000c62   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000c64   f001
+000c66   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000c68   f000
+000c6a   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000c6c   ffd9
+000c6e   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_led__sequencial	code
+                                           _sequencial:
+                                           ;	.line	19; led.c	void sequencial(float tempo) {
+000004   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000006   ffe5
+000008   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00000a   ffd9
+00000c   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+00000e   ffe5
+000010   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000012   ffe5
+000014   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000016   ffe5
+000018   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+00001a   ffe5
+00001c   c004     movff   0x004, 0xfe5     	MOVFF	r0x04, POSTDEC1
+00001e   ffe5
+000020   c005     movff   0x005, 0xfe5     	MOVFF	r0x05, POSTDEC1
+000022   ffe5
+000024   c006     movff   0x006, 0xfe5     	MOVFF	r0x06, POSTDEC1
+000026   ffe5
+000028   c007     movff   0x007, 0xfe5     	MOVFF	r0x07, POSTDEC1
+00002a   ffe5
+00002c   c008     movff   0x008, 0xfe5     	MOVFF	r0x08, POSTDEC1
+00002e   ffe5
+000030   0e02     movlw   0x02             	MOVLW	0x02
+000032   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+000034   f000
+000036   0e03     movlw   0x03             	MOVLW	0x03
+000038   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+00003a   f001
+00003c   0e04     movlw   0x04             	MOVLW	0x04
+00003e   cfdb     movff   0xfdb, 0x002     	MOVFF	PLUSW2, r0x02
+000040   f002
+000042   0e05     movlw   0x05             	MOVLW	0x05
+000044   cfdb     movff   0xfdb, 0x003     	MOVFF	PLUSW2, r0x03
+000046   f003
+                                           ;	.line	21; led.c	ligaled(0);
+000048   0e00     movlw   0x00             	MOVLW	0x00
+00004a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00004c   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+00004e   f009
+000050   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	22; led.c	for (i = 0; i < tempo; i++);
+000052   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000054   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000056   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000058   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00147_DS_:
+00005a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00005c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00005e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000060   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000062   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000064   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000066   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000068   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00006a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00006c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00006e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000070   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000072   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000074   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000076   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000078   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00007a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00007c   f008
+00007e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000080   0e08     movlw   0x08             	MOVLW	0x08
+000082   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000084   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000086   e01c     bz      0x0000c0         	BZ	_00130_DS_
+000088   0e3f     movlw   0x3f             	MOVLW	0x3f
+00008a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00008c   0e80     movlw   0x80             	MOVLW	0x80
+00008e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000090   0e00     movlw   0x00             	MOVLW	0x00
+000092   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000094   0e00     movlw   0x00             	MOVLW	0x00
+000096   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000098   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00009a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00009c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00009e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000a0   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0000a2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000a4   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0000a6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000a8   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0000aa   f006
+0000ac   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0000ae   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0000b0   f005
+0000b2   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0000b4   f006
+0000b6   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0000b8   f007
+0000ba   0e08     movlw   0x08             	MOVLW	0x08
+0000bc   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0000be   d7cd     bra     0x00005a         	BRA	_00147_DS_
+                                           _00130_DS_:
+                                           ;	.line	23; led.c	ligaled(1);
+0000c0   0e01     movlw   0x01             	MOVLW	0x01
+0000c2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000c4   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+0000c6   f009
+0000c8   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	24; led.c	for (i = 0; i < tempo; i++);
+0000ca   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0000cc   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+0000ce   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0000d0   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00150_DS_:
+0000d2   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0000d4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000d6   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0000d8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000da   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0000dc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000de   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0000e0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000e2   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0000e4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000e6   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0000e8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000ea   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0000ec   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000ee   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0000f0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0000f2   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0000f4   f008
+0000f6   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0000f8   0e08     movlw   0x08             	MOVLW	0x08
+0000fa   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0000fc   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+0000fe   e01c     bz      0x000138         	BZ	_00131_DS_
+000100   0e3f     movlw   0x3f             	MOVLW	0x3f
+000102   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000104   0e80     movlw   0x80             	MOVLW	0x80
+000106   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000108   0e00     movlw   0x00             	MOVLW	0x00
+00010a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00010c   0e00     movlw   0x00             	MOVLW	0x00
+00010e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000110   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000112   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000114   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000116   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000118   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00011a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00011c   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+00011e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000120   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000122   f006
+000124   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000126   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000128   f005
+00012a   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+00012c   f006
+00012e   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000130   f007
+000132   0e08     movlw   0x08             	MOVLW	0x08
+000134   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000136   d7cd     bra     0x0000d2         	BRA	_00150_DS_
+                                           _00131_DS_:
+                                           ;	.line	25; led.c	ligaled(2);
+000138   0e02     movlw   0x02             	MOVLW	0x02
+00013a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00013c   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+00013e   f009
+000140   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	26; led.c	for (i = 0; i < tempo; i++);
+000142   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000144   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000146   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000148   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00153_DS_:
+00014a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00014c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00014e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000150   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000152   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000154   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000156   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000158   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00015a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00015c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00015e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000160   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000162   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000164   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000166   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000168   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00016a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00016c   f008
+00016e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000170   0e08     movlw   0x08             	MOVLW	0x08
+000172   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000174   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000176   e01c     bz      0x0001b0         	BZ	_00132_DS_
+000178   0e3f     movlw   0x3f             	MOVLW	0x3f
+00017a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00017c   0e80     movlw   0x80             	MOVLW	0x80
+00017e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000180   0e00     movlw   0x00             	MOVLW	0x00
+000182   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000184   0e00     movlw   0x00             	MOVLW	0x00
+000186   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000188   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00018a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00018c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00018e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000190   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000192   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000194   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000196   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000198   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+00019a   f006
+00019c   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00019e   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0001a0   f005
+0001a2   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0001a4   f006
+0001a6   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0001a8   f007
+0001aa   0e08     movlw   0x08             	MOVLW	0x08
+0001ac   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0001ae   d7cd     bra     0x00014a         	BRA	_00153_DS_
+                                           _00132_DS_:
+                                           ;	.line	27; led.c	ligaled(3);
+0001b0   0e03     movlw   0x03             	MOVLW	0x03
+0001b2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001b4   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+0001b6   f009
+0001b8   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	28; led.c	for (i = 0; i < tempo; i++);
+0001ba   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0001bc   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+0001be   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0001c0   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00156_DS_:
+0001c2   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0001c4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001c6   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0001c8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001ca   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0001cc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001ce   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0001d0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001d2   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0001d4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001d6   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0001d8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001da   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0001dc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001de   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0001e0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001e2   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0001e4   f008
+0001e6   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0001e8   0e08     movlw   0x08             	MOVLW	0x08
+0001ea   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0001ec   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+0001ee   e01c     bz      0x000228         	BZ	_00133_DS_
+0001f0   0e3f     movlw   0x3f             	MOVLW	0x3f
+0001f2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001f4   0e80     movlw   0x80             	MOVLW	0x80
+0001f6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001f8   0e00     movlw   0x00             	MOVLW	0x00
+0001fa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0001fc   0e00     movlw   0x00             	MOVLW	0x00
+0001fe   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000200   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000202   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000204   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000206   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000208   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00020a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00020c   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+00020e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000210   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000212   f006
+000214   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000216   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000218   f005
+00021a   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+00021c   f006
+00021e   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000220   f007
+000222   0e08     movlw   0x08             	MOVLW	0x08
+000224   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000226   d7cd     bra     0x0001c2         	BRA	_00156_DS_
+                                           _00133_DS_:
+                                           ;	.line	29; led.c	ligaled(4);
+000228   0e04     movlw   0x04             	MOVLW	0x04
+00022a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00022c   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+00022e   f009
+000230   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	30; led.c	for (i = 0; i < tempo; i++);
+000232   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000234   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000236   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000238   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00159_DS_:
+00023a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00023c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00023e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000240   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000242   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000244   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000246   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000248   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00024a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00024c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00024e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000250   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000252   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000254   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000256   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000258   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00025a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00025c   f008
+00025e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000260   0e08     movlw   0x08             	MOVLW	0x08
+000262   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000264   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000266   e01c     bz      0x0002a0         	BZ	_00134_DS_
+000268   0e3f     movlw   0x3f             	MOVLW	0x3f
+00026a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00026c   0e80     movlw   0x80             	MOVLW	0x80
+00026e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000270   0e00     movlw   0x00             	MOVLW	0x00
+000272   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000274   0e00     movlw   0x00             	MOVLW	0x00
+000276   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000278   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00027a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00027c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00027e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000280   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000282   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000284   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000286   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000288   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+00028a   f006
+00028c   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00028e   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000290   f005
+000292   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000294   f006
+000296   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000298   f007
+00029a   0e08     movlw   0x08             	MOVLW	0x08
+00029c   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00029e   d7cd     bra     0x00023a         	BRA	_00159_DS_
+                                           _00134_DS_:
+                                           ;	.line	31; led.c	ligaled(5);
+0002a0   0e05     movlw   0x05             	MOVLW	0x05
+0002a2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002a4   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+0002a6   f009
+0002a8   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	32; led.c	for (i = 0; i < tempo; i++);
+0002aa   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0002ac   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+0002ae   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0002b0   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00162_DS_:
+0002b2   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0002b4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002b6   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0002b8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002ba   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0002bc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002be   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0002c0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002c2   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0002c4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002c6   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0002c8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002ca   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0002cc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002ce   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002d0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002d2   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0002d4   f008
+0002d6   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0002d8   0e08     movlw   0x08             	MOVLW	0x08
+0002da   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0002dc   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+0002de   e01c     bz      0x000318         	BZ	_00135_DS_
+0002e0   0e3f     movlw   0x3f             	MOVLW	0x3f
+0002e2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002e4   0e80     movlw   0x80             	MOVLW	0x80
+0002e6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002e8   0e00     movlw   0x00             	MOVLW	0x00
+0002ea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002ec   0e00     movlw   0x00             	MOVLW	0x00
+0002ee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002f0   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0002f2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002f4   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0002f6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002f8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0002fa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0002fc   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002fe   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000300   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+000302   f006
+000304   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+000306   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000308   f005
+00030a   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+00030c   f006
+00030e   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000310   f007
+000312   0e08     movlw   0x08             	MOVLW	0x08
+000314   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000316   d7cd     bra     0x0002b2         	BRA	_00162_DS_
+                                           _00135_DS_:
+                                           ;	.line	33; led.c	ligaled(6);
+000318   0e06     movlw   0x06             	MOVLW	0x06
+00031a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00031c   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+00031e   f009
+000320   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	34; led.c	for (i = 0; i < tempo; i++);
+000322   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000324   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000326   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000328   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00165_DS_:
+00032a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00032c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00032e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000330   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000332   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000334   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000336   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000338   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00033a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00033c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00033e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000340   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000342   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000344   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000346   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000348   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00034a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00034c   f008
+00034e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000350   0e08     movlw   0x08             	MOVLW	0x08
+000352   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000354   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000356   e01c     bz      0x000390         	BZ	_00136_DS_
+000358   0e3f     movlw   0x3f             	MOVLW	0x3f
+00035a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00035c   0e80     movlw   0x80             	MOVLW	0x80
+00035e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000360   0e00     movlw   0x00             	MOVLW	0x00
+000362   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000364   0e00     movlw   0x00             	MOVLW	0x00
+000366   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000368   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00036a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00036c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00036e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000370   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000372   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000374   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000376   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000378   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+00037a   f006
+00037c   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00037e   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000380   f005
+000382   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000384   f006
+000386   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000388   f007
+00038a   0e08     movlw   0x08             	MOVLW	0x08
+00038c   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00038e   d7cd     bra     0x00032a         	BRA	_00165_DS_
+                                           _00136_DS_:
+                                           ;	.line	35; led.c	ligaled(7);
+000390   0e07     movlw   0x07             	MOVLW	0x07
+000392   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000394   ec82     call    0x001304, 0x0call    0x001304, 0x0 	CALL	_ligaled
+000396   f009
+000398   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	36; led.c	for (i = 0; i < tempo; i++);
+00039a   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+00039c   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+00039e   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0003a0   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00168_DS_:
+0003a2   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0003a4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003a6   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0003a8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003aa   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0003ac   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003ae   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0003b0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003b2   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0003b4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003b6   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0003b8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003ba   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0003bc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003be   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0003c0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003c2   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0003c4   f008
+0003c6   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0003c8   0e08     movlw   0x08             	MOVLW	0x08
+0003ca   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0003cc   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+0003ce   e01c     bz      0x000408         	BZ	_00137_DS_
+0003d0   0e3f     movlw   0x3f             	MOVLW	0x3f
+0003d2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003d4   0e80     movlw   0x80             	MOVLW	0x80
+0003d6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003d8   0e00     movlw   0x00             	MOVLW	0x00
+0003da   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003dc   0e00     movlw   0x00             	MOVLW	0x00
+0003de   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003e0   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0003e2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003e4   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0003e6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003e8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0003ea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003ec   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0003ee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003f0   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0003f2   f006
+0003f4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0003f6   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0003f8   f005
+0003fa   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0003fc   f006
+0003fe   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000400   f007
+000402   0e08     movlw   0x08             	MOVLW	0x08
+000404   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000406   d7cd     bra     0x0003a2         	BRA	_00168_DS_
+                                           _00137_DS_:
+                                           ;	.line	37; led.c	desligaled(0);
+000408   0e00     movlw   0x00             	MOVLW	0x00
+00040a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00040c   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+00040e   f009
+000410   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	38; led.c	for (i = 0; i < tempo; i++);
+000412   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000414   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000416   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000418   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00171_DS_:
+00041a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00041c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00041e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000420   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000422   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000424   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000426   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000428   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00042a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00042c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00042e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000430   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000432   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000434   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000436   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000438   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00043a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00043c   f008
+00043e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000440   0e08     movlw   0x08             	MOVLW	0x08
+000442   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000444   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000446   e01c     bz      0x000480         	BZ	_00138_DS_
+000448   0e3f     movlw   0x3f             	MOVLW	0x3f
+00044a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00044c   0e80     movlw   0x80             	MOVLW	0x80
+00044e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000450   0e00     movlw   0x00             	MOVLW	0x00
+000452   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000454   0e00     movlw   0x00             	MOVLW	0x00
+000456   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000458   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00045a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00045c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00045e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000460   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000462   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000464   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000466   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000468   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+00046a   f006
+00046c   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00046e   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000470   f005
+000472   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000474   f006
+000476   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000478   f007
+00047a   0e08     movlw   0x08             	MOVLW	0x08
+00047c   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00047e   d7cd     bra     0x00041a         	BRA	_00171_DS_
+                                           _00138_DS_:
+                                           ;	.line	39; led.c	desligaled(1);
+000480   0e01     movlw   0x01             	MOVLW	0x01
+000482   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000484   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000486   f009
+000488   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	40; led.c	for (i = 0; i < tempo; i++);
+00048a   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+00048c   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+00048e   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000490   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00174_DS_:
+000492   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000494   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000496   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000498   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00049a   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+00049c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00049e   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0004a0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004a2   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0004a4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004a6   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0004a8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004aa   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0004ac   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004ae   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0004b0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004b2   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0004b4   f008
+0004b6   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0004b8   0e08     movlw   0x08             	MOVLW	0x08
+0004ba   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0004bc   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+0004be   e01c     bz      0x0004f8         	BZ	_00139_DS_
+0004c0   0e3f     movlw   0x3f             	MOVLW	0x3f
+0004c2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004c4   0e80     movlw   0x80             	MOVLW	0x80
+0004c6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004c8   0e00     movlw   0x00             	MOVLW	0x00
+0004ca   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004cc   0e00     movlw   0x00             	MOVLW	0x00
+0004ce   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004d0   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0004d2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004d4   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0004d6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004d8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0004da   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004dc   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0004de   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004e0   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0004e2   f006
+0004e4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0004e6   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0004e8   f005
+0004ea   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0004ec   f006
+0004ee   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0004f0   f007
+0004f2   0e08     movlw   0x08             	MOVLW	0x08
+0004f4   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0004f6   d7cd     bra     0x000492         	BRA	_00174_DS_
+                                           _00139_DS_:
+                                           ;	.line	41; led.c	desligaled(2);
+0004f8   0e02     movlw   0x02             	MOVLW	0x02
+0004fa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0004fc   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+0004fe   f009
+000500   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	42; led.c	for (i = 0; i < tempo; i++);
+000502   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+000504   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+000506   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000508   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00177_DS_:
+00050a   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00050c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00050e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000510   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000512   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000514   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000516   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000518   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00051a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00051c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00051e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000520   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000522   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000524   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000526   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000528   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00052a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00052c   f008
+00052e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000530   0e08     movlw   0x08             	MOVLW	0x08
+000532   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000534   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000536   e01c     bz      0x000570         	BZ	_00140_DS_
+000538   0e3f     movlw   0x3f             	MOVLW	0x3f
+00053a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00053c   0e80     movlw   0x80             	MOVLW	0x80
+00053e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000540   0e00     movlw   0x00             	MOVLW	0x00
+000542   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000544   0e00     movlw   0x00             	MOVLW	0x00
+000546   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000548   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00054a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00054c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00054e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000550   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000552   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000554   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000556   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000558   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+00055a   f006
+00055c   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00055e   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000560   f005
+000562   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000564   f006
+000566   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000568   f007
+00056a   0e08     movlw   0x08             	MOVLW	0x08
+00056c   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00056e   d7cd     bra     0x00050a         	BRA	_00177_DS_
+                                           _00140_DS_:
+                                           ;	.line	43; led.c	desligaled(3);
+000570   0e03     movlw   0x03             	MOVLW	0x03
+000572   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000574   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000576   f009
+000578   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	44; led.c	for (i = 0; i < tempo; i++);
+00057a   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+00057c   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+00057e   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000580   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00180_DS_:
+000582   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000584   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000586   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000588   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00058a   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+00058c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00058e   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000590   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000592   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000594   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000596   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000598   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00059a   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00059c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00059e   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0005a0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005a2   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+0005a4   f008
+0005a6   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+0005a8   0e08     movlw   0x08             	MOVLW	0x08
+0005aa   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0005ac   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+0005ae   e01c     bz      0x0005e8         	BZ	_00141_DS_
+0005b0   0e3f     movlw   0x3f             	MOVLW	0x3f
+0005b2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005b4   0e80     movlw   0x80             	MOVLW	0x80
+0005b6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005b8   0e00     movlw   0x00             	MOVLW	0x00
+0005ba   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005bc   0e00     movlw   0x00             	MOVLW	0x00
+0005be   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005c0   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0005c2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005c4   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0005c6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005c8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0005ca   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005cc   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0005ce   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005d0   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0005d2   f006
+0005d4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0005d6   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0005d8   f005
+0005da   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0005dc   f006
+0005de   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0005e0   f007
+0005e2   0e08     movlw   0x08             	MOVLW	0x08
+0005e4   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0005e6   d7cd     bra     0x000582         	BRA	_00180_DS_
+                                           _00141_DS_:
+                                           ;	.line	45; led.c	desligaled(4);
+0005e8   0e04     movlw   0x04             	MOVLW	0x04
+0005ea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005ec   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+0005ee   f009
+0005f0   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	46; led.c	for (i = 0; i < tempo; i++);
+0005f2   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0005f4   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+0005f6   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0005f8   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00183_DS_:
+0005fa   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0005fc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005fe   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000600   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000602   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000604   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000606   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000608   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00060a   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00060c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00060e   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000610   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000612   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000614   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000616   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000618   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00061a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00061c   f008
+00061e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000620   0e08     movlw   0x08             	MOVLW	0x08
+000622   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000624   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000626   e01c     bz      0x000660         	BZ	_00142_DS_
+000628   0e3f     movlw   0x3f             	MOVLW	0x3f
+00062a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00062c   0e80     movlw   0x80             	MOVLW	0x80
+00062e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000630   0e00     movlw   0x00             	MOVLW	0x00
+000632   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000634   0e00     movlw   0x00             	MOVLW	0x00
+000636   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000638   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00063a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00063c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00063e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000640   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000642   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000644   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000646   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000648   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+00064a   f006
+00064c   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00064e   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000650   f005
+000652   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000654   f006
+000656   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000658   f007
+00065a   0e08     movlw   0x08             	MOVLW	0x08
+00065c   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00065e   d7cd     bra     0x0005fa         	BRA	_00183_DS_
+                                           _00142_DS_:
+                                           ;	.line	47; led.c	desligaled(5);
+000660   0e05     movlw   0x05             	MOVLW	0x05
+000662   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000664   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000666   f009
+000668   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	48; led.c	for (i = 0; i < tempo; i++);
+00066a   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+00066c   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+00066e   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000670   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00186_DS_:
+000672   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000674   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000676   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000678   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00067a   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+00067c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00067e   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000680   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000682   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000684   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000686   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000688   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00068a   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00068c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00068e   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000690   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000692   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000694   f008
+000696   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000698   0e08     movlw   0x08             	MOVLW	0x08
+00069a   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00069c   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+00069e   e01c     bz      0x0006d8         	BZ	_00143_DS_
+0006a0   0e3f     movlw   0x3f             	MOVLW	0x3f
+0006a2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006a4   0e80     movlw   0x80             	MOVLW	0x80
+0006a6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006a8   0e00     movlw   0x00             	MOVLW	0x00
+0006aa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006ac   0e00     movlw   0x00             	MOVLW	0x00
+0006ae   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006b0   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0006b2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006b4   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0006b6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006b8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0006ba   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006bc   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0006be   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006c0   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0006c2   f006
+0006c4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0006c6   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0006c8   f005
+0006ca   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0006cc   f006
+0006ce   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0006d0   f007
+0006d2   0e08     movlw   0x08             	MOVLW	0x08
+0006d4   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0006d6   d7cd     bra     0x000672         	BRA	_00186_DS_
+                                           _00143_DS_:
+                                           ;	.line	49; led.c	desligaled(6);
+0006d8   0e06     movlw   0x06             	MOVLW	0x06
+0006da   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006dc   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+0006de   f009
+0006e0   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	50; led.c	for (i = 0; i < tempo; i++);
+0006e2   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+0006e4   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+0006e6   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+0006e8   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00189_DS_:
+0006ea   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0006ec   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006ee   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0006f0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006f2   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0006f4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006f6   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0006f8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006fa   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0006fc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0006fe   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000700   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000702   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000704   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000706   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000708   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00070a   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+00070c   f008
+00070e   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000710   0e08     movlw   0x08             	MOVLW	0x08
+000712   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000714   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+000716   e01c     bz      0x000750         	BZ	_00144_DS_
+000718   0e3f     movlw   0x3f             	MOVLW	0x3f
+00071a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00071c   0e80     movlw   0x80             	MOVLW	0x80
+00071e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000720   0e00     movlw   0x00             	MOVLW	0x00
+000722   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000724   0e00     movlw   0x00             	MOVLW	0x00
+000726   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000728   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+00072a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00072c   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+00072e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000730   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000732   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000734   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000736   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000738   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+00073a   f006
+00073c   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00073e   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+000740   f005
+000742   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+000744   f006
+000746   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+000748   f007
+00074a   0e08     movlw   0x08             	MOVLW	0x08
+00074c   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00074e   d7cd     bra     0x0006ea         	BRA	_00189_DS_
+                                           _00144_DS_:
+                                           ;	.line	51; led.c	desligaled(7);
+000750   0e07     movlw   0x07             	MOVLW	0x07
+000752   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000754   ec51     call    0x0012a2, 0x0call    0x0012a2, 0x0 	CALL	_desligaled
+000756   f009
+000758   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	52; led.c	for (i = 0; i < tempo; i++);
+00075a   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+00075c   6a05     clrf    0x05, 0x0        	CLRF	r0x05
+00075e   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000760   6a07     clrf    0x07, 0x0        	CLRF	r0x07
+                                           _00192_DS_:
+000762   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000764   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000766   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000768   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00076a   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+00076c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00076e   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000770   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000772   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000774   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000776   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+000778   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00077a   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+00077c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00077e   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000780   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000782   ec0f     call    0x00101e, 0x0call    0x00101e, 0x0 	CALL	___fslt
+000784   f008
+000786   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000788   0e08     movlw   0x08             	MOVLW	0x08
+00078a   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00078c   5008     movf    0x08, 0x0, 0x0   	MOVF	r0x08, W
+00078e   e01c     bz      0x0007c8         	BZ	_00194_DS_
+000790   0e3f     movlw   0x3f             	MOVLW	0x3f
+000792   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000794   0e80     movlw   0x80             	MOVLW	0x80
+000796   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000798   0e00     movlw   0x00             	MOVLW	0x00
+00079a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00079c   0e00     movlw   0x00             	MOVLW	0x00
+00079e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007a0   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+0007a2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007a4   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0007a6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007a8   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0007aa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007ac   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0007ae   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007b0   ec38     call    0x000c70, 0x0call    0x000c70, 0x0 	CALL	___fsadd
+0007b2   f006
+0007b4   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0007b6   cff3     movff   0xff3, 0x005     	MOVFF	PRODL, r0x05
+0007b8   f005
+0007ba   cff4     movff   0xff4, 0x006     	MOVFF	PRODH, r0x06
+0007bc   f006
+0007be   cfe9     movff   0xfe9, 0x007     	MOVFF	FSR0L, r0x07
+0007c0   f007
+0007c2   0e08     movlw   0x08             	MOVLW	0x08
+0007c4   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0007c6   d7cd     bra     0x000762         	BRA	_00192_DS_
+                                           _00194_DS_:
+0007c8   cfe4     movff   0xfe4, 0x008     	MOVFF	PREINC1, r0x08
+0007ca   f008
+0007cc   cfe4     movff   0xfe4, 0x007     	MOVFF	PREINC1, r0x07
+0007ce   f007
+0007d0   cfe4     movff   0xfe4, 0x006     	MOVFF	PREINC1, r0x06
+0007d2   f006
+0007d4   cfe4     movff   0xfe4, 0x005     	MOVFF	PREINC1, r0x05
+0007d6   f005
+0007d8   cfe4     movff   0xfe4, 0x004     	MOVFF	PREINC1, r0x04
+0007da   f004
+0007dc   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+0007de   f003
+0007e0   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+0007e2   f002
+0007e4   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+0007e6   f001
+0007e8   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+0007ea   f000
+0007ec   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0007ee   ffd9
+0007f0   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_led__desligaled	code
+                                           _desligaled:
+                                           ;	.line	15; led.c	void desligaled(char num) {
+0012a2   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0012a4   ffe5
+0012a6   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0012a8   ffd9
+0012aa   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0012ac   ffe5
+0012ae   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+0012b0   ffe5
+0012b2   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+0012b4   ffe5
+0012b6   0e02     movlw   0x02             	MOVLW	0x02
+0012b8   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+0012ba   f000
+                                           ;	.line	16; led.c	BitSet(PORTD, num);
+0012bc   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0012be   f083
+0012c0   cfef     movff   0xfef, 0x001     	MOVFF	INDF0, r0x01
+0012c2   f001
+0012c4   0e01     movlw   0x01             	MOVLW	0x01
+0012c6   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+0012c8   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0012ca   e00b     bz      0x0012e2         	BZ	_00122_DS_
+0012cc   e606     bn      0x0012da         	BN	_00125_DS_
+0012ce   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+0012d0   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00123_DS_:
+0012d2   3602     rlcf    0x02, 0x1, 0x0   	RLCF	r0x02, F
+0012d4   0f01     addlw   0x01             	ADDLW	0x01
+0012d6   e3fd     bnc     0x0012d2         	BNC	_00123_DS_
+0012d8   d004     bra     0x0012e2         	BRA	_00122_DS_
+                                           _00125_DS_:
+0012da   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00124_DS_:
+0012dc   3202     rrcf    0x02, 0x1, 0x0   	RRCF	r0x02, F
+0012de   0f01     addlw   0x01             	ADDLW	0x01
+0012e0   e3fd     bnc     0x0012dc         	BNC	_00124_DS_
+                                           _00122_DS_:
+0012e2   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0012e4   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+0012e6   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0012e8   1201     iorwf   0x01, 0x1, 0x0   	IORWF	r0x01, F
+0012ea   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0012ec   f083
+0012ee   c001     movff   0x001, 0xfef     	MOVFF	r0x01, INDF0
+0012f0   ffef
+0012f2   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+0012f4   f002
+0012f6   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+0012f8   f001
+0012fa   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+0012fc   f000
+0012fe   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+001300   ffd9
+001302   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_led__ligaled	code
+                                           _ligaled:
+                                           ;	.line	11; led.c	void ligaled(char num) {
+001304   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+001306   ffe5
+001308   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00130a   ffd9
+00130c   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+00130e   ffe5
+001310   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+001312   ffe5
+001314   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+001316   ffe5
+001318   0e02     movlw   0x02             	MOVLW	0x02
+00131a   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+00131c   f000
+                                           ;	.line	12; led.c	BitClr(PORTD, num);
+00131e   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+001320   f083
+001322   cfef     movff   0xfef, 0x001     	MOVFF	INDF0, r0x01
+001324   f001
+001326   0e01     movlw   0x01             	MOVLW	0x01
+001328   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+00132a   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+00132c   e00b     bz      0x001344         	BZ	_00112_DS_
+00132e   e606     bn      0x00133c         	BN	_00115_DS_
+001330   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+001332   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00113_DS_:
+001334   3602     rlcf    0x02, 0x1, 0x0   	RLCF	r0x02, F
+001336   0f01     addlw   0x01             	ADDLW	0x01
+001338   e3fd     bnc     0x001334         	BNC	_00113_DS_
+00133a   d004     bra     0x001344         	BRA	_00112_DS_
+                                           _00115_DS_:
+00133c   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00114_DS_:
+00133e   3202     rrcf    0x02, 0x1, 0x0   	RRCF	r0x02, F
+001340   0f01     addlw   0x01             	ADDLW	0x01
+001342   e3fd     bnc     0x00133e         	BNC	_00114_DS_
+                                           _00112_DS_:
+001344   1c02     comf    0x02, 0x0, 0x0   	COMF	r0x02, W
+001346   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+001348   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+00134a   1601     andwf   0x01, 0x1, 0x0   	ANDWF	r0x01, F
+00134c   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+00134e   f083
+001350   c001     movff   0x001, 0xfef     	MOVFF	r0x01, INDF0
+001352   ffef
+001354   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+001356   f002
+001358   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+00135a   f001
+00135c   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+00135e   f000
+001360   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+001362   ffd9
+001364   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_led__configled	code
+                                           _configled:
+                                           ;	.line	6; led.c	void configled(void) {
+001366   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+001368   ffe5
+00136a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00136c   ffd9
+                                           ;	.line	7; led.c	TRISD = 0x00;
+00136e   ee0f     lfsr    0x0, 0xf95       	LFSR	0x00, 0xf95
+001370   f095
+001372   0e00     movlw   0x00             	MOVLW	0x00
+001374   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	8; led.c	PORTD = 0xFF;
+001376   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+001378   f083
+00137a   0eff     movlw   0xff             	MOVLW	0xff
+00137c   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+00137e   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+001380   ffd9
+001382   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	 3406 (0x0d4e) bytes ( 2.60%)
+                                           ;           	 1703 (0x06a7) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    9 (0x0009) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Sep 15 09:38:20 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           	CONFIG	MCLRE=ON
+                                           	CONFIG	OSC=HS
+                                           	CONFIG	WDT=OFF
+                                           	CONFIG	LVP=OFF
+                                           	CONFIG	DEBUG=OFF
+                                           	CONFIG	WDTPS=1
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	_configled
+                                           	extern	_sequencial
+                                           	extern	_atoa
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           FSR1L	equ	0xfe1
+                                           POSTDEC1	equ	0xfe5
+                                           
+                                           ;--------------------------------------------------------
+                                           ; interrupt vector
+                                           ;--------------------------------------------------------
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_Aula5__main	code
+                                           _main:
+                                           ;	.line	19; Aula5.c	configled();
+00113c   ecb3     call    0x001366, 0x0call    0x001366, 0x0 	CALL	_configled
+00113e   f009
+                                           _00106_DS_:
+                                           ;	.line	21; Aula5.c	sequencial(tempo);
+001140   0e43     movlw   0x43             	MOVLW	0x43
+001142   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001144   0efa     movlw   0xfa             	MOVLW	0xfa
+001146   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001148   0e00     movlw   0x00             	MOVLW	0x00
+00114a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00114c   0e00     movlw   0x00             	MOVLW	0x00
+00114e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001150   ec02     call    0x000004, 0x0call    0x000004, 0x0 	CALL	_sequencial
+001152   f000
+001154   0e04     movlw   0x04             	MOVLW	0x04
+001156   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	22; Aula5.c	sequencial(tempo);
+001158   0e43     movlw   0x43             	MOVLW	0x43
+00115a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00115c   0efa     movlw   0xfa             	MOVLW	0xfa
+00115e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001160   0e00     movlw   0x00             	MOVLW	0x00
+001162   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001164   0e00     movlw   0x00             	MOVLW	0x00
+001166   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001168   ec02     call    0x000004, 0x0call    0x000004, 0x0 	CALL	_sequencial
+00116a   f000
+00116c   0e04     movlw   0x04             	MOVLW	0x04
+00116e   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	23; Aula5.c	sequencial(tempo);
+001170   0e43     movlw   0x43             	MOVLW	0x43
+001172   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001174   0efa     movlw   0xfa             	MOVLW	0xfa
+001176   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001178   0e00     movlw   0x00             	MOVLW	0x00
+00117a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00117c   0e00     movlw   0x00             	MOVLW	0x00
+00117e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001180   ec02     call    0x000004, 0x0call    0x000004, 0x0 	CALL	_sequencial
+001182   f000
+001184   0e04     movlw   0x04             	MOVLW	0x04
+001186   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	24; Aula5.c	sequencial(tempo);
+001188   0e43     movlw   0x43             	MOVLW	0x43
+00118a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00118c   0efa     movlw   0xfa             	MOVLW	0xfa
+00118e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001190   0e00     movlw   0x00             	MOVLW	0x00
+001192   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001194   0e00     movlw   0x00             	MOVLW	0x00
+001196   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+001198   ec02     call    0x000004, 0x0call    0x000004, 0x0 	CALL	_sequencial
+00119a   f000
+00119c   0e04     movlw   0x04             	MOVLW	0x04
+00119e   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	25; Aula5.c	atoa(tempo);
+0011a0   0e43     movlw   0x43             	MOVLW	0x43
+0011a2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011a4   0efa     movlw   0xfa             	MOVLW	0xfa
+0011a6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011a8   0e00     movlw   0x00             	MOVLW	0x00
+0011aa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011ac   0e00     movlw   0x00             	MOVLW	0x00
+0011ae   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011b0   ecf9     call    0x0007f2, 0x0call    0x0007f2, 0x0 	CALL	_atoa
+0011b2   f003
+0011b4   0e04     movlw   0x04             	MOVLW	0x04
+0011b6   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	26; Aula5.c	atoa(tempo);
+0011b8   0e43     movlw   0x43             	MOVLW	0x43
+0011ba   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011bc   0efa     movlw   0xfa             	MOVLW	0xfa
+0011be   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011c0   0e00     movlw   0x00             	MOVLW	0x00
+0011c2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011c4   0e00     movlw   0x00             	MOVLW	0x00
+0011c6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011c8   ecf9     call    0x0007f2, 0x0call    0x0007f2, 0x0 	CALL	_atoa
+0011ca   f003
+0011cc   0e04     movlw   0x04             	MOVLW	0x04
+0011ce   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	27; Aula5.c	atoa(tempo);
+0011d0   0e43     movlw   0x43             	MOVLW	0x43
+0011d2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011d4   0efa     movlw   0xfa             	MOVLW	0xfa
+0011d6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011d8   0e00     movlw   0x00             	MOVLW	0x00
+0011da   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011dc   0e00     movlw   0x00             	MOVLW	0x00
+0011de   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011e0   ecf9     call    0x0007f2, 0x0call    0x0007f2, 0x0 	CALL	_atoa
+0011e2   f003
+0011e4   0e04     movlw   0x04             	MOVLW	0x04
+0011e6   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	28; Aula5.c	atoa(tempo);
+0011e8   0e43     movlw   0x43             	MOVLW	0x43
+0011ea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011ec   0efa     movlw   0xfa             	MOVLW	0xfa
+0011ee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011f0   0e00     movlw   0x00             	MOVLW	0x00
+0011f2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011f4   0e00     movlw   0x00             	MOVLW	0x00
+0011f6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0011f8   ecf9     call    0x0007f2, 0x0call    0x0007f2, 0x0 	CALL	_atoa
+0011fa   f003
+0011fc   0e04     movlw   0x04             	MOVLW	0x04
+0011fe   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+001200   d79f     bra     0x001140         	BRA	_00106_DS_
+001202   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  200 (0x00c8) bytes ( 0.15%)
+                                           ;           	  100 (0x0064) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    0 (0x0000) bytes
+                                           
+                                           
+                                           	end

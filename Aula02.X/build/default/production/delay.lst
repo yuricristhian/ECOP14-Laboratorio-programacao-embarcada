@@ -1,0 +1,180 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   8-25-2016  09:27:20         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Aug 25 09:27:20 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010 
+                      00011 
+                      00012 ;--------------------------------------------------------
+                      00013 ; public variables in this module
+                      00014 ;--------------------------------------------------------
+  0000                00015         global  _tempo
+                      00016 
+                      00017 ;--------------------------------------------------------
+                      00018 ;       Equates to used internal registers
+                      00019 ;--------------------------------------------------------
+  00000FD8            00020 STATUS  equ     0xfd8
+  00000FE1            00021 FSR1L   equ     0xfe1
+  00000FD9            00022 FSR2L   equ     0xfd9
+  00000FE5            00023 POSTDEC1        equ     0xfe5
+  00000FE4            00024 PREINC1 equ     0xfe4
+  00000FDB            00025 PLUSW2  equ     0xfdb
+  00000FF3            00026 PRODL   equ     0xff3
+                      00027 
+                      00028 
+                      00029 ; Internal registers
+                      00030 .registers      udata_ovr       0x0000
+000000                00031 r0x00   res     1
+000001                00032 r0x01   res     1
+000002                00033 r0x02   res     1
+000003                00034 r0x03   res     1
+000004                00035 r0x04   res     1
+000005                00036 r0x05   res     1
+000006                00037 r0x06   res     1
+                      00038 
+                      00039 ;--------------------------------------------------------
+                      00040 ; global & static initialisations
+                      00041 ;--------------------------------------------------------
+                      00042 ; I code from now on!
+                      00043 ; ; Starting pCode block
+                      00044 S_delay__tempo  code
+000000                00045 _tempo:
+                      00046 ;       .line   2; delay.c      void tempo(int ms) {
+000000 CFD9 FFE5      00047         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00048         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00049         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00050         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00051         MOVFF   r0x02, POSTDEC1
+000014 C??? F???      00052         MOVFF   r0x03, POSTDEC1
+000018 C??? F???      00053         MOVFF   r0x04, POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   8-25-2016  09:27:20         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00001C C??? F???      00054         MOVFF   r0x05, POSTDEC1
+000020 C??? F???      00055         MOVFF   r0x06, POSTDEC1
+000024 0E02           00056         MOVLW   0x02
+000026 CFDB F000      00057         MOVFF   PLUSW2, r0x00
+00002A 0E03           00058         MOVLW   0x03
+00002C CFDB F000      00059         MOVFF   PLUSW2, r0x01
+                      00060 ;       .line   5; delay.c      do {
+Message[1301]: Using default destination of 0 (Access Bank).
+000030 6A??           00061         CLRF    r0x02
+Message[1301]: Using default destination of 0 (Access Bank).
+000032 6A??           00062         CLRF    r0x03
+000034                00063 _00119_DS_:
+                      00064 ;       .line   6; delay.c      for (j = 0; j < 41; j++) {
+Message[1301]: Using default destination of 0 (Access Bank).
+000034 6A??           00065         CLRF    r0x04
+000036                00066 _00113_DS_:
+                      00067 ;       .line   7; delay.c      for (k = 0; k < 3; k++);
+000036 0E03           00068         MOVLW   0x03
+Message[1301]: Using default destination of 0 (Access Bank).
+000038 6E??           00069         MOVWF   r0x05
+00003A                00070 _00112_DS_:
+00003A 50??           00071         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00003C 6E??           00072         MOVWF   r0x06
+00003E 06??           00073         DECF    r0x06, F
+000040 C??? F???      00074         MOVFF   r0x06, r0x05
+000044 50??           00075         MOVF    r0x06, W
+000046 E1??           00076         BNZ     _00112_DS_
+                      00077 ;       .line   6; delay.c      for (j = 0; j < 41; j++) {
+000048 2A??           00078         INCF    r0x04, F
+00004A 0E29           00079         MOVLW   0x29
+00004C 5C??           00080         SUBWF   r0x04, W
+00004E E3??           00081         BNC     _00113_DS_
+                      00082 ;       .line   9; delay.c      t++;
+000050 4A??           00083         INFSNZ  r0x02, F
+000052 2A??           00084         INCF    r0x03, F
+                      00085 ;       .line   10; delay.c     } while (t < ms);
+000054 50??           00086         MOVF    r0x03, W
+000056 0F80           00087         ADDLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000058 6EF3           00088         MOVWF   PRODL
+00005A 50??           00089         MOVF    r0x01, W
+00005C 0F80           00090         ADDLW   0x80
+00005E 5CF3           00091         SUBWF   PRODL, W
+000060 E1??           00092         BNZ     _00135_DS_
+000062 50??           00093         MOVF    r0x00, W
+000064 5C??           00094         SUBWF   r0x02, W
+000066                00095 _00135_DS_:
+000066 E3??           00096         BNC     _00119_DS_
+000068 CFE4 F000      00097         MOVFF   PREINC1, r0x06
+00006C CFE4 F000      00098         MOVFF   PREINC1, r0x05
+000070 CFE4 F000      00099         MOVFF   PREINC1, r0x04
+000074 CFE4 F000      00100         MOVFF   PREINC1, r0x03
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   8-25-2016  09:27:20         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000078 CFE4 F000      00101         MOVFF   PREINC1, r0x02
+00007C CFE4 F000      00102         MOVFF   PREINC1, r0x01
+000080 CFE4 F000      00103         MOVFF   PREINC1, r0x00
+000084 CFE4 FFD9      00104         MOVFF   PREINC1, FSR2L
+000088 0012           00105         RETURN  
+                      00106 
+                      00107 
+                      00108 
+                      00109 ; Statistics:
+                      00110 ; code size:      138 (0x008a) bytes ( 0.11%)
+                      00111 ;                  69 (0x0045) words
+                      00112 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      00113 ; access size:      7 (0x0007) bytes
+                      00114 
+                      00115 
+                      00116         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   8-25-2016  09:27:20         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+PREINC1                           00000FE4
+PRODL                             00000FF3
+STATUS                            00000FD8
+_00112_DS_                        0000003A
+_00113_DS_                        00000036
+_00119_DS_                        00000034
+_00135_DS_                        00000066
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+_tempo                            00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+r0x03                             00000003
+r0x04                             00000004
+r0x05                             00000005
+r0x06                             00000006
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     6 reported,     0 suppressed
+
+

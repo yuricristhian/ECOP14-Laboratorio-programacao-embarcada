@@ -1,0 +1,242 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:38:20         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Sep 15 09:38:20 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010         CONFIG  MCLRE=ON
+                      00011         CONFIG  OSC=HS
+                      00012         CONFIG  WDT=OFF
+                      00013         CONFIG  LVP=OFF
+                      00014         CONFIG  DEBUG=OFF
+                      00015         CONFIG  WDTPS=1
+                      00016 
+                      00017 
+                      00018 ;--------------------------------------------------------
+                      00019 ; public variables in this module
+                      00020 ;--------------------------------------------------------
+  0000                00021         global  _main
+                      00022 
+                      00023 ;--------------------------------------------------------
+                      00024 ; extern variables in this module
+                      00025 ;--------------------------------------------------------
+  0000                00026         extern  _configled
+  0000                00027         extern  _sequencial
+  0000                00028         extern  _atoa
+                      00029 
+                      00030 ;--------------------------------------------------------
+                      00031 ;       Equates to used internal registers
+                      00032 ;--------------------------------------------------------
+  00000FE1            00033 FSR1L   equ     0xfe1
+  00000FE5            00034 POSTDEC1        equ     0xfe5
+                      00035 
+                      00036 ;--------------------------------------------------------
+                      00037 ; interrupt vector
+                      00038 ;--------------------------------------------------------
+                      00039 
+                      00040 ;--------------------------------------------------------
+                      00041 ; global & static initialisations
+                      00042 ;--------------------------------------------------------
+                      00043 ; I code from now on!
+                      00044 ; ; Starting pCode block
+                      00045 S_Aula5__main   code
+000000                00046 _main:
+                      00047 ;       .line   19; Aula5.c     configled();
+000000 EC?? F0??      00048         CALL    _configled
+000004                00049 _00106_DS_:
+                      00050 ;       .line   21; Aula5.c     sequencial(tempo);
+000004 0E43           00051         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+000006 6EE5           00052         MOVWF   POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:38:20         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000008 0EFA           00053         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+00000A 6EE5           00054         MOVWF   POSTDEC1
+00000C 0E00           00055         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00000E 6EE5           00056         MOVWF   POSTDEC1
+000010 0E00           00057         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000012 6EE5           00058         MOVWF   POSTDEC1
+000014 EC?? F0??      00059         CALL    _sequencial
+000018 0E04           00060         MOVLW   0x04
+00001A 26E1           00061         ADDWF   FSR1L, F
+                      00062 ;       .line   22; Aula5.c     sequencial(tempo);
+00001C 0E43           00063         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+00001E 6EE5           00064         MOVWF   POSTDEC1
+000020 0EFA           00065         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+000022 6EE5           00066         MOVWF   POSTDEC1
+000024 0E00           00067         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000026 6EE5           00068         MOVWF   POSTDEC1
+000028 0E00           00069         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00002A 6EE5           00070         MOVWF   POSTDEC1
+00002C EC?? F0??      00071         CALL    _sequencial
+000030 0E04           00072         MOVLW   0x04
+000032 26E1           00073         ADDWF   FSR1L, F
+                      00074 ;       .line   23; Aula5.c     sequencial(tempo);
+000034 0E43           00075         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+000036 6EE5           00076         MOVWF   POSTDEC1
+000038 0EFA           00077         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+00003A 6EE5           00078         MOVWF   POSTDEC1
+00003C 0E00           00079         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00003E 6EE5           00080         MOVWF   POSTDEC1
+000040 0E00           00081         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000042 6EE5           00082         MOVWF   POSTDEC1
+000044 EC?? F0??      00083         CALL    _sequencial
+000048 0E04           00084         MOVLW   0x04
+00004A 26E1           00085         ADDWF   FSR1L, F
+                      00086 ;       .line   24; Aula5.c     sequencial(tempo);
+00004C 0E43           00087         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+00004E 6EE5           00088         MOVWF   POSTDEC1
+000050 0EFA           00089         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+000052 6EE5           00090         MOVWF   POSTDEC1
+000054 0E00           00091         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:38:20         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000056 6EE5           00092         MOVWF   POSTDEC1
+000058 0E00           00093         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00005A 6EE5           00094         MOVWF   POSTDEC1
+00005C EC?? F0??      00095         CALL    _sequencial
+000060 0E04           00096         MOVLW   0x04
+000062 26E1           00097         ADDWF   FSR1L, F
+                      00098 ;       .line   25; Aula5.c     atoa(tempo);
+000064 0E43           00099         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+000066 6EE5           00100         MOVWF   POSTDEC1
+000068 0EFA           00101         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+00006A 6EE5           00102         MOVWF   POSTDEC1
+00006C 0E00           00103         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00006E 6EE5           00104         MOVWF   POSTDEC1
+000070 0E00           00105         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000072 6EE5           00106         MOVWF   POSTDEC1
+000074 EC?? F0??      00107         CALL    _atoa
+000078 0E04           00108         MOVLW   0x04
+00007A 26E1           00109         ADDWF   FSR1L, F
+                      00110 ;       .line   26; Aula5.c     atoa(tempo);
+00007C 0E43           00111         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+00007E 6EE5           00112         MOVWF   POSTDEC1
+000080 0EFA           00113         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+000082 6EE5           00114         MOVWF   POSTDEC1
+000084 0E00           00115         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000086 6EE5           00116         MOVWF   POSTDEC1
+000088 0E00           00117         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00008A 6EE5           00118         MOVWF   POSTDEC1
+00008C EC?? F0??      00119         CALL    _atoa
+000090 0E04           00120         MOVLW   0x04
+000092 26E1           00121         ADDWF   FSR1L, F
+                      00122 ;       .line   27; Aula5.c     atoa(tempo);
+000094 0E43           00123         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+000096 6EE5           00124         MOVWF   POSTDEC1
+000098 0EFA           00125         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+00009A 6EE5           00126         MOVWF   POSTDEC1
+00009C 0E00           00127         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00009E 6EE5           00128         MOVWF   POSTDEC1
+0000A0 0E00           00129         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A2 6EE5           00130         MOVWF   POSTDEC1
+0000A4 EC?? F0??      00131         CALL    _atoa
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:38:20         PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0000A8 0E04           00132         MOVLW   0x04
+0000AA 26E1           00133         ADDWF   FSR1L, F
+                      00134 ;       .line   28; Aula5.c     atoa(tempo);
+0000AC 0E43           00135         MOVLW   0x43
+Message[1301]: Using default destination of 0 (Access Bank).
+0000AE 6EE5           00136         MOVWF   POSTDEC1
+0000B0 0EFA           00137         MOVLW   0xfa
+Message[1301]: Using default destination of 0 (Access Bank).
+0000B2 6EE5           00138         MOVWF   POSTDEC1
+0000B4 0E00           00139         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0000B6 6EE5           00140         MOVWF   POSTDEC1
+0000B8 0E00           00141         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0000BA 6EE5           00142         MOVWF   POSTDEC1
+0000BC EC?? F0??      00143         CALL    _atoa
+0000C0 0E04           00144         MOVLW   0x04
+0000C2 26E1           00145         ADDWF   FSR1L, F
+0000C4 D???           00146         BRA     _00106_DS_
+0000C6 0012           00147         RETURN  
+                      00148 
+                      00149 
+                      00150 
+                      00151 ; Statistics:
+                      00152 ; code size:      200 (0x00c8) bytes ( 0.15%)
+                      00153 ;                 100 (0x0064) words
+                      00154 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      00155 ; access size:      0 (0x0000) bytes
+                      00156 
+                      00157 
+                      00158         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:38:20         PAGE  5
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+POSTDEC1                          00000FE5
+_00106_DS_                        00000004
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+_atoa                             00000000
+_configled                        00000000
+_main                             00000000
+_sequencial                       00000000
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    32 reported,     0 suppressed
+
+

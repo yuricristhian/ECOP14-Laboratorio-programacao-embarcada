@@ -1,0 +1,521 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Sep 29 08:53:20 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010 
+                      00011 
+                      00012 ;--------------------------------------------------------
+                      00013 ; public variables in this module
+                      00014 ;--------------------------------------------------------
+  0000                00015         global  _LerTeclas
+  0000                00016         global  _DebounceTeclas
+  0000                00017         global  _InicializaTeclado
+                      00018 
+                      00019 ;--------------------------------------------------------
+                      00020 ;       Equates to used internal registers
+                      00021 ;--------------------------------------------------------
+  00000FD8            00022 STATUS  equ     0xfd8
+  00000FE8            00023 WREG    equ     0xfe8
+  00000FE1            00024 FSR1L   equ     0xfe1
+  00000FD9            00025 FSR2L   equ     0xfd9
+  00000FEF            00026 INDF0   equ     0xfef
+  00000FE5            00027 POSTDEC1        equ     0xfe5
+  00000FE4            00028 PREINC1 equ     0xfe4
+                      00029 
+                      00030 
+                      00031         idata
+000000 00             00032 _valor  db      0x00
+000001 00             00033 _DebounceTeclas_valorNovo_1_7   db      0x00
+000002 00             00034 _DebounceTeclas_valorAntigo_1_7 db      0x00
+                      00035 
+                      00036 
+                      00037 ; Internal registers
+                      00038 .registers      udata_ovr       0x0000
+000000                00039 r0x00   res     1
+000001                00040 r0x01   res     1
+000002                00041 r0x02   res     1
+000003                00042 r0x03   res     1
+000004                00043 r0x04   res     1
+000005                00044 r0x05   res     1
+000006                00045 r0x06   res     1
+000007                00046 r0x07   res     1
+000008                00047 r0x08   res     1
+000009                00048 r0x09   res     1
+                      00049 
+                      00050 udata_teclado_0 udata
+000000                00051 _DebounceTeclas_tempo_1_7       res     1
+                      00052 
+                      00053 ;--------------------------------------------------------
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00054 ; global & static initialisations
+                      00055 ;--------------------------------------------------------
+                      00056 ; I code from now on!
+                      00057 ; ; Starting pCode block
+                      00058 S_teclado__InicializaTeclado    code
+000000                00059 _InicializaTeclado:
+                      00060 ;       .line   82; teclado.c   void InicializaTeclado(void) {
+000000 CFD9 FFE5      00061         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00062         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00063         MOVFF   r0x00, POSTDEC1
+                      00064 ;       .line   83; teclado.c   TRISB = 0xF0; //quatro entradas e quatro saidas
+00000C EE0F F093      00065         LFSR    0x00, 0xf93
+000010 0EF0           00066         MOVLW   0xf0
+Message[1301]: Using default destination of 0 (Access Bank).
+000012 6EEF           00067         MOVWF   INDF0
+                      00068 ;       .line   84; teclado.c   BitClr(INTCON2, 7); //liga pull up
+000014 EE0F F0F1      00069         LFSR    0x00, 0xff1
+000018 CFEF F000      00070         MOVFF   INDF0, r0x00
+00001C 9E??           00071         BCF     r0x00, 7
+00001E EE0F F0F1      00072         LFSR    0x00, 0xff1
+000022 C??? F???      00073         MOVFF   r0x00, INDF0
+                      00074 ;       .line   85; teclado.c   ADCON1 = 0b00001110; //apenas AN0 é analogico, a referencia é baseada na
+                             fonte
+000026 EE0F F0C1      00075         LFSR    0x00, 0xfc1
+00002A 0E0E           00076         MOVLW   0x0e
+Message[1301]: Using default destination of 0 (Access Bank).
+00002C 6EEF           00077         MOVWF   INDF0
+00002E CFE4 F000      00078         MOVFF   PREINC1, r0x00
+000032 CFE4 FFD9      00079         MOVFF   PREINC1, FSR2L
+000036 0012           00080         RETURN  
+                      00081 
+                      00082 ; ; Starting pCode block
+                      00083 S_teclado__DebounceTeclas       code
+000000                00084 _DebounceTeclas:
+                      00085 ;       .line   46; teclado.c   void DebounceTeclas(void) {
+000000 CFD9 FFE5      00086         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00087         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00088         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00089         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00090         MOVFF   r0x02, POSTDEC1
+000014 C??? F???      00091         MOVFF   r0x03, POSTDEC1
+000018 C??? F???      00092         MOVFF   r0x04, POSTDEC1
+00001C C??? F???      00093         MOVFF   r0x05, POSTDEC1
+000020 C??? F???      00094         MOVFF   r0x06, POSTDEC1
+000024 C??? F???      00095         MOVFF   r0x07, POSTDEC1
+000028 C??? F???      00096         MOVFF   r0x08, POSTDEC1
+00002C C??? F???      00097         MOVFF   r0x09, POSTDEC1
+                      00098 ;       .line   52; teclado.c   for (i = 0; i < 4; i++) {
+Message[1301]: Using default destination of 0 (Access Bank).
+000030 6A??           00099         CLRF    r0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000032 6A??           00100         CLRF    r0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000034 6A??           00101         CLRF    r0x02
+000036                00102 _00176_DS_:
+                      00103 ;       .line   55; teclado.c   PORTB |= 0x0F;
+000036 EE0F F081      00104         LFSR    0x00, 0xf81
+00003A CFEF F000      00105         MOVFF   INDF0, r0x03
+00003E 0E0F           00106         MOVLW   0x0f
+000040 12??           00107         IORWF   r0x03, F
+000042 EE0F F081      00108         LFSR    0x00, 0xf81
+000046 C??? F???      00109         MOVFF   r0x03, INDF0
+                      00110 ;       .line   56; teclado.c   BitClr(PORTB, (i)); //liga a coluna correspondente
+00004A EE0F F081      00111         LFSR    0x00, 0xf81
+00004E CFEF F000      00112         MOVFF   INDF0, r0x03
+000052 0E01           00113         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+000054 6E??           00114         MOVWF   r0x04
+000056 50??           00115         MOVF    r0x00, W
+000058 E0??           00116         BZ      _00210_DS_
+Message[1301]: Using default destination of 0 (Access Bank).
+00005A 6CE8           00117         NEGF    WREG
+00005C 90D8           00118         BCF     STATUS, 0
+00005E                00119 _00211_DS_:
+00005E 36??           00120         RLCF    r0x04, F
+000060 0F01           00121         ADDLW   0x01
+000062 E3??           00122         BNC     _00211_DS_
+000064                00123 _00210_DS_:
+000064 1E??           00124         COMF    r0x04, F
+000066 50??           00125         MOVF    r0x04, W
+000068 16??           00126         ANDWF   r0x03, F
+00006A EE0F F081      00127         LFSR    0x00, 0xf81
+00006E C??? F???      00128         MOVFF   r0x03, INDF0
+                      00129 ;       .line   58; teclado.c   for (j = 0; j < 100; j++);
+000072 0E64           00130         MOVLW   0x64
+Message[1301]: Using default destination of 0 (Access Bank).
+000074 6E??           00131         MOVWF   r0x03
+000076                00132 _00173_DS_:
+000076 50??           00133         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000078 6E??           00134         MOVWF   r0x04
+00007A 04??           00135         DECF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00007C 6E??           00136         MOVWF   r0x03
+00007E 50??           00137         MOVF    r0x03, W
+000080 E1??           00138         BNZ     _00173_DS_
+                      00139 ;       .line   61; teclado.c   for (j = 0; j < 2; j++) {
+Message[1301]: Using default destination of 0 (Access Bank).
+000082 6A??           00140         CLRF    r0x03
+000084                00141 _00174_DS_:
+                      00142 ;       .line   62; teclado.c   if (!BitTst(PORTB, j + 4)) {
+000084 EE0F F081      00143         LFSR    0x00, 0xf81
+000088 CFEF F000      00144         MOVFF   INDF0, r0x04
+00008C C??? F???      00145         MOVFF   r0x03, r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000090 6A??           00146         CLRF    r0x06
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000092 0E04           00147         MOVLW   0x04
+000094 26??           00148         ADDWF   r0x05, F
+000096 B0D8           00149         BTFSC   STATUS, 0
+000098 2A??           00150         INCF    r0x06, F
+00009A 0E01           00151         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+00009C 6E??           00152         MOVWF   r0x07
+00009E 0E00           00153         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A0 6E??           00154         MOVWF   r0x08
+0000A2 50??           00155         MOVF    r0x05, W
+0000A4 E0??           00156         BZ      _00213_DS_
+0000A6 E6??           00157         BN      _00216_DS_
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A8 6CE8           00158         NEGF    WREG
+0000AA 90D8           00159         BCF     STATUS, 0
+0000AC                00160 _00214_DS_:
+0000AC 36??           00161         RLCF    r0x07, F
+0000AE 36??           00162         RLCF    r0x08, F
+0000B0 0F01           00163         ADDLW   0x01
+0000B2 E3??           00164         BNC     _00214_DS_
+0000B4 D???           00165         BRA     _00213_DS_
+0000B6                00166 _00216_DS_:
+0000B6 90D8           00167         BCF     STATUS, 0
+0000B8                00168 _00215_DS_:
+0000B8 BE??           00169         BTFSC   r0x08, 7
+0000BA 80D8           00170         BSF     STATUS, 0
+0000BC 32??           00171         RRCF    r0x08, F
+0000BE 32??           00172         RRCF    r0x07, F
+0000C0 0F01           00173         ADDLW   0x01
+0000C2 E3??           00174         BNC     _00215_DS_
+0000C4                00175 _00213_DS_:
+Message[1301]: Using default destination of 0 (Access Bank).
+0000C4 6A??           00176         CLRF    r0x09
+0000C6 50??           00177         MOVF    r0x04, W
+0000C8 16??           00178         ANDWF   r0x07, F
+0000CA 50??           00179         MOVF    r0x09, W
+0000CC 16??           00180         ANDWF   r0x08, F
+0000CE 50??           00181         MOVF    r0x07, W
+0000D0 10??           00182         IORWF   r0x08, W
+0000D2 E1??           00183         BNZ     _00162_DS_
+                      00184 ;       .line   63; teclado.c   BitSet(valorNovo, (i * 2) + j);
+0000D4 50??           00185         MOVF    r0x03, W
+0000D6 24??           00186         ADDWF   r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D8 6E??           00187         MOVWF   r0x04
+0000DA 0E01           00188         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+0000DC 6E??           00189         MOVWF   r0x05
+0000DE 50??           00190         MOVF    r0x04, W
+0000E0 E0??           00191         BZ      _00217_DS_
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E2 6CE8           00192         NEGF    WREG
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  5
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0000E4 90D8           00193         BCF     STATUS, 0
+0000E6                00194 _00218_DS_:
+0000E6 36??           00195         RLCF    r0x05, F
+0000E8 0F01           00196         ADDLW   0x01
+0000EA E3??           00197         BNC     _00218_DS_
+0000EC                00198 _00217_DS_:
+0000EC 50??           00199         MOVF    r0x05, W
+0000EE ????           00200         BANKSEL _DebounceTeclas_valorNovo_1_7
+0000F0 13??           00201         IORWF   _DebounceTeclas_valorNovo_1_7, F, B
+0000F2 D???           00202         BRA     _00175_DS_
+0000F4                00203 _00162_DS_:
+                      00204 ;       .line   65; teclado.c   BitClr(valorNovo, (i * 2) + j);
+0000F4 50??           00205         MOVF    r0x03, W
+0000F6 24??           00206         ADDWF   r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000F8 6E??           00207         MOVWF   r0x04
+0000FA 0E01           00208         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+0000FC 6E??           00209         MOVWF   r0x05
+0000FE 50??           00210         MOVF    r0x04, W
+000100 E0??           00211         BZ      _00220_DS_
+Message[1301]: Using default destination of 0 (Access Bank).
+000102 6CE8           00212         NEGF    WREG
+000104 90D8           00213         BCF     STATUS, 0
+000106                00214 _00221_DS_:
+000106 36??           00215         RLCF    r0x05, F
+000108 0F01           00216         ADDLW   0x01
+00010A E3??           00217         BNC     _00221_DS_
+00010C                00218 _00220_DS_:
+00010C 1C??           00219         COMF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00010E 6E??           00220         MOVWF   r0x04
+000110 50??           00221         MOVF    r0x04, W
+000112 ????           00222         BANKSEL _DebounceTeclas_valorNovo_1_7
+000114 17??           00223         ANDWF   _DebounceTeclas_valorNovo_1_7, F, B
+000116                00224 _00175_DS_:
+                      00225 ;       .line   61; teclado.c   for (j = 0; j < 2; j++) {
+000116 2A??           00226         INCF    r0x03, F
+000118 0E02           00227         MOVLW   0x02
+00011A 5C??           00228         SUBWF   r0x03, W
+00011C A0D8           00229         BTFSS   STATUS, 0
+00011E D???           00230         BRA     _00174_DS_
+                      00231 ;       .line   52; teclado.c   for (i = 0; i < 4; i++) {
+000120 2A??           00232         INCF    r0x01, F
+000122 2A??           00233         INCF    r0x01, F
+000124 2A??           00234         INCF    r0x02, F
+000126 2A??           00235         INCF    r0x02, F
+000128 2A??           00236         INCF    r0x00, F
+00012A 0E04           00237         MOVLW   0x04
+00012C 5C??           00238         SUBWF   r0x00, W
+00012E A0D8           00239         BTFSS   STATUS, 0
+000130 D???           00240         BRA     _00176_DS_
+000132 ????           00241         BANKSEL _DebounceTeclas_valorAntigo_1_7
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  6
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00242 ;       .line   71; teclado.c   if (valorAntigo == valorNovo) {
+000134 51??           00243         MOVF    _DebounceTeclas_valorAntigo_1_7, W, B
+000136 ????           00244         BANKSEL _DebounceTeclas_valorNovo_1_7
+000138 19??           00245         XORWF   _DebounceTeclas_valorNovo_1_7, W, B
+00013A E1??           00246         BNZ     _00167_DS_
+00013C                00247 _00226_DS_:
+00013C ????           00248         BANKSEL _DebounceTeclas_tempo_1_7
+                      00249 ;       .line   72; teclado.c   tempo--;
+00013E 07??           00250         DECF    _DebounceTeclas_tempo_1_7, F, B
+000140 D???           00251         BRA     _00168_DS_
+000142                00252 _00167_DS_:
+                      00253 ;       .line   74; teclado.c   tempo = 10;
+000142 0E0A           00254         MOVLW   0x0a
+000144 ????           00255         BANKSEL _DebounceTeclas_tempo_1_7
+000146 6F??           00256         MOVWF   _DebounceTeclas_tempo_1_7, B
+                      00257 ;       .line   75; teclado.c   valorAntigo = valorNovo;
+000148 C??? F???      00258         MOVFF   _DebounceTeclas_valorNovo_1_7, _DebounceTeclas_valorAntigo_1_7
+00014C                00259 _00168_DS_:
+00014C ????           00260         BANKSEL _DebounceTeclas_tempo_1_7
+                      00261 ;       .line   77; teclado.c   if (tempo == 0) {
+00014E 51??           00262         MOVF    _DebounceTeclas_tempo_1_7, W, B
+000150 E1??           00263         BNZ     _00178_DS_
+                      00264 ;       .line   78; teclado.c   valor = valorAntigo;
+000152 C??? F???      00265         MOVFF   _DebounceTeclas_valorAntigo_1_7, _valor
+000156                00266 _00178_DS_:
+000156 CFE4 F000      00267         MOVFF   PREINC1, r0x09
+00015A CFE4 F000      00268         MOVFF   PREINC1, r0x08
+00015E CFE4 F000      00269         MOVFF   PREINC1, r0x07
+000162 CFE4 F000      00270         MOVFF   PREINC1, r0x06
+000166 CFE4 F000      00271         MOVFF   PREINC1, r0x05
+00016A CFE4 F000      00272         MOVFF   PREINC1, r0x04
+00016E CFE4 F000      00273         MOVFF   PREINC1, r0x03
+000172 CFE4 F000      00274         MOVFF   PREINC1, r0x02
+000176 CFE4 F000      00275         MOVFF   PREINC1, r0x01
+00017A CFE4 F000      00276         MOVFF   PREINC1, r0x00
+00017E CFE4 FFD9      00277         MOVFF   PREINC1, FSR2L
+000182 0012           00278         RETURN  
+                      00279 
+                      00280 ; ; Starting pCode block
+                      00281 S_teclado__LerTeclas    code
+000000                00282 _LerTeclas:
+                      00283 ;       .line   25; teclado.c   unsigned char LerTeclas(void) {
+000000 CFD9 FFE5      00284         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00285         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00286         MOVFF   r0x00, POSTDEC1
+00000C ????           00287         BANKSEL _valor
+                      00288 ;       .line   26; teclado.c   if (BitTst(valor, 0))
+00000E 51??           00289         MOVF    _valor, W, B
+Message[1301]: Using default destination of 0 (Access Bank).
+000010 6E??           00290         MOVWF   r0x00
+000012 A0??           00291         BTFSS   r0x00, 0
+000014 D???           00292         BRA     _00106_DS_
+                      00293 ;       .line   27; teclado.c   return 10;
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  7
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000016 0E0A           00294         MOVLW   0x0a
+000018 D???           00295         BRA     _00122_DS_
+00001A                00296 _00106_DS_:
+00001A ????           00297         BANKSEL _valor
+                      00298 ;       .line   28; teclado.c   if (BitTst(valor, 1))
+00001C A3??           00299         BTFSS   _valor, 1, B
+00001E D???           00300         BRA     _00108_DS_
+                      00301 ;       .line   29; teclado.c   return 11;
+000020 0E0B           00302         MOVLW   0x0b
+000022 D???           00303         BRA     _00122_DS_
+000024                00304 _00108_DS_:
+000024 ????           00305         BANKSEL _valor
+                      00306 ;       .line   30; teclado.c   if (BitTst(valor, 2))
+000026 A5??           00307         BTFSS   _valor, 2, B
+000028 D???           00308         BRA     _00110_DS_
+                      00309 ;       .line   31; teclado.c   return 3;
+00002A 0E03           00310         MOVLW   0x03
+00002C D???           00311         BRA     _00122_DS_
+00002E                00312 _00110_DS_:
+00002E ????           00313         BANKSEL _valor
+                      00314 ;       .line   32; teclado.c   if (BitTst(valor, 3))
+000030 A7??           00315         BTFSS   _valor, 3, B
+000032 D???           00316         BRA     _00112_DS_
+                      00317 ;       .line   33; teclado.c   return 6;
+000034 0E06           00318         MOVLW   0x06
+000036 D???           00319         BRA     _00122_DS_
+000038                00320 _00112_DS_:
+000038 ????           00321         BANKSEL _valor
+                      00322 ;       .line   34; teclado.c   if (BitTst(valor, 4))
+00003A A9??           00323         BTFSS   _valor, 4, B
+00003C D???           00324         BRA     _00114_DS_
+                      00325 ;       .line   35; teclado.c   return 2;
+00003E 0E02           00326         MOVLW   0x02
+000040 D???           00327         BRA     _00122_DS_
+000042                00328 _00114_DS_:
+000042 ????           00329         BANKSEL _valor
+                      00330 ;       .line   36; teclado.c   if (BitTst(valor, 5))
+000044 AB??           00331         BTFSS   _valor, 5, B
+000046 D???           00332         BRA     _00116_DS_
+                      00333 ;       .line   37; teclado.c   return 5;
+000048 0E05           00334         MOVLW   0x05
+00004A D???           00335         BRA     _00122_DS_
+00004C                00336 _00116_DS_:
+00004C ????           00337         BANKSEL _valor
+                      00338 ;       .line   38; teclado.c   if (BitTst(valor, 6))
+00004E AD??           00339         BTFSS   _valor, 6, B
+000050 D???           00340         BRA     _00118_DS_
+                      00341 ;       .line   39; teclado.c   return 1;
+000052 0E01           00342         MOVLW   0x01
+000054 D???           00343         BRA     _00122_DS_
+000056                00344 _00118_DS_:
+000056 ????           00345         BANKSEL _valor
+                      00346 ;       .line   40; teclado.c   if (BitTst(valor, 7))
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000058 AF??           00347         BTFSS   _valor, 7, B
+00005A D???           00348         BRA     _00120_DS_
+                      00349 ;       .line   41; teclado.c   return 4;
+00005C 0E04           00350         MOVLW   0x04
+00005E D???           00351         BRA     _00122_DS_
+000060                00352 _00120_DS_:
+                      00353 ;       .line   43; teclado.c   return 30;
+000060 0E1E           00354         MOVLW   0x1e
+000062                00355 _00122_DS_:
+000062 CFE4 F000      00356         MOVFF   PREINC1, r0x00
+000066 CFE4 FFD9      00357         MOVFF   PREINC1, FSR2L
+00006A 0012           00358         RETURN  
+                      00359 
+                      00360 
+                      00361 
+                      00362 ; Statistics:
+                      00363 ; code size:      552 (0x0228) bytes ( 0.42%)
+                      00364 ;                 276 (0x0114) words
+                      00365 ; udata size:       1 (0x0001) bytes ( 0.08%)
+                      00366 ; access size:     10 (0x000a) bytes
+                      00367 
+                      00368 
+                      00369         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+INDF0                             00000FEF
+POSTDEC1                          00000FE5
+PREINC1                           00000FE4
+STATUS                            00000FD8
+WREG                              00000FE8
+_00106_DS_                        0000001A
+_00108_DS_                        00000024
+_00110_DS_                        0000002E
+_00112_DS_                        00000038
+_00114_DS_                        00000042
+_00116_DS_                        0000004C
+_00118_DS_                        00000056
+_00120_DS_                        00000060
+_00122_DS_                        00000062
+_00162_DS_                        000000F4
+_00167_DS_                        00000142
+_00168_DS_                        0000014C
+_00173_DS_                        00000076
+_00174_DS_                        00000084
+_00175_DS_                        00000116
+_00176_DS_                        00000036
+_00178_DS_                        00000156
+_00210_DS_                        00000064
+_00211_DS_                        0000005E
+_00213_DS_                        000000C4
+_00214_DS_                        000000AC
+_00215_DS_                        000000B8
+_00216_DS_                        000000B6
+_00217_DS_                        000000EC
+_00218_DS_                        000000E6
+_00220_DS_                        0000010C
+_00221_DS_                        00000106
+_00226_DS_                        0000013C
+_DebounceTeclas                   00000000
+_DebounceTeclas_tempo_1_7         00000000
+_DebounceTeclas_valorAntigo_1_7   00000002
+_DebounceTeclas_valorNovo_1_7     00000001
+_InicializaTeclado                00000000
+_LerTeclas                        00000000
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+_valor                            00000000
+r0x00                             00000000
+r0x01                             00000001
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  08:53:20         PAGE 10
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+r0x02                             00000002
+r0x03                             00000003
+r0x04                             00000004
+r0x05                             00000005
+r0x06                             00000006
+r0x07                             00000007
+r0x08                             00000008
+r0x09                             00000009
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    24 reported,     0 suppressed
+
+

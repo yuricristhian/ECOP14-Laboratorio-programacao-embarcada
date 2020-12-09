@@ -1,0 +1,161 @@
+gplink-1.4.0 #1106 (Oct  6 2014)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 9-8-2016  09:34:11
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Sep 08 09:34:11 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           	CONFIG	MCLRE=ON
+                                           	CONFIG	OSC=INTIO7
+                                           	CONFIG	WDT=OFF
+                                           	CONFIG	LVP=OFF
+                                           	CONFIG	PBADEN=OFF
+                                           	CONFIG	DEBUG=OFF
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	___fsadd
+                                           	extern	___fslt
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           FSR0L	equ	0xfe9
+                                           FSR1L	equ	0xfe1
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; interrupt vector
+                                           ;--------------------------------------------------------
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_main__main	code
+                                           _main:
+                                           ;	.line	28; main.c	*osccon = 0b01111011;
+00056e   ee0f     lfsr    0x0, 0xfd3       	LFSR	0x00, 0xfd3
+000570   f0d3
+000572   0e7b     movlw   0x7b             	MOVLW	0x7b
+000574   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	29; main.c	*TRISD = 0x00;
+000576   ee0f     lfsr    0x0, 0xf95       	LFSR	0x00, 0xf95
+000578   f095
+00057a   0e00     movlw   0x00             	MOVLW	0x00
+00057c   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	30; main.c	*PORTD = 0x00;
+00057e   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+000580   f083
+000582   0e00     movlw   0x00             	MOVLW	0x00
+000584   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           _00109_DS_:
+                                           ;	.line	32; main.c	for (i = 0; i < 1000; i++);
+000586   6a00     clrf    0x00, 0x0        	CLRF	r0x00
+000588   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+00058a   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+00058c   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+                                           _00108_DS_:
+00058e   0e3f     movlw   0x3f             	MOVLW	0x3f
+000590   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000592   0e80     movlw   0x80             	MOVLW	0x80
+000594   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000596   0e00     movlw   0x00             	MOVLW	0x00
+000598   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00059a   0e00     movlw   0x00             	MOVLW	0x00
+00059c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00059e   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0005a0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005a2   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0005a4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005a6   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0005a8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005aa   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0005ac   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005ae   ec02     call    0x000004, 0x0call    0x000004, 0x0 	CALL	___fsadd
+0005b0   f000
+0005b2   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+0005b4   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+0005b6   f001
+0005b8   cff4     movff   0xff4, 0x002     	MOVFF	PRODH, r0x02
+0005ba   f002
+0005bc   cfe9     movff   0xfe9, 0x003     	MOVFF	FSR0L, r0x03
+0005be   f003
+0005c0   0e08     movlw   0x08             	MOVLW	0x08
+0005c2   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0005c4   0e44     movlw   0x44             	MOVLW	0x44
+0005c6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005c8   0e7a     movlw   0x7a             	MOVLW	0x7a
+0005ca   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005cc   0e00     movlw   0x00             	MOVLW	0x00
+0005ce   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005d0   0e00     movlw   0x00             	MOVLW	0x00
+0005d2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005d4   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0005d6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005d8   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0005da   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005dc   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0005de   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005e0   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0005e2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0005e4   ecd9     call    0x0003b2, 0x0call    0x0003b2, 0x0 	CALL	___fslt
+0005e6   f001
+0005e8   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0005ea   0e08     movlw   0x08             	MOVLW	0x08
+0005ec   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0005ee   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0005f0   e1ce     bnz     0x00058e         	BNZ	_00108_DS_
+                                           ;	.line	33; main.c	*PORTD = *PORTD + 1;
+0005f2   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0005f4   f083
+0005f6   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+0005f8   f000
+0005fa   2a00     incf    0x00, 0x1, 0x0   	INCF	r0x00, F
+0005fc   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+0005fe   f083
+000600   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000602   ffef
+000604   d7c0     bra     0x000586         	BRA	_00109_DS_
+000606   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  154 (0x009a) bytes ( 0.12%)
+                                           ;           	   77 (0x004d) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    5 (0x0005) bytes
+                                           
+                                           
+                                           	end

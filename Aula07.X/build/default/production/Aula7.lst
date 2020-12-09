@@ -1,0 +1,215 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  09:38:37         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Sep 29 09:38:37 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010         CONFIG  MCLRE=ON
+                      00011         CONFIG  OSC=HS
+                      00012         CONFIG  WDT=OFF
+                      00013         CONFIG  LVP=OFF
+                      00014         CONFIG  DEBUG=OFF
+                      00015         CONFIG  WDTPS=1
+                      00016 
+                      00017 
+                      00018 ;--------------------------------------------------------
+                      00019 ; public variables in this module
+                      00020 ;--------------------------------------------------------
+  0000                00021         global  _main
+                      00022 
+                      00023 ;--------------------------------------------------------
+                      00024 ; extern variables in this module
+                      00025 ;--------------------------------------------------------
+  0000                00026         extern  __moduchar
+  0000                00027         extern  __divuchar
+  0000                00028         extern  _MudaDigito
+  0000                00029         extern  _AtualizaDisplay
+  0000                00030         extern  _InicializaDisplays
+  0000                00031         extern  _LerTeclas
+  0000                00032         extern  _DebounceTeclas
+  0000                00033         extern  _InicializaTeclado
+                      00034 
+                      00035 ;--------------------------------------------------------
+                      00036 ;       Equates to used internal registers
+                      00037 ;--------------------------------------------------------
+  00000FE6            00038 POSTINC1        equ     0xfe6
+  00000FE5            00039 POSTDEC1        equ     0xfe5
+  00000FE4            00040 PREINC1 equ     0xfe4
+                      00041 
+                      00042 
+                      00043 ; Internal registers
+                      00044 .registers      udata_ovr       0x0000
+000000                00045 r0x00   res     1
+000001                00046 r0x01   res     1
+000002                00047 r0x02   res     1
+                      00048 
+                      00049 ;--------------------------------------------------------
+                      00050 ; interrupt vector
+                      00051 ;--------------------------------------------------------
+                      00052 
+                      00053 ;--------------------------------------------------------
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  09:38:37         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00054 ; global & static initialisations
+                      00055 ;--------------------------------------------------------
+                      00056 ; I code from now on!
+                      00057 ; ; Starting pCode block
+                      00058 S_Aula7__main   code
+000000                00059 _main:
+                      00060 ;       .line   15; Aula7.c     unsigned char atual = 0, anterior = 30, con = 0;
+000000 0E1E           00061         MOVLW   0x1e
+Message[1301]: Using default destination of 0 (Access Bank).
+000002 6E??           00062         MOVWF   r0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000004 6A??           00063         CLRF    r0x01
+                      00064 ;       .line   16; Aula7.c     InicializaDisplays();
+000006 EC?? F0??      00065         CALL    _InicializaDisplays
+                      00066 ;       .line   17; Aula7.c     InicializaTeclado();
+00000A EC?? F0??      00067         CALL    _InicializaTeclado
+00000E                00068 _00111_DS_:
+                      00069 ;       .line   19; Aula7.c     AtualizaDisplay();
+00000E EC?? F0??      00070         CALL    _AtualizaDisplay
+                      00071 ;       .line   20; Aula7.c     DebounceTeclas();
+000012 EC?? F0??      00072         CALL    _DebounceTeclas
+                      00073 ;       .line   21; Aula7.c     MudaDigito((con % 10), 0);
+000016 0E0A           00074         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+000018 6EE5           00075         MOVWF   POSTDEC1
+00001A C??? F???      00076         MOVFF   r0x01, POSTDEC1
+00001E EC?? F0??      00077         CALL    __moduchar
+Message[1301]: Using default destination of 0 (Access Bank).
+000022 6E??           00078         MOVWF   r0x02
+000024 50E4           00079         MOVF    PREINC1, W
+000026 50E4           00080         MOVF    PREINC1, W
+000028 0E00           00081         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00002A 6EE5           00082         MOVWF   POSTDEC1
+00002C 50??           00083         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00002E 6EE5           00084         MOVWF   POSTDEC1
+000030 EC?? F0??      00085         CALL    _MudaDigito
+000034 52E6           00086         MOVF    POSTINC1, F
+000036 52E6           00087         MOVF    POSTINC1, F
+                      00088 ;       .line   22; Aula7.c     MudaDigito(((con / 10) % 10), 1);
+000038 0E0A           00089         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+00003A 6EE5           00090         MOVWF   POSTDEC1
+00003C C??? F???      00091         MOVFF   r0x01, POSTDEC1
+000040 EC?? F0??      00092         CALL    __divuchar
+Message[1301]: Using default destination of 0 (Access Bank).
+000044 6E??           00093         MOVWF   r0x02
+000046 50E4           00094         MOVF    PREINC1, W
+000048 50E4           00095         MOVF    PREINC1, W
+00004A 0E0A           00096         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+00004C 6EE5           00097         MOVWF   POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  09:38:37         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00004E C??? F???      00098         MOVFF   r0x02, POSTDEC1
+000052 EC?? F0??      00099         CALL    __moduchar
+Message[1301]: Using default destination of 0 (Access Bank).
+000056 6E??           00100         MOVWF   r0x02
+000058 50E4           00101         MOVF    PREINC1, W
+00005A 50E4           00102         MOVF    PREINC1, W
+00005C 0E01           00103         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+00005E 6EE5           00104         MOVWF   POSTDEC1
+000060 50??           00105         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000062 6EE5           00106         MOVWF   POSTDEC1
+000064 EC?? F0??      00107         CALL    _MudaDigito
+000068 52E6           00108         MOVF    POSTINC1, F
+00006A 52E6           00109         MOVF    POSTINC1, F
+                      00110 ;       .line   23; Aula7.c     atual = LerTeclas();
+00006C EC?? F0??      00111         CALL    _LerTeclas
+Message[1301]: Using default destination of 0 (Access Bank).
+000070 6E??           00112         MOVWF   r0x02
+                      00113 ;       .line   25; Aula7.c     if ( (atual != anterior) && (anterior == 30)) {
+000072 50??           00114         MOVF    r0x02, W
+000074 18??           00115         XORWF   r0x00, W
+000076 E0??           00116         BZ      _00106_DS_
+000078 50??           00117         MOVF    r0x00, W
+00007A 0A1E           00118         XORLW   0x1e
+00007C E1??           00119         BNZ     _00106_DS_
+                      00120 ;       .line   26; Aula7.c     con++;
+00007E 2A??           00121         INCF    r0x01, F
+000080                00122 _00106_DS_:
+                      00123 ;       .line   29; Aula7.c     if (con == 100) {
+000080 50??           00124         MOVF    r0x01, W
+000082 0A64           00125         XORLW   0x64
+000084 E1??           00126         BNZ     _00109_DS_
+                      00127 ;       .line   30; Aula7.c     con = 0;
+Message[1301]: Using default destination of 0 (Access Bank).
+000086 6A??           00128         CLRF    r0x01
+000088                00129 _00109_DS_:
+                      00130 ;       .line   32; Aula7.c     anterior = atual;
+000088 C??? F???      00131         MOVFF   r0x02, r0x00
+00008C D???           00132         BRA     _00111_DS_
+00008E 0012           00133         RETURN  
+                      00134 
+                      00135 
+                      00136 
+                      00137 ; Statistics:
+                      00138 ; code size:      144 (0x0090) bytes ( 0.11%)
+                      00139 ;                  72 (0x0048) words
+                      00140 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      00141 ; access size:      3 (0x0003) bytes
+                      00142 
+                      00143 
+                      00144         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-29-2016  09:38:37         PAGE  4
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+POSTDEC1                          00000FE5
+POSTINC1                          00000FE6
+PREINC1                           00000FE4
+_00106_DS_                        00000080
+_00109_DS_                        00000088
+_00111_DS_                        0000000E
+_AtualizaDisplay                  00000000
+_DebounceTeclas                   00000000
+_InicializaDisplays               00000000
+_InicializaTeclado                00000000
+_LerTeclas                        00000000
+_MudaDigito                       00000000
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+__divuchar                        00000000
+__moduchar                        00000000
+_main                             00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    14 reported,     0 suppressed
+
+

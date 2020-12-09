@@ -1,0 +1,516 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Sep 01 08:44:39 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010 
+                      00011 
+                      00012 ;--------------------------------------------------------
+                      00013 ; public variables in this module
+                      00014 ;--------------------------------------------------------
+  0000                00015         global  _MudaDigito
+  0000                00016         global  _AtualizaDisplay
+  0000                00017         global  _InicializaDisplays
+                      00018 
+                      00019 ;--------------------------------------------------------
+                      00020 ;       Equates to used internal registers
+                      00021 ;--------------------------------------------------------
+  00000FD8            00022 STATUS  equ     0xfd8
+  00000FF9            00023 PCL     equ     0xff9
+  00000FFA            00024 PCLATH  equ     0xffa
+  00000FFB            00025 PCLATU  equ     0xffb
+  00000FE8            00026 WREG    equ     0xfe8
+  00000FF6            00027 TBLPTRL equ     0xff6
+  00000FF7            00028 TBLPTRH equ     0xff7
+  00000FF8            00029 TBLPTRU equ     0xff8
+  00000FF5            00030 TABLAT  equ     0xff5
+  00000FE1            00031 FSR1L   equ     0xfe1
+  00000FD9            00032 FSR2L   equ     0xfd9
+  00000FEF            00033 INDF0   equ     0xfef
+  00000FE5            00034 POSTDEC1        equ     0xfe5
+  00000FE4            00035 PREINC1 equ     0xfe4
+  00000FDB            00036 PLUSW2  equ     0xfdb
+                      00037 
+                      00038 
+                      00039 ; Internal registers
+                      00040 .registers      udata_ovr       0x0000
+000000                00041 r0x00   res     1
+000001                00042 r0x01   res     1
+000002                00043 r0x02   res     1
+                      00044 
+                      00045 udata_disp7seg_0        udata
+000000                00046 _display        res     1
+                      00047 
+                      00048 udata_disp7seg_1        udata
+000000                00049 _v0     res     1
+                      00050 
+                      00051 udata_disp7seg_2        udata
+000000                00052 _v1     res     1
+                      00053 
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00054 udata_disp7seg_3        udata
+000000                00055 _v2     res     1
+                      00056 
+                      00057 udata_disp7seg_4        udata
+000000                00058 _v3     res     1
+                      00059 
+                      00060 ;--------------------------------------------------------
+                      00061 ; global & static initialisations
+                      00062 ;--------------------------------------------------------
+                      00063 ; I code from now on!
+                      00064 ; ; Starting pCode block
+                      00065 S_disp7seg__InicializaDisplays  code
+000000                00066 _InicializaDisplays:
+                      00067 ;       .line   73; disp7seg.c  void InicializaDisplays(void)
+000000 CFD9 FFE5      00068         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00069         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00070         MOVFF   r0x00, POSTDEC1
+                      00071 ;       .line   76; disp7seg.c  BitClr(TRISA,2);
+00000C EE0F F092      00072         LFSR    0x00, 0xf92
+000010 CFEF F000      00073         MOVFF   INDF0, r0x00
+000014 94??           00074         BCF     r0x00, 2
+000016 EE0F F092      00075         LFSR    0x00, 0xf92
+00001A C??? F???      00076         MOVFF   r0x00, INDF0
+                      00077 ;       .line   77; disp7seg.c  BitClr(TRISA,5);
+00001E EE0F F092      00078         LFSR    0x00, 0xf92
+000022 CFEF F000      00079         MOVFF   INDF0, r0x00
+000026 9A??           00080         BCF     r0x00, 5
+000028 EE0F F092      00081         LFSR    0x00, 0xf92
+00002C C??? F???      00082         MOVFF   r0x00, INDF0
+                      00083 ;       .line   78; disp7seg.c  BitClr(TRISE,0);
+000030 EE0F F096      00084         LFSR    0x00, 0xf96
+000034 CFEF F000      00085         MOVFF   INDF0, r0x00
+000038 90??           00086         BCF     r0x00, 0
+00003A EE0F F096      00087         LFSR    0x00, 0xf96
+00003E C??? F???      00088         MOVFF   r0x00, INDF0
+                      00089 ;       .line   79; disp7seg.c  BitClr(TRISE,2);
+000042 EE0F F096      00090         LFSR    0x00, 0xf96
+000046 CFEF F000      00091         MOVFF   INDF0, r0x00
+00004A 94??           00092         BCF     r0x00, 2
+00004C EE0F F096      00093         LFSR    0x00, 0xf96
+000050 C??? F???      00094         MOVFF   r0x00, INDF0
+                      00095 ;       .line   80; disp7seg.c  ADCON1 = 0x0E; //apenas AN0 é analogico, a referencia é baseada na fonte
+000054 EE0F F0C1      00096         LFSR    0x00, 0xfc1
+000058 0E0E           00097         MOVLW   0x0e
+Message[1301]: Using default destination of 0 (Access Bank).
+00005A 6EEF           00098         MOVWF   INDF0
+                      00099 ;       .line   81; disp7seg.c  TRISD = 0x00;   //Porta de dados
+00005C EE0F F095      00100         LFSR    0x00, 0xf95
+000060 0E00           00101         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000062 6EEF           00102         MOVWF   INDF0
+000064 CFE4 F000      00103         MOVFF   PREINC1, r0x00
+000068 CFE4 FFD9      00104         MOVFF   PREINC1, FSR2L
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00006C 0012           00105         RETURN  
+                      00106 
+                      00107 ; ; Starting pCode block
+                      00108 S_disp7seg__AtualizaDisplay     code
+000000                00109 _AtualizaDisplay:
+                      00110 ;       .line   32; disp7seg.c  void AtualizaDisplay(void)
+000000 CFD9 FFE5      00111         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00112         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00113         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00114         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00115         MOVFF   r0x02, POSTDEC1
+                      00116 ;       .line   35; disp7seg.c  PORTA = 0x00;
+000014 EE0F F080      00117         LFSR    0x00, 0xf80
+000018 0E00           00118         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00001A 6EEF           00119         MOVWF   INDF0
+                      00120 ;       .line   36; disp7seg.c  PORTE = 0x00;
+00001C EE0F F084      00121         LFSR    0x00, 0xf84
+000020 0E00           00122         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000022 6EEF           00123         MOVWF   INDF0
+                      00124 ;       .line   38; disp7seg.c  PORTD = 0x00;
+000024 EE0F F083      00125         LFSR    0x00, 0xf83
+000028 0E00           00126         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00002A 6EEF           00127         MOVWF   INDF0
+                      00128 ;       .line   40; disp7seg.c  switch(display) //liga apenas o display da vez
+00002C 80D8           00129         BSF     STATUS, 0
+00002E ????           00130         BANKSEL _display
+000030 AF??           00131         BTFSS   _display, 7, B
+000032 90D8           00132         BCF     STATUS, 0
+000034 B0D8           00133         BTFSC   STATUS, 0
+000036 D???           00134         BRA     _00141_DS_
+000038 ????           00135         BANKSEL _display
+00003A 51??           00136         MOVF    _display, W, B
+00003C 0F80           00137         ADDLW   0x80
+00003E 0F7C           00138         ADDLW   0x7c
+000040 B0D8           00139         BTFSC   STATUS, 0
+000042 D???           00140         BRA     _00141_DS_
+Message[1301]: Using default destination of 0 (Access Bank).
+000044 6AFA           00141         CLRF    PCLATH
+Message[1301]: Using default destination of 0 (Access Bank).
+000046 6AFB           00142         CLRF    PCLATU
+000048 ????           00143         BANKSEL _display
+00004A 35??           00144         RLCF    _display, W, B
+00004C 36FA           00145         RLCF    PCLATH, F
+00004E 34E8           00146         RLCF    WREG, W
+000050 36FA           00147         RLCF    PCLATH, F
+000052 0BFC           00148         ANDLW   0xfc
+000054 0F??           00149         ADDLW   LOW(_00152_DS_)
+Message[1301]: Using default destination of 0 (Access Bank).
+000056 6EE5           00150         MOVWF   POSTDEC1
+000058 0E??           00151         MOVLW   HIGH(_00152_DS_)
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00005A 22FA           00152         ADDWFC  PCLATH, F
+00005C 0E??           00153         MOVLW   UPPER(_00152_DS_)
+00005E 22FB           00154         ADDWFC  PCLATU, F
+000060 50E4           00155         MOVF    PREINC1, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000062 6EF9           00156         MOVWF   PCL
+000064                00157 _00152_DS_:
+000064 EF?? F0??      00158         GOTO    _00137_DS_
+000068 EF?? F0??      00159         GOTO    _00138_DS_
+00006C EF?? F0??      00160         GOTO    _00139_DS_
+000070 EF?? F0??      00161         GOTO    _00140_DS_
+000074                00162 _00137_DS_:
+                      00163 ;       .line   43; disp7seg.c  PORTD = valor[v0];
+000074 0E??           00164         MOVLW   LOW(_valor)
+000076 ????           00165         BANKSEL _v0
+000078 25??           00166         ADDWF   _v0, W, B
+Message[1301]: Using default destination of 0 (Access Bank).
+00007A 6E??           00167         MOVWF   r0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00007C 6A??           00168         CLRF    r0x01
+00007E ????           00169         BANKSEL _v0
+000080 BF??           00170         BTFSC   _v0, 7, B
+Message[1301]: Using default destination of 0 (Access Bank).
+000082 68??           00171         SETF    r0x01
+000084 0E??           00172         MOVLW   HIGH(_valor)
+000086 22??           00173         ADDWFC  r0x01, F
+Message[1301]: Using default destination of 0 (Access Bank).
+000088 6A??           00174         CLRF    r0x02
+00008A ????           00175         BANKSEL _v0
+00008C BF??           00176         BTFSC   _v0, 7, B
+Message[1301]: Using default destination of 0 (Access Bank).
+00008E 68??           00177         SETF    r0x02
+000090 0E??           00178         MOVLW   UPPER(_valor)
+000092 22??           00179         ADDWFC  r0x02, F
+000094 C??? F???      00180         MOVFF   r0x00, TBLPTRL
+000098 C??? F???      00181         MOVFF   r0x01, TBLPTRH
+00009C C??? F???      00182         MOVFF   r0x02, TBLPTRU
+0000A0 0009           00183         TBLRD*+ 
+0000A2 CFF5 F000      00184         MOVFF   TABLAT, r0x00
+0000A6 EE0F F083      00185         LFSR    0x00, 0xf83
+0000AA C??? F???      00186         MOVFF   r0x00, INDF0
+                      00187 ;       .line   44; disp7seg.c  BitSet(PORTA,5);
+0000AE EE0F F080      00188         LFSR    0x00, 0xf80
+0000B2 CFEF F000      00189         MOVFF   INDF0, r0x00
+0000B6 8A??           00190         BSF     r0x00, 5
+0000B8 EE0F F080      00191         LFSR    0x00, 0xf80
+0000BC C??? F???      00192         MOVFF   r0x00, INDF0
+                      00193 ;       .line   45; disp7seg.c  display = 1;
+0000C0 0E01           00194         MOVLW   0x01
+0000C2 ????           00195         BANKSEL _display
+0000C4 6F??           00196         MOVWF   _display, B
+                      00197 ;       .line   46; disp7seg.c  break;
+0000C6 D???           00198         BRA     _00143_DS_
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  5
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0000C8                00199 _00138_DS_:
+                      00200 ;       .line   49; disp7seg.c  PORTD = valor[v1];
+0000C8 0E??           00201         MOVLW   LOW(_valor)
+0000CA ????           00202         BANKSEL _v1
+0000CC 25??           00203         ADDWF   _v1, W, B
+Message[1301]: Using default destination of 0 (Access Bank).
+0000CE 6E??           00204         MOVWF   r0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D0 6A??           00205         CLRF    r0x01
+0000D2 ????           00206         BANKSEL _v1
+0000D4 BF??           00207         BTFSC   _v1, 7, B
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D6 68??           00208         SETF    r0x01
+0000D8 0E??           00209         MOVLW   HIGH(_valor)
+0000DA 22??           00210         ADDWFC  r0x01, F
+Message[1301]: Using default destination of 0 (Access Bank).
+0000DC 6A??           00211         CLRF    r0x02
+0000DE ????           00212         BANKSEL _v1
+0000E0 BF??           00213         BTFSC   _v1, 7, B
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E2 68??           00214         SETF    r0x02
+0000E4 0E??           00215         MOVLW   UPPER(_valor)
+0000E6 22??           00216         ADDWFC  r0x02, F
+0000E8 C??? F???      00217         MOVFF   r0x00, TBLPTRL
+0000EC C??? F???      00218         MOVFF   r0x01, TBLPTRH
+0000F0 C??? F???      00219         MOVFF   r0x02, TBLPTRU
+0000F4 0009           00220         TBLRD*+ 
+0000F6 CFF5 F000      00221         MOVFF   TABLAT, r0x00
+0000FA EE0F F083      00222         LFSR    0x00, 0xf83
+0000FE C??? F???      00223         MOVFF   r0x00, INDF0
+                      00224 ;       .line   50; disp7seg.c  BitSet(PORTA,2);
+000102 EE0F F080      00225         LFSR    0x00, 0xf80
+000106 CFEF F000      00226         MOVFF   INDF0, r0x00
+00010A 84??           00227         BSF     r0x00, 2
+00010C EE0F F080      00228         LFSR    0x00, 0xf80
+000110 C??? F???      00229         MOVFF   r0x00, INDF0
+                      00230 ;       .line   51; disp7seg.c  display = 2;
+000114 0E02           00231         MOVLW   0x02
+000116 ????           00232         BANKSEL _display
+000118 6F??           00233         MOVWF   _display, B
+                      00234 ;       .line   52; disp7seg.c  break;
+00011A D???           00235         BRA     _00143_DS_
+00011C                00236 _00139_DS_:
+                      00237 ;       .line   55; disp7seg.c  PORTD = valor[v2];
+00011C 0E??           00238         MOVLW   LOW(_valor)
+00011E ????           00239         BANKSEL _v2
+000120 25??           00240         ADDWF   _v2, W, B
+Message[1301]: Using default destination of 0 (Access Bank).
+000122 6E??           00241         MOVWF   r0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000124 6A??           00242         CLRF    r0x01
+000126 ????           00243         BANKSEL _v2
+000128 BF??           00244         BTFSC   _v2, 7, B
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  6
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00012A 68??           00245         SETF    r0x01
+00012C 0E??           00246         MOVLW   HIGH(_valor)
+00012E 22??           00247         ADDWFC  r0x01, F
+Message[1301]: Using default destination of 0 (Access Bank).
+000130 6A??           00248         CLRF    r0x02
+000132 ????           00249         BANKSEL _v2
+000134 BF??           00250         BTFSC   _v2, 7, B
+Message[1301]: Using default destination of 0 (Access Bank).
+000136 68??           00251         SETF    r0x02
+000138 0E??           00252         MOVLW   UPPER(_valor)
+00013A 22??           00253         ADDWFC  r0x02, F
+00013C C??? F???      00254         MOVFF   r0x00, TBLPTRL
+000140 C??? F???      00255         MOVFF   r0x01, TBLPTRH
+000144 C??? F???      00256         MOVFF   r0x02, TBLPTRU
+000148 0009           00257         TBLRD*+ 
+00014A CFF5 F000      00258         MOVFF   TABLAT, r0x00
+00014E EE0F F083      00259         LFSR    0x00, 0xf83
+000152 C??? F???      00260         MOVFF   r0x00, INDF0
+                      00261 ;       .line   56; disp7seg.c  BitSet(PORTE,0);
+000156 EE0F F084      00262         LFSR    0x00, 0xf84
+00015A CFEF F000      00263         MOVFF   INDF0, r0x00
+00015E 80??           00264         BSF     r0x00, 0
+000160 EE0F F084      00265         LFSR    0x00, 0xf84
+000164 C??? F???      00266         MOVFF   r0x00, INDF0
+                      00267 ;       .line   57; disp7seg.c  display = 3;
+000168 0E03           00268         MOVLW   0x03
+00016A ????           00269         BANKSEL _display
+00016C 6F??           00270         MOVWF   _display, B
+                      00271 ;       .line   58; disp7seg.c  break;
+00016E D???           00272         BRA     _00143_DS_
+000170                00273 _00140_DS_:
+                      00274 ;       .line   61; disp7seg.c  PORTD = valor[v3];
+000170 0E??           00275         MOVLW   LOW(_valor)
+000172 ????           00276         BANKSEL _v3
+000174 25??           00277         ADDWF   _v3, W, B
+Message[1301]: Using default destination of 0 (Access Bank).
+000176 6E??           00278         MOVWF   r0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000178 6A??           00279         CLRF    r0x01
+00017A ????           00280         BANKSEL _v3
+00017C BF??           00281         BTFSC   _v3, 7, B
+Message[1301]: Using default destination of 0 (Access Bank).
+00017E 68??           00282         SETF    r0x01
+000180 0E??           00283         MOVLW   HIGH(_valor)
+000182 22??           00284         ADDWFC  r0x01, F
+Message[1301]: Using default destination of 0 (Access Bank).
+000184 6A??           00285         CLRF    r0x02
+000186 ????           00286         BANKSEL _v3
+000188 BF??           00287         BTFSC   _v3, 7, B
+Message[1301]: Using default destination of 0 (Access Bank).
+00018A 68??           00288         SETF    r0x02
+00018C 0E??           00289         MOVLW   UPPER(_valor)
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  7
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00018E 22??           00290         ADDWFC  r0x02, F
+000190 C??? F???      00291         MOVFF   r0x00, TBLPTRL
+000194 C??? F???      00292         MOVFF   r0x01, TBLPTRH
+000198 C??? F???      00293         MOVFF   r0x02, TBLPTRU
+00019C 0009           00294         TBLRD*+ 
+00019E CFF5 F000      00295         MOVFF   TABLAT, r0x00
+0001A2 EE0F F083      00296         LFSR    0x00, 0xf83
+0001A6 C??? F???      00297         MOVFF   r0x00, INDF0
+                      00298 ;       .line   62; disp7seg.c  BitSet(PORTE,2);
+0001AA EE0F F084      00299         LFSR    0x00, 0xf84
+0001AE CFEF F000      00300         MOVFF   INDF0, r0x00
+0001B2 84??           00301         BSF     r0x00, 2
+0001B4 EE0F F084      00302         LFSR    0x00, 0xf84
+0001B8 C??? F???      00303         MOVFF   r0x00, INDF0
+0001BC ????           00304         BANKSEL _display
+                      00305 ;       .line   63; disp7seg.c  display = 0;
+0001BE 6B??           00306         CLRF    _display, B
+                      00307 ;       .line   64; disp7seg.c  break;
+0001C0 D???           00308         BRA     _00143_DS_
+0001C2                00309 _00141_DS_:
+0001C2 ????           00310         BANKSEL _display
+                      00311 ;       .line   67; disp7seg.c  display = 0;
+0001C4 6B??           00312         CLRF    _display, B
+0001C6                00313 _00143_DS_:
+                      00314 ;       .line   69; disp7seg.c  }
+0001C6 CFE4 F000      00315         MOVFF   PREINC1, r0x02
+0001CA CFE4 F000      00316         MOVFF   PREINC1, r0x01
+0001CE CFE4 F000      00317         MOVFF   PREINC1, r0x00
+0001D2 CFE4 FFD9      00318         MOVFF   PREINC1, FSR2L
+0001D6 0012           00319         RETURN  
+                      00320 
+                      00321 ; ; Starting pCode block
+                      00322 S_disp7seg__MudaDigito  code
+000000                00323 _MudaDigito:
+                      00324 ;       .line   11; disp7seg.c  void MudaDigito(char val, char pos)
+000000 CFD9 FFE5      00325         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00326         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00327         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00328         MOVFF   r0x01, POSTDEC1
+000010 0E02           00329         MOVLW   0x02
+000012 CFDB F000      00330         MOVFF   PLUSW2, r0x00
+000016 0E03           00331         MOVLW   0x03
+000018 CFDB F000      00332         MOVFF   PLUSW2, r0x01
+                      00333 ;       .line   13; disp7seg.c  if (pos == 0)
+00001C 50??           00334         MOVF    r0x01, W
+00001E E1??           00335         BNZ     _00106_DS_
+                      00336 ;       .line   15; disp7seg.c  v0 = val;
+000020 C??? F???      00337         MOVFF   r0x00, _v0
+000024                00338 _00106_DS_:
+                      00339 ;       .line   17; disp7seg.c  if (pos == 1)
+000024 50??           00340         MOVF    r0x01, W
+000026 0A01           00341         XORLW   0x01
+000028 E1??           00342         BNZ     _00108_DS_
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00343 ;       .line   19; disp7seg.c  v1 = val;
+00002A C??? F???      00344         MOVFF   r0x00, _v1
+00002E                00345 _00108_DS_:
+                      00346 ;       .line   21; disp7seg.c  if (pos == 2)
+00002E 50??           00347         MOVF    r0x01, W
+000030 0A02           00348         XORLW   0x02
+000032 E1??           00349         BNZ     _00110_DS_
+                      00350 ;       .line   23; disp7seg.c  v2 = val;
+000034 C??? F???      00351         MOVFF   r0x00, _v2
+000038                00352 _00110_DS_:
+                      00353 ;       .line   25; disp7seg.c  if (pos == 3)
+000038 50??           00354         MOVF    r0x01, W
+00003A 0A03           00355         XORLW   0x03
+00003C E1??           00356         BNZ     _00113_DS_
+                      00357 ;       .line   27; disp7seg.c  v3 = val;
+00003E C??? F???      00358         MOVFF   r0x00, _v3
+000042                00359 _00113_DS_:
+000042 CFE4 F000      00360         MOVFF   PREINC1, r0x01
+000046 CFE4 F000      00361         MOVFF   PREINC1, r0x00
+00004A CFE4 FFD9      00362         MOVFF   PREINC1, FSR2L
+00004E 0012           00363         RETURN  
+                      00364 
+                      00365 ; ; Starting pCode block for Ival
+                      00366         code
+000000                00367 _valor:
+000000 063F 4F5B 6D66 00368         DB      0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f, 0x77, 0x7c
+       077D 6F7F 7C77 
+00000C 5E39 7179      00369         DB      0x39, 0x5e, 0x79, 0x71
+                      00370 
+                      00371 
+                      00372 ; Statistics:
+                      00373 ; code size:      668 (0x029c) bytes ( 0.51%)
+                      00374 ;                 334 (0x014e) words
+                      00375 ; udata size:       5 (0x0005) bytes ( 0.39%)
+                      00376 ; access size:      3 (0x0003) bytes
+                      00377 
+                      00378 
+                      00379         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-1-2016  08:44:39          PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+INDF0                             00000FEF
+PCL                               00000FF9
+PCLATH                            00000FFA
+PCLATU                            00000FFB
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+PREINC1                           00000FE4
+STATUS                            00000FD8
+TABLAT                            00000FF5
+TBLPTRH                           00000FF7
+TBLPTRL                           00000FF6
+TBLPTRU                           00000FF8
+WREG                              00000FE8
+_00106_DS_                        00000024
+_00108_DS_                        0000002E
+_00110_DS_                        00000038
+_00113_DS_                        00000042
+_00137_DS_                        00000074
+_00138_DS_                        000000C8
+_00139_DS_                        0000011C
+_00140_DS_                        00000170
+_00141_DS_                        000001C2
+_00143_DS_                        000001C6
+_00152_DS_                        00000064
+_AtualizaDisplay                  00000000
+_InicializaDisplays               00000000
+_MudaDigito                       00000000
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+_display                          00000000
+_v0                               00000000
+_v1                               00000000
+_v2                               00000000
+_v3                               00000000
+_valor                            00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    29 reported,     0 suppressed
+
+

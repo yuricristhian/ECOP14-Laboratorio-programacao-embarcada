@@ -1,0 +1,1767 @@
+gplink-1.4.0 #1106 (Oct  6 2014)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 10-20-2016  09:24:48
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Oct 20 09:24:48 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           	CONFIG	MCLRE=ON
+                                           	CONFIG	OSC=HS
+                                           	CONFIG	WDT=OFF
+                                           	CONFIG	LVP=OFF
+                                           	CONFIG	DEBUG=OFF
+                                           	CONFIG	WDTPS=1
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_PrintInt
+                                           	global	_ConverteTemp
+                                           	global	_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	_InicializaAD
+                                           	extern	_LeValorAD
+                                           	extern	_EnviaComando
+                                           	extern	_EnviaDados
+                                           	extern	_InicializaLCD
+                                           	extern	_SetaPWM2
+                                           	extern	_SetaFreqPWM
+                                           	extern	_InicializaPWM
+                                           	extern	_LerTeclas
+                                           	extern	_DebounceTeclas
+                                           	extern	_InicializaTeclado
+                                           	extern	__divsint
+                                           	extern	__modsint
+                                           	extern	__mulint
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           WREG	equ	0xfe8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           POSTINC1	equ	0xfe6
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; interrupt vector
+                                           ;--------------------------------------------------------
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_Aula8__main	code
+                                           _main:
+                                           ;	.line	22; Aula8.c	InicializaTeclado();
+000d7e   ec16     call    0x00102c, 0x0call    0x00102c, 0x0 	CALL	_InicializaTeclado
+000d80   f008
+                                           ;	.line	23; Aula8.c	InicializaLCD();
+000d82   ec2a     call    0x000a54, 0x0call    0x000a54, 0x0 	CALL	_InicializaLCD
+000d84   f005
+                                           ;	.line	24; Aula8.c	InicializaAD();
+000d86   ecf6     call    0x000fec, 0x0call    0x000fec, 0x0 	CALL	_InicializaAD
+000d88   f007
+                                           ;	.line	25; Aula8.c	InicializaPWM();
+000d8a   ec03     call    0x000e06, 0x0call    0x000e06, 0x0 	CALL	_InicializaPWM
+000d8c   f007
+                                           ;	.line	26; Aula8.c	SetaFreqPWM(10000);
+000d8e   0e27     movlw   0x27             	MOVLW	0x27
+000d90   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000d92   0e10     movlw   0x10             	MOVLW	0x10
+000d94   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000d96   ec47     call    0x000e8e, 0x0call    0x000e8e, 0x0 	CALL	_SetaFreqPWM
+000d98   f007
+000d9a   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000d9c   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           _00110_DS_:
+                                           ;	.line	29; Aula8.c	DebounceTeclas();
+000d9e   ecd1     call    0x0001a2, 0x0call    0x0001a2, 0x0 	CALL	_DebounceTeclas
+000da0   f000
+                                           ;	.line	30; Aula8.c	valorad = LeValorAD();
+000da2   ec86     call    0x000f0c, 0x0call    0x000f0c, 0x0 	CALL	_LeValorAD
+000da4   f007
+000da6   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000da8   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+000daa   f001
+                                           ;	.line	31; Aula8.c	temperatura = ConverteTemp(valorad);
+000dac   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000dae   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000db0   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000db2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000db4   ecc0     call    0x000f80, 0x0call    0x000f80, 0x0 	CALL	_ConverteTemp
+000db6   f007
+000db8   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000dba   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+000dbc   f001
+000dbe   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000dc0   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	32; Aula8.c	teclas = LerTeclas();
+000dc2   ec64     call    0x0010c8, 0x0call    0x0010c8, 0x0 	CALL	_LerTeclas
+000dc4   f008
+                                           ;	.line	40; Aula8.c	SetaPWM2(100);
+000dc6   0e64     movlw   0x64             	MOVLW	0x64
+000dc8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000dca   ecb9     call    0x000772, 0x0call    0x000772, 0x0 	CALL	_SetaPWM2
+000dcc   f003
+000dce   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	41; Aula8.c	PrintInt(temperatura);
+000dd0   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000dd2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000dd4   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000dd6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000dd8   ec93     call    0x000326, 0x0call    0x000326, 0x0 	CALL	_PrintInt
+000dda   f001
+000ddc   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000dde   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	42; Aula8.c	for (i = 0; i < 65000; i++);
+000de0   0ee8     movlw   0xe8             	MOVLW	0xe8
+000de2   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000de4   0efd     movlw   0xfd             	MOVLW	0xfd
+000de6   6e01     movwf   0x01, 0x0        	MOVWF	r0x01
+                                           _00109_DS_:
+000de8   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000dea   0fff     addlw   0xff             	ADDLW	0xff
+000dec   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+000dee   0eff     movlw   0xff             	MOVLW	0xff
+000df0   2001     addwfc  0x01, 0x0, 0x0   	ADDWFC	r0x01, W
+000df2   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+000df4   c002     movff   0x002, 0x000     	MOVFF	r0x02, r0x00
+000df6   f000
+000df8   c003     movff   0x003, 0x001     	MOVFF	r0x03, r0x01
+000dfa   f001
+000dfc   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000dfe   1003     iorwf   0x03, 0x0, 0x0   	IORWF	r0x03, W
+000e00   e1f3     bnz     0x000de8         	BNZ	_00109_DS_
+000e02   d7cd     bra     0x000d9e         	BRA	_00110_DS_
+000e04   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_Aula8__ConverteTemp	code
+                                           _ConverteTemp:
+                                           ;	.line	61; Aula8.c	int ConverteTemp(unsigned int val) {
+000f80   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000f82   ffe5
+000f84   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000f86   ffd9
+000f88   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000f8a   ffe5
+000f8c   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000f8e   ffe5
+000f90   0e02     movlw   0x02             	MOVLW	0x02
+000f92   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+000f94   f000
+000f96   0e03     movlw   0x03             	MOVLW	0x03
+000f98   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+000f9a   f001
+                                           ;	.line	63; Aula8.c	t = (int) (452 * val) / 100;
+000f9c   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000f9e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fa0   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000fa2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fa4   0e01     movlw   0x01             	MOVLW	0x01
+000fa6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fa8   0ec4     movlw   0xc4             	MOVLW	0xc4
+000faa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fac   ec20     call    0x000c40, 0x0call    0x000c40, 0x0 	CALL	__mulint
+000fae   f006
+000fb0   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000fb2   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+000fb4   f001
+000fb6   0e04     movlw   0x04             	MOVLW	0x04
+000fb8   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000fba   0e00     movlw   0x00             	MOVLW	0x00
+000fbc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fbe   0e64     movlw   0x64             	MOVLW	0x64
+000fc0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fc2   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000fc4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fc6   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000fc8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000fca   ecd4     call    0x0005a8, 0x0call    0x0005a8, 0x0 	CALL	__divsint
+000fcc   f002
+000fce   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000fd0   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+000fd2   f001
+000fd4   0e04     movlw   0x04             	MOVLW	0x04
+000fd6   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	64; Aula8.c	return t;
+000fd8   c001     movff   0x001, 0xff3     	MOVFF	r0x01, PRODL
+000fda   fff3
+000fdc   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000fde   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000fe0   f001
+000fe2   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000fe4   f000
+000fe6   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000fe8   ffd9
+000fea   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_Aula8__PrintInt	code
+                                           _PrintInt:
+                                           ;	.line	51; Aula8.c	void PrintInt(int valor) {
+000326   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000328   ffe5
+00032a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00032c   ffd9
+00032e   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000330   ffe5
+000332   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000334   ffe5
+000336   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000338   ffe5
+00033a   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+00033c   ffe5
+00033e   0e02     movlw   0x02             	MOVLW	0x02
+000340   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+000342   f000
+000344   0e03     movlw   0x03             	MOVLW	0x03
+000346   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+000348   f001
+                                           ;	.line	52; Aula8.c	EnviaComando(0x01);
+00034a   0e01     movlw   0x01             	MOVLW	0x01
+00034c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00034e   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+000350   f005
+000352   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	53; Aula8.c	EnviaComando(0x80);
+000354   0e80     movlw   0x80             	MOVLW	0x80
+000356   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000358   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+00035a   f005
+00035c   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	54; Aula8.c	EnviaDados((valor / 1000) % 10 + 48);
+00035e   0e03     movlw   0x03             	MOVLW	0x03
+000360   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000362   0ee8     movlw   0xe8             	MOVLW	0xe8
+000364   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000366   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000368   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00036a   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+00036c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00036e   ecd4     call    0x0005a8, 0x0call    0x0005a8, 0x0 	CALL	__divsint
+000370   f002
+000372   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+000374   cff3     movff   0xff3, 0x003     	MOVFF	PRODL, r0x03
+000376   f003
+000378   0e04     movlw   0x04             	MOVLW	0x04
+00037a   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00037c   0e00     movlw   0x00             	MOVLW	0x00
+00037e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000380   0e0a     movlw   0x0a             	MOVLW	0x0a
+000382   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000384   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000386   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000388   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+00038a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00038c   ec4b     call    0x000696, 0x0call    0x000696, 0x0 	CALL	__modsint
+00038e   f003
+000390   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+000392   cff3     movff   0xff3, 0x003     	MOVFF	PRODL, r0x03
+000394   f003
+000396   0e04     movlw   0x04             	MOVLW	0x04
+000398   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00039a   0e30     movlw   0x30             	MOVLW	0x30
+00039c   2602     addwf   0x02, 0x1, 0x0   	ADDWF	r0x02, F
+00039e   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0003a0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003a2   ec80     call    0x000b00, 0x0call    0x000b00, 0x0 	CALL	_EnviaDados
+0003a4   f005
+0003a6   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	55; Aula8.c	EnviaDados((valor / 100) % 10 + 48);
+0003a8   0e00     movlw   0x00             	MOVLW	0x00
+0003aa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003ac   0e64     movlw   0x64             	MOVLW	0x64
+0003ae   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003b0   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0003b2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003b4   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0003b6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003b8   ecd4     call    0x0005a8, 0x0call    0x0005a8, 0x0 	CALL	__divsint
+0003ba   f002
+0003bc   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+0003be   cff3     movff   0xff3, 0x003     	MOVFF	PRODL, r0x03
+0003c0   f003
+0003c2   0e04     movlw   0x04             	MOVLW	0x04
+0003c4   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0003c6   0e00     movlw   0x00             	MOVLW	0x00
+0003c8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003ca   0e0a     movlw   0x0a             	MOVLW	0x0a
+0003cc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003ce   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0003d0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003d2   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0003d4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003d6   ec4b     call    0x000696, 0x0call    0x000696, 0x0 	CALL	__modsint
+0003d8   f003
+0003da   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+0003dc   cff3     movff   0xff3, 0x003     	MOVFF	PRODL, r0x03
+0003de   f003
+0003e0   0e04     movlw   0x04             	MOVLW	0x04
+0003e2   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+0003e4   0e30     movlw   0x30             	MOVLW	0x30
+0003e6   2602     addwf   0x02, 0x1, 0x0   	ADDWF	r0x02, F
+0003e8   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0003ea   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003ec   ec80     call    0x000b00, 0x0call    0x000b00, 0x0 	CALL	_EnviaDados
+0003ee   f005
+0003f0   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	56; Aula8.c	EnviaDados((valor / 10) % 10 + 48);
+0003f2   0e00     movlw   0x00             	MOVLW	0x00
+0003f4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003f6   0e0a     movlw   0x0a             	MOVLW	0x0a
+0003f8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003fa   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0003fc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0003fe   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000400   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000402   ecd4     call    0x0005a8, 0x0call    0x0005a8, 0x0 	CALL	__divsint
+000404   f002
+000406   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+000408   cff3     movff   0xff3, 0x003     	MOVFF	PRODL, r0x03
+00040a   f003
+00040c   0e04     movlw   0x04             	MOVLW	0x04
+00040e   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000410   0e00     movlw   0x00             	MOVLW	0x00
+000412   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000414   0e0a     movlw   0x0a             	MOVLW	0x0a
+000416   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000418   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00041a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00041c   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+00041e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000420   ec4b     call    0x000696, 0x0call    0x000696, 0x0 	CALL	__modsint
+000422   f003
+000424   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+000426   cff3     movff   0xff3, 0x003     	MOVFF	PRODL, r0x03
+000428   f003
+00042a   0e04     movlw   0x04             	MOVLW	0x04
+00042c   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+00042e   0e30     movlw   0x30             	MOVLW	0x30
+000430   2602     addwf   0x02, 0x1, 0x0   	ADDWF	r0x02, F
+000432   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000434   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000436   ec80     call    0x000b00, 0x0call    0x000b00, 0x0 	CALL	_EnviaDados
+000438   f005
+00043a   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	57; Aula8.c	EnviaDados('.');
+00043c   0e2e     movlw   0x2e             	MOVLW	0x2e
+00043e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000440   ec80     call    0x000b00, 0x0call    0x000b00, 0x0 	CALL	_EnviaDados
+000442   f005
+000444   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	58; Aula8.c	EnviaDados(valor % 10 + 48);
+000446   0e00     movlw   0x00             	MOVLW	0x00
+000448   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00044a   0e0a     movlw   0x0a             	MOVLW	0x0a
+00044c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00044e   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000450   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000452   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000454   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000456   ec4b     call    0x000696, 0x0call    0x000696, 0x0 	CALL	__modsint
+000458   f003
+00045a   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+00045c   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+00045e   f001
+000460   0e04     movlw   0x04             	MOVLW	0x04
+000462   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000464   0e30     movlw   0x30             	MOVLW	0x30
+000466   2600     addwf   0x00, 0x1, 0x0   	ADDWF	r0x00, F
+000468   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+00046a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00046c   ec80     call    0x000b00, 0x0call    0x000b00, 0x0 	CALL	_EnviaDados
+00046e   f005
+000470   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000472   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+000474   f003
+000476   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+000478   f002
+00047a   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+00047c   f001
+00047e   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000480   f000
+000482   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000484   ffd9
+000486   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  598 (0x0256) bytes ( 0.46%)
+                                           ;           	  299 (0x012b) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    4 (0x0004) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Oct 20 09:24:48 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_InicializaAD
+                                           	global	_LeValorAD
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           WREG	equ	0xfe8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PRODL	equ	0xff3
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_adc__LeValorAD	code
+                                           _LeValorAD:
+                                           ;	.line	32; adc.c	int LeValorAD(void)
+000f0c   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000f0e   ffe5
+000f10   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000f12   ffd9
+000f14   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000f16   ffe5
+000f18   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000f1a   ffe5
+000f1c   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000f1e   ffe5
+000f20   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+000f22   ffe5
+                                           ;	.line	35; adc.c	ADCON0 |= 0b00000010;	 //inicia conversao
+000f24   ee0f     lfsr    0x0, 0xfc2       	LFSR	0x00, 0xfc2
+000f26   f0c2
+000f28   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000f2a   f000
+000f2c   8200     bsf     0x00, 0x1, 0x0   	BSF	r0x00, 1
+000f2e   ee0f     lfsr    0x0, 0xfc2       	LFSR	0x00, 0xfc2
+000f30   f0c2
+000f32   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000f34   ffef
+                                           _00110_DS_:
+                                           ;	.line	37; adc.c	while(BitTst(ADCON0,1)); // espera terminar a conversão;
+000f36   ee0f     lfsr    0x0, 0xfc2       	LFSR	0x00, 0xfc2
+000f38   f0c2
+000f3a   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000f3c   f000
+000f3e   b200     btfsc   0x00, 0x1, 0x0   	BTFSC	r0x00, 1
+000f40   d7fa     bra     0x000f36         	BRA	_00110_DS_
+                                           ;	.line	39; adc.c	ADvalor = ADRESH ; // le o resultado
+000f42   ee0f     lfsr    0x0, 0xfc4       	LFSR	0x00, 0xfc4
+000f44   f0c4
+000f46   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000f48   f000
+000f4a   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+                                           ;	.line	40; adc.c	ADvalor <<= 8;
+000f4c   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000f4e   6e01     movwf   0x01, 0x0        	MOVWF	r0x01
+000f50   6a00     clrf    0x00, 0x0        	CLRF	r0x00
+                                           ;	.line	41; adc.c	ADvalor += ADRESL;
+000f52   ee0f     lfsr    0x0, 0xfc3       	LFSR	0x00, 0xfc3
+000f54   f0c3
+000f56   cfef     movff   0xfef, 0x002     	MOVFF	INDF0, r0x02
+000f58   f002
+000f5a   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+000f5c   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000f5e   2600     addwf   0x00, 0x1, 0x0   	ADDWF	r0x00, F
+000f60   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000f62   2201     addwfc  0x01, 0x1, 0x0   	ADDWFC	r0x01, F
+                                           ;	.line	42; adc.c	return ADvalor;
+000f64   c001     movff   0x001, 0xff3     	MOVFF	r0x01, PRODL
+000f66   fff3
+000f68   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000f6a   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+000f6c   f003
+000f6e   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+000f70   f002
+000f72   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000f74   f001
+000f76   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000f78   f000
+000f7a   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000f7c   ffd9
+000f7e   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_adc__InicializaAD	code
+                                           _InicializaAD:
+                                           ;	.line	23; adc.c	void InicializaAD(void)
+000fec   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000fee   ffe5
+000ff0   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000ff2   ffd9
+000ff4   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000ff6   ffe5
+                                           ;	.line	25; adc.c	BitSet(TRISA,0); //seta o bit 0 como entrada
+000ff8   ee0f     lfsr    0x0, 0xf92       	LFSR	0x00, 0xf92
+000ffa   f092
+000ffc   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000ffe   f000
+001000   8000     bsf     0x00, 0x0, 0x0   	BSF	r0x00, 0
+001002   ee0f     lfsr    0x0, 0xf92       	LFSR	0x00, 0xf92
+001004   f092
+001006   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+001008   ffef
+                                           ;	.line	27; adc.c	ADCON0 = 0b00000001; //seleciona o canal 0 e liga o ad
+00100a   ee0f     lfsr    0x0, 0xfc2       	LFSR	0x00, 0xfc2
+00100c   f0c2
+00100e   0e01     movlw   0x01             	MOVLW	0x01
+001010   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	28; adc.c	ADCON1 = 0b00001110; //apenas AN0 é analogico, a referencia é baseada na fonte
+001012   ee0f     lfsr    0x0, 0xfc1       	LFSR	0x00, 0xfc1
+001014   f0c1
+001016   0e0e     movlw   0x0e             	MOVLW	0x0e
+001018   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	29; adc.c	ADCON2 = 0b10101010; //FOSC /32, Alinhamento à direita e tempo de conv = 12 TAD
+00101a   ee0f     lfsr    0x0, 0xfc0       	LFSR	0x00, 0xfc0
+00101c   f0c0
+00101e   0eaa     movlw   0xaa             	MOVLW	0xaa
+001020   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+001022   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+001024   f000
+001026   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+001028   ffd9
+00102a   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  180 (0x00b4) bytes ( 0.14%)
+                                           ;           	   90 (0x005a) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    4 (0x0004) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Oct 20 09:24:48 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_EnviaComando
+                                           	global	_EnviaDados
+                                           	global	_InicializaLCD
+                                           	global	_Delay40us
+                                           	global	_Delay2ms
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTINC1	equ	0xfe6
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_lcd__InicializaLCD	code
+                                           _InicializaLCD:
+                                           ;	.line	75; lcd.c	void InicializaLCD(void)
+000a54   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000a56   ffe5
+000a58   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000a5a   ffd9
+000a5c   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000a5e   ffe5
+                                           ;	.line	80; lcd.c	Delay2ms();
+000a60   ec32     call    0x001064, 0x0call    0x001064, 0x0 	CALL	_Delay2ms
+000a62   f008
+                                           ;	.line	81; lcd.c	Delay2ms();
+000a64   ec32     call    0x001064, 0x0call    0x001064, 0x0 	CALL	_Delay2ms
+000a66   f008
+                                           ;	.line	82; lcd.c	Delay2ms();
+000a68   ec32     call    0x001064, 0x0call    0x001064, 0x0 	CALL	_Delay2ms
+000a6a   f008
+                                           ;	.line	83; lcd.c	Delay2ms();
+000a6c   ec32     call    0x001064, 0x0call    0x001064, 0x0 	CALL	_Delay2ms
+000a6e   f008
+                                           ;	.line	84; lcd.c	Delay2ms();
+000a70   ec32     call    0x001064, 0x0call    0x001064, 0x0 	CALL	_Delay2ms
+000a72   f008
+                                           ;	.line	87; lcd.c	BitClr(TRISE,RS);	//RS
+000a74   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+000a76   f096
+000a78   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000a7a   f000
+000a7c   9000     bcf     0x00, 0x0, 0x0   	BCF	r0x00, 0
+000a7e   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+000a80   f096
+000a82   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000a84   ffef
+                                           ;	.line	88; lcd.c	BitClr(TRISE,EN);	//EN
+000a86   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+000a88   f096
+000a8a   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000a8c   f000
+000a8e   9200     bcf     0x00, 0x1, 0x0   	BCF	r0x00, 1
+000a90   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+000a92   f096
+000a94   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000a96   ffef
+                                           ;	.line	89; lcd.c	BitClr(TRISE,RW);	//RW
+000a98   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+000a9a   f096
+000a9c   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000a9e   f000
+000aa0   9400     bcf     0x00, 0x2, 0x0   	BCF	r0x00, 2
+000aa2   ee0f     lfsr    0x0, 0xf96       	LFSR	0x00, 0xf96
+000aa4   f096
+000aa6   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000aa8   ffef
+                                           ;	.line	90; lcd.c	TRISD = 0x00;		//dados
+000aaa   ee0f     lfsr    0x0, 0xf95       	LFSR	0x00, 0xf95
+000aac   f095
+000aae   0e00     movlw   0x00             	MOVLW	0x00
+000ab0   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	91; lcd.c	ADCON1 = 0b00001110;	//apenas
+000ab2   ee0f     lfsr    0x0, 0xfc1       	LFSR	0x00, 0xfc1
+000ab4   f0c1
+000ab6   0e0e     movlw   0x0e             	MOVLW	0x0e
+000ab8   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	94; lcd.c	EnviaComando(0x38);	//8bits, 2 linhas, 5x8
+000aba   0e38     movlw   0x38             	MOVLW	0x38
+000abc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000abe   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+000ac0   f005
+000ac2   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	95; lcd.c	EnviaComando(0x06);	//modo incremental
+000ac4   0e06     movlw   0x06             	MOVLW	0x06
+000ac6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ac8   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+000aca   f005
+000acc   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	96; lcd.c	EnviaComando(0x0F);	//display e cursor on, com blink
+000ace   0e0f     movlw   0x0f             	MOVLW	0x0f
+000ad0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ad2   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+000ad4   f005
+000ad6   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	97; lcd.c	EnviaComando(0x03);	//zera tudo
+000ad8   0e03     movlw   0x03             	MOVLW	0x03
+000ada   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000adc   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+000ade   f005
+000ae0   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	98; lcd.c	EnviaComando(0x01);	//limpar display
+000ae2   0e01     movlw   0x01             	MOVLW	0x01
+000ae4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ae6   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+000ae8   f005
+000aea   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	99; lcd.c	EnviaComando(0x80);	//posição inicial
+000aec   0e80     movlw   0x80             	MOVLW	0x80
+000aee   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000af0   ecd0     call    0x000ba0, 0x0call    0x000ba0, 0x0 	CALL	_EnviaComando
+000af2   f005
+000af4   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000af6   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000af8   f000
+000afa   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000afc   ffd9
+000afe   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_lcd__EnviaDados	code
+                                           _EnviaDados:
+                                           ;	.line	60; lcd.c	void EnviaDados(unsigned char valor)
+000b00   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000b02   ffe5
+000b04   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000b06   ffd9
+000b08   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000b0a   ffe5
+000b0c   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000b0e   ffe5
+000b10   0e02     movlw   0x02             	MOVLW	0x02
+000b12   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+000b14   f000
+                                           ;	.line	62; lcd.c	BitSet(PORTE,RS);	//dados
+000b16   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b18   f084
+000b1a   cfef     movff   0xfef, 0x001     	MOVFF	INDF0, r0x01
+000b1c   f001
+000b1e   8001     bsf     0x01, 0x0, 0x0   	BSF	r0x01, 0
+000b20   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b22   f084
+000b24   c001     movff   0x001, 0xfef     	MOVFF	r0x01, INDF0
+000b26   ffef
+                                           ;	.line	63; lcd.c	BitClr(PORTE,RW);	// habilita escrita
+000b28   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b2a   f084
+000b2c   cfef     movff   0xfef, 0x001     	MOVFF	INDF0, r0x01
+000b2e   f001
+000b30   9401     bcf     0x01, 0x2, 0x0   	BCF	r0x01, 2
+000b32   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b34   f084
+000b36   c001     movff   0x001, 0xfef     	MOVFF	r0x01, INDF0
+000b38   ffef
+                                           ;	.line	66; lcd.c	PORTD = valor;
+000b3a   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+000b3c   f083
+000b3e   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000b40   ffef
+                                           ;	.line	67; lcd.c	BitSet(PORTE,EN);//habilita leitura
+000b42   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b44   f084
+000b46   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000b48   f000
+000b4a   8200     bsf     0x00, 0x1, 0x0   	BSF	r0x00, 1
+000b4c   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b4e   f084
+000b50   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000b52   ffef
+                                           ;	.line	68; lcd.c	Delay40us();
+000b54   ec4c     call    0x001098, 0x0call    0x001098, 0x0 	CALL	_Delay40us
+000b56   f008
+                                           ;	.line	69; lcd.c	BitClr(PORTE,EN);//termina leitura
+000b58   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b5a   f084
+000b5c   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000b5e   f000
+000b60   9200     bcf     0x00, 0x1, 0x0   	BCF	r0x00, 1
+000b62   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b64   f084
+000b66   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000b68   ffef
+                                           ;	.line	70; lcd.c	BitClr(PORTE,RS);	//deixa em nivel baixo
+000b6a   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b6c   f084
+000b6e   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000b70   f000
+000b72   9000     bcf     0x00, 0x0, 0x0   	BCF	r0x00, 0
+000b74   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b76   f084
+000b78   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000b7a   ffef
+                                           ;	.line	71; lcd.c	BitClr(PORTE,RW);	//deixa em nivel baixo
+000b7c   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b7e   f084
+000b80   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000b82   f000
+000b84   9400     bcf     0x00, 0x2, 0x0   	BCF	r0x00, 2
+000b86   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000b88   f084
+000b8a   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000b8c   ffef
+                                           ;	.line	72; lcd.c	Delay40us();
+000b8e   ec4c     call    0x001098, 0x0call    0x001098, 0x0 	CALL	_Delay40us
+000b90   f008
+000b92   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000b94   f001
+000b96   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000b98   f000
+000b9a   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000b9c   ffd9
+000b9e   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_lcd__EnviaComando	code
+                                           _EnviaComando:
+                                           ;	.line	46; lcd.c	void EnviaComando(unsigned char cmd)
+000ba0   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000ba2   ffe5
+000ba4   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000ba6   ffd9
+000ba8   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000baa   ffe5
+000bac   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000bae   ffe5
+000bb0   0e02     movlw   0x02             	MOVLW	0x02
+000bb2   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+000bb4   f000
+                                           ;	.line	48; lcd.c	BitClr(PORTE,RS);	//comando
+000bb6   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000bb8   f084
+000bba   cfef     movff   0xfef, 0x001     	MOVFF	INDF0, r0x01
+000bbc   f001
+000bbe   9001     bcf     0x01, 0x0, 0x0   	BCF	r0x01, 0
+000bc0   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000bc2   f084
+000bc4   c001     movff   0x001, 0xfef     	MOVFF	r0x01, INDF0
+000bc6   ffef
+                                           ;	.line	49; lcd.c	BitClr(PORTE,RW);	// habilita escrita
+000bc8   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000bca   f084
+000bcc   cfef     movff   0xfef, 0x001     	MOVFF	INDF0, r0x01
+000bce   f001
+000bd0   9401     bcf     0x01, 0x2, 0x0   	BCF	r0x01, 2
+000bd2   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000bd4   f084
+000bd6   c001     movff   0x001, 0xfef     	MOVFF	r0x01, INDF0
+000bd8   ffef
+                                           ;	.line	51; lcd.c	PORTD = cmd;
+000bda   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+000bdc   f083
+000bde   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000be0   ffef
+                                           ;	.line	52; lcd.c	BitSet(PORTE,EN);//habilita leitura
+000be2   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000be4   f084
+000be6   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000be8   f000
+000bea   8200     bsf     0x00, 0x1, 0x0   	BSF	r0x00, 1
+000bec   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000bee   f084
+000bf0   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000bf2   ffef
+                                           ;	.line	53; lcd.c	Delay2ms();
+000bf4   ec32     call    0x001064, 0x0call    0x001064, 0x0 	CALL	_Delay2ms
+000bf6   f008
+                                           ;	.line	54; lcd.c	BitClr(PORTE,EN);//termina leitura
+000bf8   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000bfa   f084
+000bfc   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000bfe   f000
+000c00   9200     bcf     0x00, 0x1, 0x0   	BCF	r0x00, 1
+000c02   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000c04   f084
+000c06   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000c08   ffef
+                                           ;	.line	55; lcd.c	BitClr(PORTE,RS);	//deixa em nivel baixo
+000c0a   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000c0c   f084
+000c0e   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000c10   f000
+000c12   9000     bcf     0x00, 0x0, 0x0   	BCF	r0x00, 0
+000c14   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000c16   f084
+000c18   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000c1a   ffef
+                                           ;	.line	56; lcd.c	BitClr(PORTE,RW);	//deixa em nivel baixo
+000c1c   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000c1e   f084
+000c20   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000c22   f000
+000c24   9400     bcf     0x00, 0x2, 0x0   	BCF	r0x00, 2
+000c26   ee0f     lfsr    0x0, 0xf84       	LFSR	0x00, 0xf84
+000c28   f084
+000c2a   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000c2c   ffef
+                                           ;	.line	57; lcd.c	Delay2ms();
+000c2e   ec32     call    0x001064, 0x0call    0x001064, 0x0 	CALL	_Delay2ms
+000c30   f008
+000c32   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000c34   f001
+000c36   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000c38   f000
+000c3a   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000c3c   ffd9
+000c3e   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_lcd__Delay2ms	code
+                                           _Delay2ms:
+                                           ;	.line	36; lcd.c	void Delay2ms(void)
+001064   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+001066   ffe5
+001068   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00106a   ffd9
+00106c   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+00106e   ffe5
+001070   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+001072   ffe5
+                                           ;	.line	39; lcd.c	for(i=0; i < 200; i++)
+001074   0ec8     movlw   0xc8             	MOVLW	0xc8
+001076   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+                                           _00117_DS_:
+                                           ;	.line	41; lcd.c	Delay40us();
+001078   ec4c     call    0x001098, 0x0call    0x001098, 0x0 	CALL	_Delay40us
+00107a   f008
+00107c   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+00107e   6e01     movwf   0x01, 0x0        	MOVWF	r0x01
+001080   0601     decf    0x01, 0x1, 0x0   	DECF	r0x01, F
+001082   c001     movff   0x001, 0x000     	MOVFF	r0x01, r0x00
+001084   f000
+                                           ;	.line	39; lcd.c	for(i=0; i < 200; i++)
+001086   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+001088   e1f7     bnz     0x001078         	BNZ	_00117_DS_
+00108a   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+00108c   f001
+00108e   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+001090   f000
+001092   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+001094   ffd9
+001096   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_lcd__Delay40us	code
+                                           _Delay40us:
+                                           ;	.line	28; lcd.c	void Delay40us(void)
+001098   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+00109a   ffe5
+00109c   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+00109e   ffd9
+0010a0   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0010a2   ffe5
+0010a4   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+0010a6   ffe5
+                                           ;	.line	33; lcd.c	for(i=0; i < 25; i++); //3 + 3 * 25 = 78
+0010a8   0e19     movlw   0x19             	MOVLW	0x19
+0010aa   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+                                           _00108_DS_:
+0010ac   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0010ae   6e01     movwf   0x01, 0x0        	MOVWF	r0x01
+0010b0   0601     decf    0x01, 0x1, 0x0   	DECF	r0x01, F
+0010b2   c001     movff   0x001, 0x000     	MOVFF	r0x01, r0x00
+0010b4   f000
+0010b6   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0010b8   e1f9     bnz     0x0010ac         	BNZ	_00108_DS_
+0010ba   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+0010bc   f001
+0010be   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+0010c0   f000
+0010c2   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0010c4   ffd9
+0010c6   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  592 (0x0250) bytes ( 0.45%)
+                                           ;           	  296 (0x0128) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    2 (0x0002) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Oct 20 09:24:48 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_SetaPWM1
+                                           	global	_SetaPWM2
+                                           	global	_SetaFreqPWM
+                                           	global	_InicializaPWM
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	__mulint
+                                           	extern	__divuint
+                                           	extern	__divslong
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           FSR0L	equ	0xfe9
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           PRODH	equ	0xff4
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_pwm__InicializaPWM	code
+                                           _InicializaPWM:
+                                           ;	.line	59; pwm.c	void InicializaPWM(void)
+000e06   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000e08   ffe5
+000e0a   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000e0c   ffd9
+000e0e   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000e10   ffe5
+                                           ;	.line	61; pwm.c	BitClr(TRISC,1);//configura os pinos correspondentes como saídas
+000e12   ee0f     lfsr    0x0, 0xf94       	LFSR	0x00, 0xf94
+000e14   f094
+000e16   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000e18   f000
+000e1a   9200     bcf     0x00, 0x1, 0x0   	BCF	r0x00, 1
+000e1c   ee0f     lfsr    0x0, 0xf94       	LFSR	0x00, 0xf94
+000e1e   f094
+000e20   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000e22   ffef
+                                           ;	.line	62; pwm.c	BitClr(TRISC,2);
+000e24   ee0f     lfsr    0x0, 0xf94       	LFSR	0x00, 0xf94
+000e26   f094
+000e28   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000e2a   f000
+000e2c   9400     bcf     0x00, 0x2, 0x0   	BCF	r0x00, 2
+000e2e   ee0f     lfsr    0x0, 0xf94       	LFSR	0x00, 0xf94
+000e30   f094
+000e32   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000e34   ffef
+                                           ;	.line	64; pwm.c	T2CON |= 0b00000011; //configura o prescale do timer 2 para 1:16
+000e36   ee0f     lfsr    0x0, 0xfca       	LFSR	0x00, 0xfca
+000e38   f0ca
+000e3a   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000e3c   f000
+000e3e   0e03     movlw   0x03             	MOVLW	0x03
+000e40   1200     iorwf   0x00, 0x1, 0x0   	IORWF	r0x00, F
+000e42   ee0f     lfsr    0x0, 0xfca       	LFSR	0x00, 0xfca
+000e44   f0ca
+000e46   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000e48   ffef
+                                           ;	.line	65; pwm.c	BitSet(T2CON,2); //Liga o timer 2
+000e4a   ee0f     lfsr    0x0, 0xfca       	LFSR	0x00, 0xfca
+000e4c   f0ca
+000e4e   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000e50   f000
+000e52   8400     bsf     0x00, 0x2, 0x0   	BSF	r0x00, 2
+000e54   ee0f     lfsr    0x0, 0xfca       	LFSR	0x00, 0xfca
+000e56   f0ca
+000e58   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000e5a   ffef
+                                           ;	.line	68; pwm.c	CCP1CON |= 0b00001100;	//configura CCP1 como um PWM
+000e5c   ee0f     lfsr    0x0, 0xfbd       	LFSR	0x00, 0xfbd
+000e5e   f0bd
+000e60   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000e62   f000
+000e64   0e0c     movlw   0x0c             	MOVLW	0x0c
+000e66   1200     iorwf   0x00, 0x1, 0x0   	IORWF	r0x00, F
+000e68   ee0f     lfsr    0x0, 0xfbd       	LFSR	0x00, 0xfbd
+000e6a   f0bd
+000e6c   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000e6e   ffef
+                                           ;	.line	69; pwm.c	CCP2CON |= 0b00001100;	//configura CCP2 como um PWM
+000e70   ee0f     lfsr    0x0, 0xfba       	LFSR	0x00, 0xfba
+000e72   f0ba
+000e74   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+000e76   f000
+000e78   0e0c     movlw   0x0c             	MOVLW	0x0c
+000e7a   1200     iorwf   0x00, 0x1, 0x0   	IORWF	r0x00, F
+000e7c   ee0f     lfsr    0x0, 0xfba       	LFSR	0x00, 0xfba
+000e7e   f0ba
+000e80   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000e82   ffef
+000e84   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000e86   f000
+000e88   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000e8a   ffd9
+000e8c   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_pwm__SetaFreqPWM	code
+                                           _SetaFreqPWM:
+                                           ;	.line	52; pwm.c	void SetaFreqPWM(unsigned int freq)
+000e8e   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000e90   ffe5
+000e92   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000e94   ffd9
+000e96   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000e98   ffe5
+000e9a   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000e9c   ffe5
+000e9e   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000ea0   ffe5
+000ea2   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+000ea4   ffe5
+000ea6   0e02     movlw   0x02             	MOVLW	0x02
+000ea8   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+000eaa   f000
+000eac   0e03     movlw   0x03             	MOVLW	0x03
+000eae   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+000eb0   f001
+                                           ;	.line	56; pwm.c	PR2 = (125000/(freq)) - 1;
+000eb2   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+000eb4   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+000eb6   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000eb8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000eba   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000ebc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ebe   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000ec0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ec2   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000ec4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ec6   0e00     movlw   0x00             	MOVLW	0x00
+000ec8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000eca   0e01     movlw   0x01             	MOVLW	0x01
+000ecc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ece   0ee8     movlw   0xe8             	MOVLW	0xe8
+000ed0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ed2   0e48     movlw   0x48             	MOVLW	0x48
+000ed4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000ed6   ec02     call    0x000004, 0x0call    0x000004, 0x0 	CALL	__divslong
+000ed8   f000
+000eda   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000edc   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+000ede   f001
+000ee0   cff4     movff   0xff4, 0x002     	MOVFF	PRODH, r0x02
+000ee2   f002
+000ee4   cfe9     movff   0xfe9, 0x003     	MOVFF	FSR0L, r0x03
+000ee6   f003
+000ee8   0e08     movlw   0x08             	MOVLW	0x08
+000eea   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+000eec   0600     decf    0x00, 0x1, 0x0   	DECF	r0x00, F
+000eee   ee0f     lfsr    0x0, 0xfcb       	LFSR	0x00, 0xfcb
+000ef0   f0cb
+000ef2   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+000ef4   ffef
+000ef6   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+000ef8   f003
+000efa   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+000efc   f002
+000efe   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000f00   f001
+000f02   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000f04   f000
+000f06   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000f08   ffd9
+000f0a   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_pwm__SetaPWM2	code
+                                           _SetaPWM2:
+                                           ;	.line	40; pwm.c	void SetaPWM2(unsigned char porcento)
+000772   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000774   ffe5
+000776   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000778   ffd9
+00077a   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+00077c   ffe5
+00077e   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+000780   ffe5
+000782   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000784   ffe5
+000786   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+000788   ffe5
+00078a   0e02     movlw   0x02             	MOVLW	0x02
+00078c   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+00078e   f000
+                                           ;	.line	42; pwm.c	unsigned int val = ((unsigned int)porcento) *(PR2+1);
+000790   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+000792   ee0f     lfsr    0x0, 0xfcb       	LFSR	0x00, 0xfcb
+000794   f0cb
+000796   cfef     movff   0xfef, 0x002     	MOVFF	INDF0, r0x02
+000798   f002
+00079a   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+00079c   4a02     infsnz  0x02, 0x1, 0x0   	INFSNZ	r0x02, F
+00079e   2a03     incf    0x03, 0x1, 0x0   	INCF	r0x03, F
+0007a0   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0007a2   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007a4   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+0007a6   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007a8   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0007aa   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007ac   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0007ae   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007b0   ec20     call    0x000c40, 0x0call    0x000c40, 0x0 	CALL	__mulint
+0007b2   f006
+0007b4   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+0007b6   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+0007b8   f001
+0007ba   0e04     movlw   0x04             	MOVLW	0x04
+0007bc   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	43; pwm.c	val /= 25;
+0007be   0e00     movlw   0x00             	MOVLW	0x00
+0007c0   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007c2   0e19     movlw   0x19             	MOVLW	0x19
+0007c4   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007c6   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0007c8   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007ca   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0007cc   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+0007ce   ecd2     call    0x0009a4, 0x0call    0x0009a4, 0x0 	CALL	__divuint
+0007d0   f004
+0007d2   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+0007d4   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+0007d6   f001
+0007d8   0e04     movlw   0x04             	MOVLW	0x04
+0007da   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	45; pwm.c	val &= 0x03ff;
+0007dc   0e03     movlw   0x03             	MOVLW	0x03
+0007de   1601     andwf   0x01, 0x1, 0x0   	ANDWF	r0x01, F
+                                           ;	.line	47; pwm.c	CCPR2L = val >> 2;
+0007e0   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+0007e2   3001     rrcf    0x01, 0x0, 0x0   	RRCF	r0x01, W
+0007e4   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+0007e6   3000     rrcf    0x00, 0x0, 0x0   	RRCF	r0x00, W
+0007e8   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+0007ea   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+0007ec   3203     rrcf    0x03, 0x1, 0x0   	RRCF	r0x03, F
+0007ee   3202     rrcf    0x02, 0x1, 0x0   	RRCF	r0x02, F
+0007f0   ee0f     lfsr    0x0, 0xfbb       	LFSR	0x00, 0xfbb
+0007f2   f0bb
+0007f4   c002     movff   0x002, 0xfef     	MOVFF	r0x02, INDF0
+0007f6   ffef
+                                           ;	.line	49; pwm.c	CCP2CON |= (val & 0x0003) << 4;
+0007f8   ee0f     lfsr    0x0, 0xfba       	LFSR	0x00, 0xfba
+0007fa   f0ba
+0007fc   cfef     movff   0xfef, 0x002     	MOVFF	INDF0, r0x02
+0007fe   f002
+000800   0e03     movlw   0x03             	MOVLW	0x03
+000802   1600     andwf   0x00, 0x1, 0x0   	ANDWF	r0x00, F
+000804   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+000806   3800     swapf   0x00, 0x0, 0x0   	SWAPF	r0x00, W
+000808   0bf0     andlw   0xf0             	ANDLW	0xf0
+00080a   6e01     movwf   0x01, 0x0        	MOVWF	r0x01
+00080c   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+00080e   1202     iorwf   0x02, 0x1, 0x0   	IORWF	r0x02, F
+000810   ee0f     lfsr    0x0, 0xfba       	LFSR	0x00, 0xfba
+000812   f0ba
+000814   c002     movff   0x002, 0xfef     	MOVFF	r0x02, INDF0
+000816   ffef
+000818   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+00081a   f003
+00081c   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+00081e   f002
+000820   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000822   f001
+000824   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000826   f000
+000828   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+00082a   ffd9
+00082c   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_pwm__SetaPWM1	code
+                                           _SetaPWM1:
+                                           ;	.line	23; pwm.c	void SetaPWM1(unsigned char porcento)
+00082e   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+000830   ffe5
+000832   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+000834   ffd9
+000836   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+000838   ffe5
+00083a   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+00083c   ffe5
+00083e   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+000840   ffe5
+000842   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+000844   ffe5
+000846   0e02     movlw   0x02             	MOVLW	0x02
+000848   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+00084a   f000
+                                           ;	.line	30; pwm.c	unsigned int val = ((unsigned int)porcento) *(PR2+1);
+00084c   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+00084e   ee0f     lfsr    0x0, 0xfcb       	LFSR	0x00, 0xfcb
+000850   f0cb
+000852   cfef     movff   0xfef, 0x002     	MOVFF	INDF0, r0x02
+000854   f002
+000856   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+000858   4a02     infsnz  0x02, 0x1, 0x0   	INFSNZ	r0x02, F
+00085a   2a03     incf    0x03, 0x1, 0x0   	INCF	r0x03, F
+00085c   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00085e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000860   5002     movf    0x02, 0x0, 0x0   	MOVF	r0x02, W
+000862   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000864   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000866   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000868   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+00086a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00086c   ec20     call    0x000c40, 0x0call    0x000c40, 0x0 	CALL	__mulint
+00086e   f006
+000870   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000872   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+000874   f001
+000876   0e04     movlw   0x04             	MOVLW	0x04
+000878   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	31; pwm.c	val = val / 25;
+00087a   0e00     movlw   0x00             	MOVLW	0x00
+00087c   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00087e   0e19     movlw   0x19             	MOVLW	0x19
+000880   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000882   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+000884   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000886   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000888   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00088a   ecd2     call    0x0009a4, 0x0call    0x0009a4, 0x0 	CALL	__divuint
+00088c   f004
+00088e   6e00     movwf   0x00, 0x0        	MOVWF	r0x00
+000890   cff3     movff   0xff3, 0x001     	MOVFF	PRODL, r0x01
+000892   f001
+000894   0e04     movlw   0x04             	MOVLW	0x04
+000896   26e1     addwf   0xe1, 0x1, 0x0   	ADDWF	FSR1L, F
+                                           ;	.line	33; pwm.c	val &= 0x03ff;
+000898   0e03     movlw   0x03             	MOVLW	0x03
+00089a   1601     andwf   0x01, 0x1, 0x0   	ANDWF	r0x01, F
+                                           ;	.line	35; pwm.c	CCPR1L = val >> 2;
+00089c   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+00089e   3001     rrcf    0x01, 0x0, 0x0   	RRCF	r0x01, W
+0008a0   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+0008a2   3000     rrcf    0x00, 0x0, 0x0   	RRCF	r0x00, W
+0008a4   6e02     movwf   0x02, 0x0        	MOVWF	r0x02
+0008a6   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+0008a8   3203     rrcf    0x03, 0x1, 0x0   	RRCF	r0x03, F
+0008aa   3202     rrcf    0x02, 0x1, 0x0   	RRCF	r0x02, F
+0008ac   ee0f     lfsr    0x0, 0xfbe       	LFSR	0x00, 0xfbe
+0008ae   f0be
+0008b0   c002     movff   0x002, 0xfef     	MOVFF	r0x02, INDF0
+0008b2   ffef
+                                           ;	.line	37; pwm.c	CCP1CON |= (val & 0x0003) << 4;
+0008b4   ee0f     lfsr    0x0, 0xfbd       	LFSR	0x00, 0xfbd
+0008b6   f0bd
+0008b8   cfef     movff   0xfef, 0x002     	MOVFF	INDF0, r0x02
+0008ba   f002
+0008bc   0e03     movlw   0x03             	MOVLW	0x03
+0008be   1600     andwf   0x00, 0x1, 0x0   	ANDWF	r0x00, F
+0008c0   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+0008c2   3800     swapf   0x00, 0x0, 0x0   	SWAPF	r0x00, W
+0008c4   0bf0     andlw   0xf0             	ANDLW	0xf0
+0008c6   6e01     movwf   0x01, 0x0        	MOVWF	r0x01
+0008c8   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0008ca   1202     iorwf   0x02, 0x1, 0x0   	IORWF	r0x02, F
+0008cc   ee0f     lfsr    0x0, 0xfbd       	LFSR	0x00, 0xfbd
+0008ce   f0bd
+0008d0   c002     movff   0x002, 0xfef     	MOVFF	r0x02, INDF0
+0008d2   ffef
+0008d4   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+0008d6   f003
+0008d8   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+0008da   f002
+0008dc   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+0008de   f001
+0008e0   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+0008e2   f000
+0008e4   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0008e6   ffd9
+0008e8   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  638 (0x027e) bytes ( 0.49%)
+                                           ;           	  319 (0x013f) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    4 (0x0004) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Oct 20 09:24:48 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_LerTeclas
+                                           	global	_DebounceTeclas
+                                           	global	_InicializaTeclado
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           WREG	equ	0xfe8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           INDF0	equ	0xfef
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           
+                                           
+                                           	idata
+                                           _valor	db	0x00
+                                           _DebounceTeclas_valorNovo_1_7	db	0x00
+                                           _DebounceTeclas_valorAntigo_1_7	db	0x00
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           r0x05	res	1
+                                           r0x06	res	1
+                                           r0x07	res	1
+                                           r0x08	res	1
+                                           r0x09	res	1
+                                           
+                                           udata_teclado_0	udata
+                                           _DebounceTeclas_tempo_1_7	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_teclado__InicializaTeclado	code
+                                           _InicializaTeclado:
+                                           ;	.line	65; teclado.c	void InicializaTeclado(void) {
+00102c   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+00102e   ffe5
+001030   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+001032   ffd9
+001034   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+001036   ffe5
+                                           ;	.line	66; teclado.c	TRISB = 0xF0; //quatro entradas e quatro saidas
+001038   ee0f     lfsr    0x0, 0xf93       	LFSR	0x00, 0xf93
+00103a   f093
+00103c   0ef0     movlw   0xf0             	MOVLW	0xf0
+00103e   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	67; teclado.c	BitClr(INTCON2, 7); //liga pull up
+001040   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+001042   f0f1
+001044   cfef     movff   0xfef, 0x000     	MOVFF	INDF0, r0x00
+001046   f000
+001048   9e00     bcf     0x00, 0x7, 0x0   	BCF	r0x00, 7
+00104a   ee0f     lfsr    0x0, 0xff1       	LFSR	0x00, 0xff1
+00104c   f0f1
+00104e   c000     movff   0x000, 0xfef     	MOVFF	r0x00, INDF0
+001050   ffef
+                                           ;	.line	68; teclado.c	ADCON1 = 0b00001110; //apenas AN0 é analogico, a referencia é baseada na fonte
+001052   ee0f     lfsr    0x0, 0xfc1       	LFSR	0x00, 0xfc1
+001054   f0c1
+001056   0e0e     movlw   0x0e             	MOVLW	0x0e
+001058   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+00105a   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+00105c   f000
+00105e   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+001060   ffd9
+001062   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_teclado__DebounceTeclas	code
+                                           _DebounceTeclas:
+                                           ;	.line	29; teclado.c	void DebounceTeclas(void) {
+0001a2   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0001a4   ffe5
+0001a6   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0001a8   ffd9
+0001aa   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0001ac   ffe5
+0001ae   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+0001b0   ffe5
+0001b2   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+0001b4   ffe5
+0001b6   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+0001b8   ffe5
+0001ba   c004     movff   0x004, 0xfe5     	MOVFF	r0x04, POSTDEC1
+0001bc   ffe5
+0001be   c005     movff   0x005, 0xfe5     	MOVFF	r0x05, POSTDEC1
+0001c0   ffe5
+0001c2   c006     movff   0x006, 0xfe5     	MOVFF	r0x06, POSTDEC1
+0001c4   ffe5
+0001c6   c007     movff   0x007, 0xfe5     	MOVFF	r0x07, POSTDEC1
+0001c8   ffe5
+0001ca   c008     movff   0x008, 0xfe5     	MOVFF	r0x08, POSTDEC1
+0001cc   ffe5
+0001ce   c009     movff   0x009, 0xfe5     	MOVFF	r0x09, POSTDEC1
+0001d0   ffe5
+                                           ;	.line	35; teclado.c	for (i = 0; i < 4; i++) {
+0001d2   6a00     clrf    0x00, 0x0        	CLRF	r0x00
+0001d4   6a01     clrf    0x01, 0x0        	CLRF	r0x01
+0001d6   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+                                           _00126_DS_:
+                                           ;	.line	38; teclado.c	PORTB |= 0x0F;
+0001d8   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+0001da   f081
+0001dc   cfef     movff   0xfef, 0x003     	MOVFF	INDF0, r0x03
+0001de   f003
+0001e0   0e0f     movlw   0x0f             	MOVLW	0x0f
+0001e2   1203     iorwf   0x03, 0x1, 0x0   	IORWF	r0x03, F
+0001e4   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+0001e6   f081
+0001e8   c003     movff   0x003, 0xfef     	MOVFF	r0x03, INDF0
+0001ea   ffef
+                                           ;	.line	39; teclado.c	BitClr(PORTB, (i)); //liga a coluna correspondente
+0001ec   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+0001ee   f081
+0001f0   cfef     movff   0xfef, 0x003     	MOVFF	INDF0, r0x03
+0001f2   f003
+0001f4   0e01     movlw   0x01             	MOVLW	0x01
+0001f6   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0001f8   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+0001fa   e005     bz      0x000206         	BZ	_00160_DS_
+0001fc   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+0001fe   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00161_DS_:
+000200   3604     rlcf    0x04, 0x1, 0x0   	RLCF	r0x04, F
+000202   0f01     addlw   0x01             	ADDLW	0x01
+000204   e3fd     bnc     0x000200         	BNC	_00161_DS_
+                                           _00160_DS_:
+000206   1e04     comf    0x04, 0x1, 0x0   	COMF	r0x04, F
+000208   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+00020a   1603     andwf   0x03, 0x1, 0x0   	ANDWF	r0x03, F
+00020c   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+00020e   f081
+000210   c003     movff   0x003, 0xfef     	MOVFF	r0x03, INDF0
+000212   ffef
+                                           ;	.line	41; teclado.c	for (j = 0; j < 100; j++);
+000214   0e64     movlw   0x64             	MOVLW	0x64
+000216   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+                                           _00123_DS_:
+000218   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+00021a   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00021c   0404     decf    0x04, 0x0, 0x0   	DECF	r0x04, W
+00021e   6e03     movwf   0x03, 0x0        	MOVWF	r0x03
+000220   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000222   e1fa     bnz     0x000218         	BNZ	_00123_DS_
+                                           ;	.line	44; teclado.c	for (j = 0; j < 2; j++) {
+000224   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+                                           _00124_DS_:
+                                           ;	.line	45; teclado.c	if (!BitTst(PORTB, j + 4)) {
+000226   ee0f     lfsr    0x0, 0xf81       	LFSR	0x00, 0xf81
+000228   f081
+00022a   cfef     movff   0xfef, 0x004     	MOVFF	INDF0, r0x04
+00022c   f004
+00022e   c003     movff   0x003, 0x005     	MOVFF	r0x03, r0x05
+000230   f005
+000232   6a06     clrf    0x06, 0x0        	CLRF	r0x06
+000234   0e04     movlw   0x04             	MOVLW	0x04
+000236   2605     addwf   0x05, 0x1, 0x0   	ADDWF	r0x05, F
+000238   b0d8     btfsc   0xd8, 0x0, 0x0   	BTFSC	STATUS, 0
+00023a   2a06     incf    0x06, 0x1, 0x0   	INCF	r0x06, F
+00023c   0e01     movlw   0x01             	MOVLW	0x01
+00023e   6e07     movwf   0x07, 0x0        	MOVWF	r0x07
+000240   0e00     movlw   0x00             	MOVLW	0x00
+000242   6e08     movwf   0x08, 0x0        	MOVWF	r0x08
+000244   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000246   e00f     bz      0x000266         	BZ	_00163_DS_
+000248   e607     bn      0x000258         	BN	_00166_DS_
+00024a   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+00024c   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00164_DS_:
+00024e   3607     rlcf    0x07, 0x1, 0x0   	RLCF	r0x07, F
+000250   3608     rlcf    0x08, 0x1, 0x0   	RLCF	r0x08, F
+000252   0f01     addlw   0x01             	ADDLW	0x01
+000254   e3fc     bnc     0x00024e         	BNC	_00164_DS_
+000256   d007     bra     0x000266         	BRA	_00163_DS_
+                                           _00166_DS_:
+000258   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00165_DS_:
+00025a   be08     btfsc   0x08, 0x7, 0x0   	BTFSC	r0x08, 7
+00025c   80d8     bsf     0xd8, 0x0, 0x0   	BSF	STATUS, 0
+00025e   3208     rrcf    0x08, 0x1, 0x0   	RRCF	r0x08, F
+000260   3207     rrcf    0x07, 0x1, 0x0   	RRCF	r0x07, F
+000262   0f01     addlw   0x01             	ADDLW	0x01
+000264   e3fa     bnc     0x00025a         	BNC	_00165_DS_
+                                           _00163_DS_:
+000266   6a09     clrf    0x09, 0x0        	CLRF	r0x09
+000268   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+00026a   1607     andwf   0x07, 0x1, 0x0   	ANDWF	r0x07, F
+00026c   5009     movf    0x09, 0x0, 0x0   	MOVF	r0x09, W
+00026e   1608     andwf   0x08, 0x1, 0x0   	ANDWF	r0x08, F
+000270   5007     movf    0x07, 0x0, 0x0   	MOVF	r0x07, W
+000272   1008     iorwf   0x08, 0x0, 0x0   	IORWF	r0x08, W
+000274   e110     bnz     0x000296         	BNZ	_00112_DS_
+                                           ;	.line	46; teclado.c	BitSet(valorNovo, (i * 2) + j);
+000276   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000278   2402     addwf   0x02, 0x0, 0x0   	ADDWF	r0x02, W
+00027a   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00027c   0e01     movlw   0x01             	MOVLW	0x01
+00027e   6e05     movwf   0x05, 0x0        	MOVWF	r0x05
+000280   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+000282   e005     bz      0x00028e         	BZ	_00167_DS_
+000284   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+000286   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00168_DS_:
+000288   3605     rlcf    0x05, 0x1, 0x0   	RLCF	r0x05, F
+00028a   0f01     addlw   0x01             	ADDLW	0x01
+00028c   e3fd     bnc     0x000288         	BNC	_00168_DS_
+                                           _00167_DS_:
+00028e   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+000290   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorNovo_1_7
+000292   1381     iorwf   0x81, 0x1, 0x1   	IORWF	_DebounceTeclas_valorNovo_1_7, F, B
+000294   d011     bra     0x0002b8         	BRA	_00125_DS_
+                                           _00112_DS_:
+                                           ;	.line	48; teclado.c	BitClr(valorNovo, (i * 2) + j);
+000296   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+000298   2401     addwf   0x01, 0x0, 0x0   	ADDWF	r0x01, W
+00029a   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+00029c   0e01     movlw   0x01             	MOVLW	0x01
+00029e   6e05     movwf   0x05, 0x0        	MOVWF	r0x05
+0002a0   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002a2   e005     bz      0x0002ae         	BZ	_00170_DS_
+0002a4   6ce8     negf    0xe8, 0x0        	NEGF	WREG
+0002a6   90d8     bcf     0xd8, 0x0, 0x0   	BCF	STATUS, 0
+                                           _00171_DS_:
+0002a8   3605     rlcf    0x05, 0x1, 0x0   	RLCF	r0x05, F
+0002aa   0f01     addlw   0x01             	ADDLW	0x01
+0002ac   e3fd     bnc     0x0002a8         	BNC	_00171_DS_
+                                           _00170_DS_:
+0002ae   1c05     comf    0x05, 0x0, 0x0   	COMF	r0x05, W
+0002b0   6e04     movwf   0x04, 0x0        	MOVWF	r0x04
+0002b2   5004     movf    0x04, 0x0, 0x0   	MOVF	r0x04, W
+0002b4   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorNovo_1_7
+0002b6   1781     andwf   0x81, 0x1, 0x1   	ANDWF	_DebounceTeclas_valorNovo_1_7, F, B
+                                           _00125_DS_:
+                                           ;	.line	44; teclado.c	for (j = 0; j < 2; j++) {
+0002b8   2a03     incf    0x03, 0x1, 0x0   	INCF	r0x03, F
+0002ba   0e02     movlw   0x02             	MOVLW	0x02
+0002bc   5c03     subwf   0x03, 0x0, 0x0   	SUBWF	r0x03, W
+0002be   a0d8     btfss   0xd8, 0x0, 0x0   	BTFSS	STATUS, 0
+0002c0   d7b2     bra     0x000226         	BRA	_00124_DS_
+                                           ;	.line	35; teclado.c	for (i = 0; i < 4; i++) {
+0002c2   2a01     incf    0x01, 0x1, 0x0   	INCF	r0x01, F
+0002c4   2a01     incf    0x01, 0x1, 0x0   	INCF	r0x01, F
+0002c6   2a02     incf    0x02, 0x1, 0x0   	INCF	r0x02, F
+0002c8   2a02     incf    0x02, 0x1, 0x0   	INCF	r0x02, F
+0002ca   2a00     incf    0x00, 0x1, 0x0   	INCF	r0x00, F
+0002cc   0e04     movlw   0x04             	MOVLW	0x04
+0002ce   5c00     subwf   0x00, 0x0, 0x0   	SUBWF	r0x00, W
+0002d0   a0d8     btfss   0xd8, 0x0, 0x0   	BTFSS	STATUS, 0
+0002d2   d782     bra     0x0001d8         	BRA	_00126_DS_
+0002d4   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorAntigo_1_7
+                                           ;	.line	54; teclado.c	if (valorAntigo == valorNovo) {
+0002d6   5182     movf    0x82, 0x0, 0x1   	MOVF	_DebounceTeclas_valorAntigo_1_7, W, B
+0002d8   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_valorNovo_1_7
+0002da   1981     xorwf   0x81, 0x0, 0x1   	XORWF	_DebounceTeclas_valorNovo_1_7, W, B
+0002dc   e103     bnz     0x0002e4         	BNZ	_00117_DS_
+                                           _00176_DS_:
+0002de   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_tempo_1_7
+                                           ;	.line	55; teclado.c	tempo--;
+0002e0   078a     decf    0x8a, 0x1, 0x1   	DECF	_DebounceTeclas_tempo_1_7, F, B
+0002e2   d005     bra     0x0002ee         	BRA	_00118_DS_
+                                           _00117_DS_:
+                                           ;	.line	57; teclado.c	tempo = 10;
+0002e4   0e0a     movlw   0x0a             	MOVLW	0x0a
+0002e6   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_tempo_1_7
+0002e8   6f8a     movwf   0x8a, 0x1        	MOVWF	_DebounceTeclas_tempo_1_7, B
+                                           ;	.line	58; teclado.c	valorAntigo = valorNovo;
+0002ea   c081     movff   0x081, 0x082     	MOVFF	_DebounceTeclas_valorNovo_1_7, _DebounceTeclas_valorAntigo_1_7
+0002ec   f082
+                                           _00118_DS_:
+0002ee   0100     movlb   0x0              	BANKSEL	_DebounceTeclas_tempo_1_7
+                                           ;	.line	60; teclado.c	if (tempo == 0) {
+0002f0   518a     movf    0x8a, 0x0, 0x1   	MOVF	_DebounceTeclas_tempo_1_7, W, B
+0002f2   e102     bnz     0x0002f8         	BNZ	_00128_DS_
+                                           ;	.line	61; teclado.c	valor = valorAntigo;
+0002f4   c082     movff   0x082, 0x080     	MOVFF	_DebounceTeclas_valorAntigo_1_7, _valor
+0002f6   f080
+                                           _00128_DS_:
+0002f8   cfe4     movff   0xfe4, 0x009     	MOVFF	PREINC1, r0x09
+0002fa   f009
+0002fc   cfe4     movff   0xfe4, 0x008     	MOVFF	PREINC1, r0x08
+0002fe   f008
+000300   cfe4     movff   0xfe4, 0x007     	MOVFF	PREINC1, r0x07
+000302   f007
+000304   cfe4     movff   0xfe4, 0x006     	MOVFF	PREINC1, r0x06
+000306   f006
+000308   cfe4     movff   0xfe4, 0x005     	MOVFF	PREINC1, r0x05
+00030a   f005
+00030c   cfe4     movff   0xfe4, 0x004     	MOVFF	PREINC1, r0x04
+00030e   f004
+000310   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+000312   f003
+000314   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+000316   f002
+000318   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+00031a   f001
+00031c   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+00031e   f000
+000320   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000322   ffd9
+000324   0012     return  0x0              	RETURN	
+                                           
+                                           ; ; Starting pCode block
+                                           S_teclado__LerTeclas	code
+                                           _LerTeclas:
+                                           ;	.line	25; teclado.c	unsigned char LerTeclas(void) {
+0010c8   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0010ca   ffe5
+0010cc   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0010ce   ffd9
+0010d0   0100     movlb   0x0              	BANKSEL	_valor
+                                           ;	.line	26; teclado.c	return valor;
+0010d2   5180     movf    0x80, 0x0, 0x1   	MOVF	_valor, W, B
+0010d4   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+0010d6   ffd9
+0010d8   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  462 (0x01ce) bytes ( 0.35%)
+                                           ;           	  231 (0x00e7) words
+                                           ; udata size:	    1 (0x0001) bytes ( 0.08%)
+                                           ; access size:	   10 (0x000a) bytes
+                                           
+                                           
+                                           	end

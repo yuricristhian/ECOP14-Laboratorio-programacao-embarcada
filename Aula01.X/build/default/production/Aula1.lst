@@ -1,0 +1,135 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   8-18-2016  09:46:32         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Aug 18 09:46:32 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010         CONFIG  MCLRE=ON
+                      00011         CONFIG  OSC=HS
+                      00012         CONFIG  WDT=OFF
+                      00013         CONFIG  LVP=OFF
+                      00014         CONFIG  DEBUG=OFF
+                      00015         CONFIG  WDTPS=1
+                      00016 
+                      00017 
+                      00018 ;--------------------------------------------------------
+                      00019 ; public variables in this module
+                      00020 ;--------------------------------------------------------
+  0000                00021         global  _main
+                      00022 
+                      00023 ;--------------------------------------------------------
+                      00024 ; extern variables in this module
+                      00025 ;--------------------------------------------------------
+  0000                00026         extern  _printf
+                      00027 
+                      00028 ;--------------------------------------------------------
+                      00029 ;       Equates to used internal registers
+                      00030 ;--------------------------------------------------------
+  00000FE1            00031 FSR1L   equ     0xfe1
+  00000FE5            00032 POSTDEC1        equ     0xfe5
+                      00033 
+                      00034 
+                      00035 ; Internal registers
+                      00036 .registers      udata_ovr       0x0000
+000000                00037 r0x00   res     1
+000001                00038 r0x01   res     1
+000002                00039 r0x02   res     1
+                      00040 
+                      00041 ;--------------------------------------------------------
+                      00042 ; interrupt vector
+                      00043 ;--------------------------------------------------------
+                      00044 
+                      00045 ;--------------------------------------------------------
+                      00046 ; global & static initialisations
+                      00047 ;--------------------------------------------------------
+                      00048 ; I code from now on!
+                      00049 ; ; Starting pCode block
+                      00050 S_Aula1__main   code
+000000                00051 _main:
+                      00052 ;       .line   19; Aula1.c     printf("Douglas Barbosa \nAmaral");
+000000 0E??           00053         MOVLW   UPPER(___str_0)
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   8-18-2016  09:46:32         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+000002 6E??           00054         MOVWF   r0x02
+000004 0E??           00055         MOVLW   HIGH(___str_0)
+Message[1301]: Using default destination of 0 (Access Bank).
+000006 6E??           00056         MOVWF   r0x01
+000008 0E??           00057         MOVLW   LOW(___str_0)
+Message[1301]: Using default destination of 0 (Access Bank).
+00000A 6E??           00058         MOVWF   r0x00
+00000C 50??           00059         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00000E 6EE5           00060         MOVWF   POSTDEC1
+000010 50??           00061         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000012 6EE5           00062         MOVWF   POSTDEC1
+000014 50??           00063         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000016 6EE5           00064         MOVWF   POSTDEC1
+000018 EC?? F0??      00065         CALL    _printf
+00001C 0E03           00066         MOVLW   0x03
+00001E 26E1           00067         ADDWF   FSR1L, F
+000020                00068 _00107_DS_:
+000020 D???           00069         BRA     _00107_DS_
+000022 0012           00070         RETURN  
+                      00071 
+                      00072 ; ; Starting pCode block
+000024                00073 ___str_0:
+000024 6F44 6775 616C 00074         DB      0x44, 0x6f, 0x75, 0x67, 0x6c, 0x61, 0x73, 0x20, 0x42, 0x61, 0x72, 0x62
+       2073 6142 6272 
+000030 736F 2061 410A 00075         DB      0x6f, 0x73, 0x61, 0x20, 0x0a, 0x41, 0x6d, 0x61, 0x72, 0x61, 0x6c, 0x00
+       616D 6172 006C 
+                      00076 
+                      00077 
+                      00078 ; Statistics:
+                      00079 ; code size:       40 (0x0028) bytes ( 0.03%)
+                      00080 ;                  20 (0x0014) words
+                      00081 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      00082 ; access size:      3 (0x0003) bytes
+                      00083 
+                      00084 
+                      00085         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   8-18-2016  09:46:32         PAGE  3
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+POSTDEC1                          00000FE5
+_00107_DS_                        00000020
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+___str_0                          00000024
+_main                             00000000
+_printf                           00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :     6 reported,     0 suppressed
+
+

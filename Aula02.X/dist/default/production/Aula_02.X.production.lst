@@ -1,0 +1,254 @@
+gplink-1.4.0 #1106 (Oct  6 2014)
+Copyright (c) 1998-2014 gputils project
+Listing File Generated: 8-25-2016  09:48:37
+ 
+ 
+Address  Value    Disassembly              Source
+-------  -----    -----------              ------
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Aug 25 09:48:37 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           	CONFIG	MCLRE=ON
+                                           	CONFIG	OSC=HS
+                                           	CONFIG	WDT=OFF
+                                           	CONFIG	LVP=OFF
+                                           	CONFIG	DEBUG=OFF
+                                           	CONFIG	WDTPS=1
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_main
+                                           
+                                           ;--------------------------------------------------------
+                                           ; extern variables in this module
+                                           ;--------------------------------------------------------
+                                           	extern	_tempo
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           INDF0	equ	0xfef
+                                           POSTINC1	equ	0xfe6
+                                           POSTDEC1	equ	0xfe5
+                                           
+                                           ;--------------------------------------------------------
+                                           ; interrupt vector
+                                           ;--------------------------------------------------------
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_Aula2__main	code
+                                           _main:
+                                           ;	.line	16; Aula2.c	TRISD = 0x00;
+00012c   ee0f     lfsr    0x0, 0xf95       	LFSR	0x00, 0xf95
+00012e   f095
+000130   0e00     movlw   0x00             	MOVLW	0x00
+000132   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	17; Aula2.c	PORTD = 0x00;    
+000134   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+000136   f083
+000138   0e00     movlw   0x00             	MOVLW	0x00
+00013a   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           _00106_DS_:
+                                           ;	.line	19; Aula2.c	PORTD = 0xF8; //verde
+00013c   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+00013e   f083
+000140   0ef8     movlw   0xf8             	MOVLW	0xf8
+000142   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	20; Aula2.c	tempo(4000);
+000144   0e0f     movlw   0x0f             	MOVLW	0x0f
+000146   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000148   0ea0     movlw   0xa0             	MOVLW	0xa0
+00014a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00014c   ec51     call    0x0000a2, 0x0call    0x0000a2, 0x0 	CALL	_tempo
+00014e   f000
+000150   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000152   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	21; Aula2.c	PORTD = 0xE7; //amarelo
+000154   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+000156   f083
+000158   0ee7     movlw   0xe7             	MOVLW	0xe7
+00015a   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	22; Aula2.c	tempo(500);
+00015c   0e01     movlw   0x01             	MOVLW	0x01
+00015e   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000160   0ef4     movlw   0xf4             	MOVLW	0xf4
+000162   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000164   ec51     call    0x0000a2, 0x0call    0x0000a2, 0x0 	CALL	_tempo
+000166   f000
+000168   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+00016a   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+                                           ;	.line	23; Aula2.c	PORTD = 0x1F; //vermelho
+00016c   ee0f     lfsr    0x0, 0xf83       	LFSR	0x00, 0xf83
+00016e   f083
+000170   0e1f     movlw   0x1f             	MOVLW	0x1f
+000172   6eef     movwf   0xef, 0x0        	MOVWF	INDF0
+                                           ;	.line	24; Aula2.c	tempo(5000);
+000174   0e13     movlw   0x13             	MOVLW	0x13
+000176   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+000178   0e88     movlw   0x88             	MOVLW	0x88
+00017a   6ee5     movwf   0xe5, 0x0        	MOVWF	POSTDEC1
+00017c   ec51     call    0x0000a2, 0x0call    0x0000a2, 0x0 	CALL	_tempo
+00017e   f000
+000180   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000182   52e6     movf    0xe6, 0x1, 0x0   	MOVF	POSTINC1, F
+000184   d7db     bra     0x00013c         	BRA	_00106_DS_
+000186   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	   92 (0x005c) bytes ( 0.07%)
+                                           ;           	   46 (0x002e) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    0 (0x0000) bytes
+                                           
+                                           
+                                           	end
+                                           ;--------------------------------------------------------
+                                           ; File Created by SDCC : free open source ANSI-C Compiler
+                                           ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                                           ; This file was generated Thu Aug 25 09:27:20 2016
+                                           ;--------------------------------------------------------
+                                           ; PIC16 port for the Microchip 16-bit core micros
+                                           ;--------------------------------------------------------
+                                           	list	p=18f4520
+                                           	radix	dec
+                                           
+                                           
+                                           ;--------------------------------------------------------
+                                           ; public variables in this module
+                                           ;--------------------------------------------------------
+                                           	global	_tempo
+                                           
+                                           ;--------------------------------------------------------
+                                           ;	Equates to used internal registers
+                                           ;--------------------------------------------------------
+                                           STATUS	equ	0xfd8
+                                           FSR1L	equ	0xfe1
+                                           FSR2L	equ	0xfd9
+                                           POSTDEC1	equ	0xfe5
+                                           PREINC1	equ	0xfe4
+                                           PLUSW2	equ	0xfdb
+                                           PRODL	equ	0xff3
+                                           
+                                           
+                                           ; Internal registers
+                                           .registers	udata_ovr	0x0000
+                                           r0x00	res	1
+                                           r0x01	res	1
+                                           r0x02	res	1
+                                           r0x03	res	1
+                                           r0x04	res	1
+                                           r0x05	res	1
+                                           r0x06	res	1
+                                           
+                                           ;--------------------------------------------------------
+                                           ; global & static initialisations
+                                           ;--------------------------------------------------------
+                                           ; I code from now on!
+                                           ; ; Starting pCode block
+                                           S_delay__tempo	code
+                                           _tempo:
+                                           ;	.line	2; delay.c	void tempo(int ms) {
+0000a2   cfd9     movff   0xfd9, 0xfe5     	MOVFF	FSR2L, POSTDEC1
+0000a4   ffe5
+0000a6   cfe1     movff   0xfe1, 0xfd9     	MOVFF	FSR1L, FSR2L
+0000a8   ffd9
+0000aa   c000     movff   0x000, 0xfe5     	MOVFF	r0x00, POSTDEC1
+0000ac   ffe5
+0000ae   c001     movff   0x001, 0xfe5     	MOVFF	r0x01, POSTDEC1
+0000b0   ffe5
+0000b2   c002     movff   0x002, 0xfe5     	MOVFF	r0x02, POSTDEC1
+0000b4   ffe5
+0000b6   c003     movff   0x003, 0xfe5     	MOVFF	r0x03, POSTDEC1
+0000b8   ffe5
+0000ba   c004     movff   0x004, 0xfe5     	MOVFF	r0x04, POSTDEC1
+0000bc   ffe5
+0000be   c005     movff   0x005, 0xfe5     	MOVFF	r0x05, POSTDEC1
+0000c0   ffe5
+0000c2   c006     movff   0x006, 0xfe5     	MOVFF	r0x06, POSTDEC1
+0000c4   ffe5
+0000c6   0e02     movlw   0x02             	MOVLW	0x02
+0000c8   cfdb     movff   0xfdb, 0x000     	MOVFF	PLUSW2, r0x00
+0000ca   f000
+0000cc   0e03     movlw   0x03             	MOVLW	0x03
+0000ce   cfdb     movff   0xfdb, 0x001     	MOVFF	PLUSW2, r0x01
+0000d0   f001
+                                           ;	.line	5; delay.c	do {
+0000d2   6a02     clrf    0x02, 0x0        	CLRF	r0x02
+0000d4   6a03     clrf    0x03, 0x0        	CLRF	r0x03
+                                           _00119_DS_:
+                                           ;	.line	6; delay.c	for (j = 0; j < 41; j++) {
+0000d6   6a04     clrf    0x04, 0x0        	CLRF	r0x04
+                                           _00113_DS_:
+                                           ;	.line	7; delay.c	for (k = 0; k < 3; k++);
+0000d8   0e03     movlw   0x03             	MOVLW	0x03
+0000da   6e05     movwf   0x05, 0x0        	MOVWF	r0x05
+                                           _00112_DS_:
+0000dc   5005     movf    0x05, 0x0, 0x0   	MOVF	r0x05, W
+0000de   6e06     movwf   0x06, 0x0        	MOVWF	r0x06
+0000e0   0606     decf    0x06, 0x1, 0x0   	DECF	r0x06, F
+0000e2   c006     movff   0x006, 0x005     	MOVFF	r0x06, r0x05
+0000e4   f005
+0000e6   5006     movf    0x06, 0x0, 0x0   	MOVF	r0x06, W
+0000e8   e1f9     bnz     0x0000dc         	BNZ	_00112_DS_
+                                           ;	.line	6; delay.c	for (j = 0; j < 41; j++) {
+0000ea   2a04     incf    0x04, 0x1, 0x0   	INCF	r0x04, F
+0000ec   0e29     movlw   0x29             	MOVLW	0x29
+0000ee   5c04     subwf   0x04, 0x0, 0x0   	SUBWF	r0x04, W
+0000f0   e3f3     bnc     0x0000d8         	BNC	_00113_DS_
+                                           ;	.line	9; delay.c	t++;
+0000f2   4a02     infsnz  0x02, 0x1, 0x0   	INFSNZ	r0x02, F
+0000f4   2a03     incf    0x03, 0x1, 0x0   	INCF	r0x03, F
+                                           ;	.line	10; delay.c	} while (t < ms);
+0000f6   5003     movf    0x03, 0x0, 0x0   	MOVF	r0x03, W
+0000f8   0f80     addlw   0x80             	ADDLW	0x80
+0000fa   6ef3     movwf   0xf3, 0x0        	MOVWF	PRODL
+0000fc   5001     movf    0x01, 0x0, 0x0   	MOVF	r0x01, W
+0000fe   0f80     addlw   0x80             	ADDLW	0x80
+000100   5cf3     subwf   0xf3, 0x0, 0x0   	SUBWF	PRODL, W
+000102   e102     bnz     0x000108         	BNZ	_00135_DS_
+000104   5000     movf    0x00, 0x0, 0x0   	MOVF	r0x00, W
+000106   5c02     subwf   0x02, 0x0, 0x0   	SUBWF	r0x02, W
+                                           _00135_DS_:
+000108   e3e6     bnc     0x0000d6         	BNC	_00119_DS_
+00010a   cfe4     movff   0xfe4, 0x006     	MOVFF	PREINC1, r0x06
+00010c   f006
+00010e   cfe4     movff   0xfe4, 0x005     	MOVFF	PREINC1, r0x05
+000110   f005
+000112   cfe4     movff   0xfe4, 0x004     	MOVFF	PREINC1, r0x04
+000114   f004
+000116   cfe4     movff   0xfe4, 0x003     	MOVFF	PREINC1, r0x03
+000118   f003
+00011a   cfe4     movff   0xfe4, 0x002     	MOVFF	PREINC1, r0x02
+00011c   f002
+00011e   cfe4     movff   0xfe4, 0x001     	MOVFF	PREINC1, r0x01
+000120   f001
+000122   cfe4     movff   0xfe4, 0x000     	MOVFF	PREINC1, r0x00
+000124   f000
+000126   cfe4     movff   0xfe4, 0xfd9     	MOVFF	PREINC1, FSR2L
+000128   ffd9
+00012a   0012     return  0x0              	RETURN	
+                                           
+                                           
+                                           
+                                           ; Statistics:
+                                           ; code size:	  138 (0x008a) bytes ( 0.11%)
+                                           ;           	   69 (0x0045) words
+                                           ; udata size:	    0 (0x0000) bytes ( 0.00%)
+                                           ; access size:	    7 (0x0007) bytes
+                                           
+                                           
+                                           	end

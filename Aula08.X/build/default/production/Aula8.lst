@@ -1,0 +1,518 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Oct 20 09:59:39 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010         CONFIG  MCLRE=ON
+                      00011         CONFIG  OSC=HS
+                      00012         CONFIG  WDT=OFF
+                      00013         CONFIG  LVP=OFF
+                      00014         CONFIG  DEBUG=OFF
+                      00015         CONFIG  WDTPS=1
+                      00016 
+                      00017 
+                      00018 ;--------------------------------------------------------
+                      00019 ; public variables in this module
+                      00020 ;--------------------------------------------------------
+  0000                00021         global  _PrintInt
+  0000                00022         global  _ConverteTemp
+  0000                00023         global  _main
+                      00024 
+                      00025 ;--------------------------------------------------------
+                      00026 ; extern variables in this module
+                      00027 ;--------------------------------------------------------
+  0000                00028         extern  _InicializaAD
+  0000                00029         extern  _LeValorAD
+  0000                00030         extern  _EnviaComando
+  0000                00031         extern  _EnviaDados
+  0000                00032         extern  _InicializaLCD
+  0000                00033         extern  _SetaFreqPWM
+  0000                00034         extern  _InicializaPWM
+  0000                00035         extern  _InicializaTeclado
+  0000                00036         extern  _ConfiguraLimiteSuperior
+  0000                00037         extern  _ConfiguraLimiteInferior
+  0000                00038         extern  _AtualizarSistema
+  0000                00039         extern  __divsint
+  0000                00040         extern  __modsint
+  0000                00041         extern  __mulint
+                      00042 
+                      00043 ;--------------------------------------------------------
+                      00044 ;       Equates to used internal registers
+                      00045 ;--------------------------------------------------------
+  00000FD8            00046 STATUS  equ     0xfd8
+  00000FE8            00047 WREG    equ     0xfe8
+  00000FE1            00048 FSR1L   equ     0xfe1
+  00000FD9            00049 FSR2L   equ     0xfd9
+  00000FE6            00050 POSTINC1        equ     0xfe6
+  00000FE5            00051 POSTDEC1        equ     0xfe5
+  00000FE4            00052 PREINC1 equ     0xfe4
+  00000FDB            00053 PLUSW2  equ     0xfdb
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+  00000FF3            00054 PRODL   equ     0xff3
+                      00055 
+                      00056 
+                      00057 ; Internal registers
+                      00058 .registers      udata_ovr       0x0000
+000000                00059 r0x00   res     1
+000001                00060 r0x01   res     1
+000002                00061 r0x02   res     1
+000003                00062 r0x03   res     1
+                      00063 
+                      00064 ;--------------------------------------------------------
+                      00065 ; interrupt vector
+                      00066 ;--------------------------------------------------------
+                      00067 
+                      00068 ;--------------------------------------------------------
+                      00069 ; global & static initialisations
+                      00070 ;--------------------------------------------------------
+                      00071 ; I code from now on!
+                      00072 ; ; Starting pCode block
+                      00073 S_Aula8__main   code
+000000                00074 _main:
+                      00075 ;       .line   24; Aula8.c     InicializaTeclado();
+000000 EC?? F0??      00076         CALL    _InicializaTeclado
+                      00077 ;       .line   25; Aula8.c     InicializaLCD();
+000004 EC?? F0??      00078         CALL    _InicializaLCD
+                      00079 ;       .line   26; Aula8.c     InicializaAD();
+000008 EC?? F0??      00080         CALL    _InicializaAD
+                      00081 ;       .line   27; Aula8.c     InicializaPWM();
+00000C EC?? F0??      00082         CALL    _InicializaPWM
+                      00083 ;       .line   28; Aula8.c     SetaFreqPWM(10000);
+000010 0E27           00084         MOVLW   0x27
+Message[1301]: Using default destination of 0 (Access Bank).
+000012 6EE5           00085         MOVWF   POSTDEC1
+000014 0E10           00086         MOVLW   0x10
+Message[1301]: Using default destination of 0 (Access Bank).
+000016 6EE5           00087         MOVWF   POSTDEC1
+000018 EC?? F0??      00088         CALL    _SetaFreqPWM
+00001C 52E6           00089         MOVF    POSTINC1, F
+00001E 52E6           00090         MOVF    POSTINC1, F
+                      00091 ;       .line   29; Aula8.c     ConfiguraLimiteSuperior(27);
+000020 0E1B           00092         MOVLW   0x1b
+Message[1301]: Using default destination of 0 (Access Bank).
+000022 6EE5           00093         MOVWF   POSTDEC1
+000024 EC?? F0??      00094         CALL    _ConfiguraLimiteSuperior
+000028 52E6           00095         MOVF    POSTINC1, F
+                      00096 ;       .line   30; Aula8.c     ConfiguraLimiteInferior(23);
+00002A 0E17           00097         MOVLW   0x17
+Message[1301]: Using default destination of 0 (Access Bank).
+00002C 6EE5           00098         MOVWF   POSTDEC1
+00002E EC?? F0??      00099         CALL    _ConfiguraLimiteInferior
+000032 52E6           00100         MOVF    POSTINC1, F
+000034                00101 _00110_DS_:
+                      00102 ;       .line   34; Aula8.c     valorad = LeValorAD();
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000034 EC?? F0??      00103         CALL    _LeValorAD
+Message[1301]: Using default destination of 0 (Access Bank).
+000038 6E??           00104         MOVWF   r0x00
+00003A CFF3 F000      00105         MOVFF   PRODL, r0x01
+                      00106 ;       .line   35; Aula8.c     temperatura = ConverteTemp(valorad);
+00003E 50??           00107         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000040 6EE5           00108         MOVWF   POSTDEC1
+000042 50??           00109         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000044 6EE5           00110         MOVWF   POSTDEC1
+000046 EC?? F0??      00111         CALL    _ConverteTemp
+Message[1301]: Using default destination of 0 (Access Bank).
+00004A 6E??           00112         MOVWF   r0x00
+00004C CFF3 F000      00113         MOVFF   PRODL, r0x01
+000050 52E6           00114         MOVF    POSTINC1, F
+000052 52E6           00115         MOVF    POSTINC1, F
+                      00116 ;       .line   36; Aula8.c     AtualizarSistema();       
+000054 EC?? F0??      00117         CALL    _AtualizarSistema
+                      00118 ;       .line   37; Aula8.c     PrintInt(temperatura);
+000058 50??           00119         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00005A 6EE5           00120         MOVWF   POSTDEC1
+00005C 50??           00121         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00005E 6EE5           00122         MOVWF   POSTDEC1
+000060 EC?? F0??      00123         CALL    _PrintInt
+000064 52E6           00124         MOVF    POSTINC1, F
+000066 52E6           00125         MOVF    POSTINC1, F
+                      00126 ;       .line   38; Aula8.c     for (i = 0; i < 65000; i++);
+000068 0EE8           00127         MOVLW   0xe8
+Message[1301]: Using default destination of 0 (Access Bank).
+00006A 6E??           00128         MOVWF   r0x00
+00006C 0EFD           00129         MOVLW   0xfd
+Message[1301]: Using default destination of 0 (Access Bank).
+00006E 6E??           00130         MOVWF   r0x01
+000070                00131 _00109_DS_:
+000070 50??           00132         MOVF    r0x00, W
+000072 0FFF           00133         ADDLW   0xff
+Message[1301]: Using default destination of 0 (Access Bank).
+000074 6E??           00134         MOVWF   r0x02
+000076 0EFF           00135         MOVLW   0xff
+000078 20??           00136         ADDWFC  r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00007A 6E??           00137         MOVWF   r0x03
+00007C C??? F???      00138         MOVFF   r0x02, r0x00
+000080 C??? F???      00139         MOVFF   r0x03, r0x01
+000084 50??           00140         MOVF    r0x02, W
+000086 10??           00141         IORWF   r0x03, W
+000088 E1??           00142         BNZ     _00109_DS_
+00008A D???           00143         BRA     _00110_DS_
+00008C 0012           00144         RETURN  
+                      00145 
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00146 ; ; Starting pCode block
+                      00147 S_Aula8__ConverteTemp   code
+000000                00148 _ConverteTemp:
+                      00149 ;       .line   56; Aula8.c     int ConverteTemp(unsigned int val) {
+000000 CFD9 FFE5      00150         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00151         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00152         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00153         MOVFF   r0x01, POSTDEC1
+000010 0E02           00154         MOVLW   0x02
+000012 CFDB F000      00155         MOVFF   PLUSW2, r0x00
+000016 0E03           00156         MOVLW   0x03
+000018 CFDB F000      00157         MOVFF   PLUSW2, r0x01
+                      00158 ;       .line   58; Aula8.c     t = (int) (452 * val) / 100;
+00001C 50??           00159         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00001E 6EE5           00160         MOVWF   POSTDEC1
+000020 50??           00161         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000022 6EE5           00162         MOVWF   POSTDEC1
+000024 0E01           00163         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+000026 6EE5           00164         MOVWF   POSTDEC1
+000028 0EC4           00165         MOVLW   0xc4
+Message[1301]: Using default destination of 0 (Access Bank).
+00002A 6EE5           00166         MOVWF   POSTDEC1
+00002C EC?? F0??      00167         CALL    __mulint
+Message[1301]: Using default destination of 0 (Access Bank).
+000030 6E??           00168         MOVWF   r0x00
+000032 CFF3 F000      00169         MOVFF   PRODL, r0x01
+000036 0E04           00170         MOVLW   0x04
+000038 26E1           00171         ADDWF   FSR1L, F
+00003A 0E00           00172         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00003C 6EE5           00173         MOVWF   POSTDEC1
+00003E 0E64           00174         MOVLW   0x64
+Message[1301]: Using default destination of 0 (Access Bank).
+000040 6EE5           00175         MOVWF   POSTDEC1
+000042 50??           00176         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000044 6EE5           00177         MOVWF   POSTDEC1
+000046 50??           00178         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000048 6EE5           00179         MOVWF   POSTDEC1
+00004A EC?? F0??      00180         CALL    __divsint
+Message[1301]: Using default destination of 0 (Access Bank).
+00004E 6E??           00181         MOVWF   r0x00
+000050 CFF3 F000      00182         MOVFF   PRODL, r0x01
+000054 0E04           00183         MOVLW   0x04
+000056 26E1           00184         ADDWF   FSR1L, F
+                      00185 ;       .line   59; Aula8.c     return t;
+000058 C??? F???      00186         MOVFF   r0x01, PRODL
+00005C 50??           00187         MOVF    r0x00, W
+00005E CFE4 F000      00188         MOVFF   PREINC1, r0x01
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  5
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000062 CFE4 F000      00189         MOVFF   PREINC1, r0x00
+000066 CFE4 FFD9      00190         MOVFF   PREINC1, FSR2L
+00006A 0012           00191         RETURN  
+                      00192 
+                      00193 ; ; Starting pCode block
+                      00194 S_Aula8__PrintInt       code
+000000                00195 _PrintInt:
+                      00196 ;       .line   47; Aula8.c     void PrintInt(int valor) {
+000000 CFD9 FFE5      00197         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00198         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00199         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00200         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00201         MOVFF   r0x02, POSTDEC1
+000014 C??? F???      00202         MOVFF   r0x03, POSTDEC1
+000018 0E02           00203         MOVLW   0x02
+00001A CFDB F000      00204         MOVFF   PLUSW2, r0x00
+00001E 0E03           00205         MOVLW   0x03
+000020 CFDB F000      00206         MOVFF   PLUSW2, r0x01
+                      00207 ;       .line   48; Aula8.c     EnviaComando(0x80);
+000024 0E80           00208         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000026 6EE5           00209         MOVWF   POSTDEC1
+000028 EC?? F0??      00210         CALL    _EnviaComando
+00002C 52E6           00211         MOVF    POSTINC1, F
+                      00212 ;       .line   49; Aula8.c     EnviaDados((valor / 1000) % 10 + 48);
+00002E 0E03           00213         MOVLW   0x03
+Message[1301]: Using default destination of 0 (Access Bank).
+000030 6EE5           00214         MOVWF   POSTDEC1
+000032 0EE8           00215         MOVLW   0xe8
+Message[1301]: Using default destination of 0 (Access Bank).
+000034 6EE5           00216         MOVWF   POSTDEC1
+000036 50??           00217         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000038 6EE5           00218         MOVWF   POSTDEC1
+00003A 50??           00219         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00003C 6EE5           00220         MOVWF   POSTDEC1
+00003E EC?? F0??      00221         CALL    __divsint
+Message[1301]: Using default destination of 0 (Access Bank).
+000042 6E??           00222         MOVWF   r0x02
+000044 CFF3 F000      00223         MOVFF   PRODL, r0x03
+000048 0E04           00224         MOVLW   0x04
+00004A 26E1           00225         ADDWF   FSR1L, F
+00004C 0E00           00226         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00004E 6EE5           00227         MOVWF   POSTDEC1
+000050 0E0A           00228         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+000052 6EE5           00229         MOVWF   POSTDEC1
+000054 50??           00230         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000056 6EE5           00231         MOVWF   POSTDEC1
+000058 50??           00232         MOVF    r0x02, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  6
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00005A 6EE5           00233         MOVWF   POSTDEC1
+00005C EC?? F0??      00234         CALL    __modsint
+Message[1301]: Using default destination of 0 (Access Bank).
+000060 6E??           00235         MOVWF   r0x02
+000062 CFF3 F000      00236         MOVFF   PRODL, r0x03
+000066 0E04           00237         MOVLW   0x04
+000068 26E1           00238         ADDWF   FSR1L, F
+00006A 0E30           00239         MOVLW   0x30
+00006C 26??           00240         ADDWF   r0x02, F
+00006E 50??           00241         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000070 6EE5           00242         MOVWF   POSTDEC1
+000072 EC?? F0??      00243         CALL    _EnviaDados
+000076 52E6           00244         MOVF    POSTINC1, F
+                      00245 ;       .line   50; Aula8.c     EnviaDados((valor / 100) % 10 + 48);
+000078 0E00           00246         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00007A 6EE5           00247         MOVWF   POSTDEC1
+00007C 0E64           00248         MOVLW   0x64
+Message[1301]: Using default destination of 0 (Access Bank).
+00007E 6EE5           00249         MOVWF   POSTDEC1
+000080 50??           00250         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000082 6EE5           00251         MOVWF   POSTDEC1
+000084 50??           00252         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000086 6EE5           00253         MOVWF   POSTDEC1
+000088 EC?? F0??      00254         CALL    __divsint
+Message[1301]: Using default destination of 0 (Access Bank).
+00008C 6E??           00255         MOVWF   r0x02
+00008E CFF3 F000      00256         MOVFF   PRODL, r0x03
+000092 0E04           00257         MOVLW   0x04
+000094 26E1           00258         ADDWF   FSR1L, F
+000096 0E00           00259         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000098 6EE5           00260         MOVWF   POSTDEC1
+00009A 0E0A           00261         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+00009C 6EE5           00262         MOVWF   POSTDEC1
+00009E 50??           00263         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A0 6EE5           00264         MOVWF   POSTDEC1
+0000A2 50??           00265         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A4 6EE5           00266         MOVWF   POSTDEC1
+0000A6 EC?? F0??      00267         CALL    __modsint
+Message[1301]: Using default destination of 0 (Access Bank).
+0000AA 6E??           00268         MOVWF   r0x02
+0000AC CFF3 F000      00269         MOVFF   PRODL, r0x03
+0000B0 0E04           00270         MOVLW   0x04
+0000B2 26E1           00271         ADDWF   FSR1L, F
+0000B4 0E30           00272         MOVLW   0x30
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  7
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0000B6 26??           00273         ADDWF   r0x02, F
+0000B8 50??           00274         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000BA 6EE5           00275         MOVWF   POSTDEC1
+0000BC EC?? F0??      00276         CALL    _EnviaDados
+0000C0 52E6           00277         MOVF    POSTINC1, F
+                      00278 ;       .line   51; Aula8.c     EnviaDados((valor / 10) % 10 + 48);
+0000C2 0E00           00279         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0000C4 6EE5           00280         MOVWF   POSTDEC1
+0000C6 0E0A           00281         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+0000C8 6EE5           00282         MOVWF   POSTDEC1
+0000CA 50??           00283         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000CC 6EE5           00284         MOVWF   POSTDEC1
+0000CE 50??           00285         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D0 6EE5           00286         MOVWF   POSTDEC1
+0000D2 EC?? F0??      00287         CALL    __divsint
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D6 6E??           00288         MOVWF   r0x02
+0000D8 CFF3 F000      00289         MOVFF   PRODL, r0x03
+0000DC 0E04           00290         MOVLW   0x04
+0000DE 26E1           00291         ADDWF   FSR1L, F
+0000E0 0E00           00292         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E2 6EE5           00293         MOVWF   POSTDEC1
+0000E4 0E0A           00294         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E6 6EE5           00295         MOVWF   POSTDEC1
+0000E8 50??           00296         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000EA 6EE5           00297         MOVWF   POSTDEC1
+0000EC 50??           00298         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000EE 6EE5           00299         MOVWF   POSTDEC1
+0000F0 EC?? F0??      00300         CALL    __modsint
+Message[1301]: Using default destination of 0 (Access Bank).
+0000F4 6E??           00301         MOVWF   r0x02
+0000F6 CFF3 F000      00302         MOVFF   PRODL, r0x03
+0000FA 0E04           00303         MOVLW   0x04
+0000FC 26E1           00304         ADDWF   FSR1L, F
+0000FE 0E30           00305         MOVLW   0x30
+000100 26??           00306         ADDWF   r0x02, F
+000102 50??           00307         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000104 6EE5           00308         MOVWF   POSTDEC1
+000106 EC?? F0??      00309         CALL    _EnviaDados
+00010A 52E6           00310         MOVF    POSTINC1, F
+                      00311 ;       .line   52; Aula8.c     EnviaDados('.');
+00010C 0E2E           00312         MOVLW   0x2e
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00010E 6EE5           00313         MOVWF   POSTDEC1
+000110 EC?? F0??      00314         CALL    _EnviaDados
+000114 52E6           00315         MOVF    POSTINC1, F
+                      00316 ;       .line   53; Aula8.c     EnviaDados(valor % 10 + 48);
+000116 0E00           00317         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000118 6EE5           00318         MOVWF   POSTDEC1
+00011A 0E0A           00319         MOVLW   0x0a
+Message[1301]: Using default destination of 0 (Access Bank).
+00011C 6EE5           00320         MOVWF   POSTDEC1
+00011E 50??           00321         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000120 6EE5           00322         MOVWF   POSTDEC1
+000122 50??           00323         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000124 6EE5           00324         MOVWF   POSTDEC1
+000126 EC?? F0??      00325         CALL    __modsint
+Message[1301]: Using default destination of 0 (Access Bank).
+00012A 6E??           00326         MOVWF   r0x00
+00012C CFF3 F000      00327         MOVFF   PRODL, r0x01
+000130 0E04           00328         MOVLW   0x04
+000132 26E1           00329         ADDWF   FSR1L, F
+000134 0E30           00330         MOVLW   0x30
+000136 26??           00331         ADDWF   r0x00, F
+000138 50??           00332         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00013A 6EE5           00333         MOVWF   POSTDEC1
+00013C EC?? F0??      00334         CALL    _EnviaDados
+000140 52E6           00335         MOVF    POSTINC1, F
+000142 CFE4 F000      00336         MOVFF   PREINC1, r0x03
+000146 CFE4 F000      00337         MOVFF   PREINC1, r0x02
+00014A CFE4 F000      00338         MOVFF   PREINC1, r0x01
+00014E CFE4 F000      00339         MOVFF   PREINC1, r0x00
+000152 CFE4 FFD9      00340         MOVFF   PREINC1, FSR2L
+000156 0012           00341         RETURN  
+                      00342 
+                      00343 
+                      00344 
+                      00345 ; Statistics:
+                      00346 ; code size:      594 (0x0252) bytes ( 0.45%)
+                      00347 ;                 297 (0x0129) words
+                      00348 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      00349 ; access size:      4 (0x0004) bytes
+                      00350 
+                      00351 
+                      00352         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   10-20-2016  09:59:39        PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+POSTINC1                          00000FE6
+PREINC1                           00000FE4
+PRODL                             00000FF3
+STATUS                            00000FD8
+WREG                              00000FE8
+_00109_DS_                        00000070
+_00110_DS_                        00000034
+_AtualizarSistema                 00000000
+_ConfiguraLimiteInferior          00000000
+_ConfiguraLimiteSuperior          00000000
+_ConverteTemp                     00000000
+_EnviaComando                     00000000
+_EnviaDados                       00000000
+_InicializaAD                     00000000
+_InicializaLCD                    00000000
+_InicializaPWM                    00000000
+_InicializaTeclado                00000000
+_LeValorAD                        00000000
+_PrintInt                         00000000
+_SetaFreqPWM                      00000000
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+__divsint                         00000000
+__modsint                         00000000
+__mulint                          00000000
+_main                             00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+r0x03                             00000003
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :    65 reported,     0 suppressed
+
+

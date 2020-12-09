@@ -1,0 +1,2615 @@
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  1
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      00001 ;--------------------------------------------------------
+                      00002 ; File Created by SDCC : free open source ANSI-C Compiler
+                      00003 ; Version 3.5.0 #9253 (Jun 20 2015) (MINGW64)
+                      00004 ; This file was generated Thu Sep 15 09:41:18 2016
+                      00005 ;--------------------------------------------------------
+                      00006 ; PIC16 port for the Microchip 16-bit core micros
+                      00007 ;--------------------------------------------------------
+                      00008         list    p=18f4520
+                      00009         radix   dec
+                      00010 
+                      00011 
+                      00012 ;--------------------------------------------------------
+                      00013 ; public variables in this module
+                      00014 ;--------------------------------------------------------
+  0000                00015         global  _configled
+  0000                00016         global  _ligaled
+  0000                00017         global  _desligaled
+  0000                00018         global  _sequencial
+  0000                00019         global  _atoa
+                      00020 
+                      00021 ;--------------------------------------------------------
+                      00022 ; extern variables in this module
+                      00023 ;--------------------------------------------------------
+  0000                00024         extern  ___fslt
+  0000                00025         extern  ___fsadd
+                      00026 
+                      00027 ;--------------------------------------------------------
+                      00028 ;       Equates to used internal registers
+                      00029 ;--------------------------------------------------------
+  00000FD8            00030 STATUS  equ     0xfd8
+  00000FE8            00031 WREG    equ     0xfe8
+  00000FE9            00032 FSR0L   equ     0xfe9
+  00000FE1            00033 FSR1L   equ     0xfe1
+  00000FD9            00034 FSR2L   equ     0xfd9
+  00000FEF            00035 INDF0   equ     0xfef
+  00000FE6            00036 POSTINC1        equ     0xfe6
+  00000FE5            00037 POSTDEC1        equ     0xfe5
+  00000FE4            00038 PREINC1 equ     0xfe4
+  00000FDB            00039 PLUSW2  equ     0xfdb
+  00000FF3            00040 PRODL   equ     0xff3
+  00000FF4            00041 PRODH   equ     0xff4
+                      00042 
+                      00043 
+                      00044 ; Internal registers
+                      00045 .registers      udata_ovr       0x0000
+000000                00046 r0x00   res     1
+000001                00047 r0x01   res     1
+000002                00048 r0x02   res     1
+000003                00049 r0x03   res     1
+000004                00050 r0x04   res     1
+000005                00051 r0x05   res     1
+000006                00052 r0x06   res     1
+000007                00053 r0x07   res     1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  2
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000008                00054 r0x08   res     1
+                      00055 
+                      00056 ;--------------------------------------------------------
+                      00057 ; global & static initialisations
+                      00058 ;--------------------------------------------------------
+                      00059 ; I code from now on!
+                      00060 ; ; Starting pCode block
+                      00061 S_led__atoa     code
+000000                00062 _atoa:
+                      00063 ;       .line   55; led.c       void atoa(float tempo) {
+000000 CFD9 FFE5      00064         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      00065         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00066         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00067         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00068         MOVFF   r0x02, POSTDEC1
+000014 C??? F???      00069         MOVFF   r0x03, POSTDEC1
+000018 C??? F???      00070         MOVFF   r0x04, POSTDEC1
+00001C C??? F???      00071         MOVFF   r0x05, POSTDEC1
+000020 C??? F???      00072         MOVFF   r0x06, POSTDEC1
+000024 C??? F???      00073         MOVFF   r0x07, POSTDEC1
+000028 C??? F???      00074         MOVFF   r0x08, POSTDEC1
+00002C 0E02           00075         MOVLW   0x02
+00002E CFDB F000      00076         MOVFF   PLUSW2, r0x00
+000032 0E03           00077         MOVLW   0x03
+000034 CFDB F000      00078         MOVFF   PLUSW2, r0x01
+000038 0E04           00079         MOVLW   0x04
+00003A CFDB F000      00080         MOVFF   PLUSW2, r0x02
+00003E 0E05           00081         MOVLW   0x05
+000040 CFDB F000      00082         MOVFF   PLUSW2, r0x03
+                      00083 ;       .line   57; led.c       ligaled(3);
+000044 0E03           00084         MOVLW   0x03
+Message[1301]: Using default destination of 0 (Access Bank).
+000046 6EE5           00085         MOVWF   POSTDEC1
+000048 EC?? F0??      00086         CALL    _ligaled
+00004C 52E6           00087         MOVF    POSTINC1, F
+                      00088 ;       .line   58; led.c       ligaled(4);
+00004E 0E04           00089         MOVLW   0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000050 6EE5           00090         MOVWF   POSTDEC1
+000052 EC?? F0??      00091         CALL    _ligaled
+000056 52E6           00092         MOVF    POSTINC1, F
+                      00093 ;       .line   59; led.c       for(j = 0; j< tempo ; j++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000058 6A??           00094         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+00005A 6A??           00095         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00005C 6A??           00096         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00005E 6A??           00097         CLRF    r0x07
+000060                00098 _00208_DS_:
+000060 50??           00099         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  3
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000062 6EE5           00100         MOVWF   POSTDEC1
+000064 50??           00101         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000066 6EE5           00102         MOVWF   POSTDEC1
+000068 50??           00103         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00006A 6EE5           00104         MOVWF   POSTDEC1
+00006C 50??           00105         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00006E 6EE5           00106         MOVWF   POSTDEC1
+000070 50??           00107         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000072 6EE5           00108         MOVWF   POSTDEC1
+000074 50??           00109         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000076 6EE5           00110         MOVWF   POSTDEC1
+000078 50??           00111         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00007A 6EE5           00112         MOVWF   POSTDEC1
+00007C 50??           00113         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00007E 6EE5           00114         MOVWF   POSTDEC1
+000080 EC?? F0??      00115         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+000084 6E??           00116         MOVWF   r0x08
+000086 0E08           00117         MOVLW   0x08
+000088 26E1           00118         ADDWF   FSR1L, F
+00008A 50??           00119         MOVF    r0x08, W
+00008C E0??           00120         BZ      _00199_DS_
+00008E 0E3F           00121         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000090 6EE5           00122         MOVWF   POSTDEC1
+000092 0E80           00123         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000094 6EE5           00124         MOVWF   POSTDEC1
+000096 0E00           00125         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000098 6EE5           00126         MOVWF   POSTDEC1
+00009A 0E00           00127         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00009C 6EE5           00128         MOVWF   POSTDEC1
+00009E 50??           00129         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A0 6EE5           00130         MOVWF   POSTDEC1
+0000A2 50??           00131         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A4 6EE5           00132         MOVWF   POSTDEC1
+0000A6 50??           00133         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A8 6EE5           00134         MOVWF   POSTDEC1
+0000AA 50??           00135         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000AC 6EE5           00136         MOVWF   POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  4
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0000AE EC?? F0??      00137         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0000B2 6E??           00138         MOVWF   r0x04
+0000B4 CFF3 F000      00139         MOVFF   PRODL, r0x05
+0000B8 CFF4 F000      00140         MOVFF   PRODH, r0x06
+0000BC CFE9 F000      00141         MOVFF   FSR0L, r0x07
+0000C0 0E08           00142         MOVLW   0x08
+0000C2 26E1           00143         ADDWF   FSR1L, F
+0000C4 D???           00144         BRA     _00208_DS_
+0000C6                00145 _00199_DS_:
+                      00146 ;       .line   60; led.c       ligaled(5);
+0000C6 0E05           00147         MOVLW   0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0000C8 6EE5           00148         MOVWF   POSTDEC1
+0000CA EC?? F0??      00149         CALL    _ligaled
+0000CE 52E6           00150         MOVF    POSTINC1, F
+                      00151 ;       .line   61; led.c       ligaled(2);
+0000D0 0E02           00152         MOVLW   0x02
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D2 6EE5           00153         MOVWF   POSTDEC1
+0000D4 EC?? F0??      00154         CALL    _ligaled
+0000D8 52E6           00155         MOVF    POSTINC1, F
+                      00156 ;       .line   62; led.c       for(j = 0; j < tempo; j++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0000DA 6A??           00157         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0000DC 6A??           00158         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0000DE 6A??           00159         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E0 6A??           00160         CLRF    r0x07
+0000E2                00161 _00211_DS_:
+0000E2 50??           00162         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E4 6EE5           00163         MOVWF   POSTDEC1
+0000E6 50??           00164         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E8 6EE5           00165         MOVWF   POSTDEC1
+0000EA 50??           00166         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000EC 6EE5           00167         MOVWF   POSTDEC1
+0000EE 50??           00168         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000F0 6EE5           00169         MOVWF   POSTDEC1
+0000F2 50??           00170         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000F4 6EE5           00171         MOVWF   POSTDEC1
+0000F6 50??           00172         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000F8 6EE5           00173         MOVWF   POSTDEC1
+0000FA 50??           00174         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000FC 6EE5           00175         MOVWF   POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  5
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0000FE 50??           00176         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000100 6EE5           00177         MOVWF   POSTDEC1
+000102 EC?? F0??      00178         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+000106 6E??           00179         MOVWF   r0x08
+000108 0E08           00180         MOVLW   0x08
+00010A 26E1           00181         ADDWF   FSR1L, F
+00010C 50??           00182         MOVF    r0x08, W
+00010E E0??           00183         BZ      _00200_DS_
+000110 0E3F           00184         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000112 6EE5           00185         MOVWF   POSTDEC1
+000114 0E80           00186         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000116 6EE5           00187         MOVWF   POSTDEC1
+000118 0E00           00188         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00011A 6EE5           00189         MOVWF   POSTDEC1
+00011C 0E00           00190         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00011E 6EE5           00191         MOVWF   POSTDEC1
+000120 50??           00192         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000122 6EE5           00193         MOVWF   POSTDEC1
+000124 50??           00194         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000126 6EE5           00195         MOVWF   POSTDEC1
+000128 50??           00196         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00012A 6EE5           00197         MOVWF   POSTDEC1
+00012C 50??           00198         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00012E 6EE5           00199         MOVWF   POSTDEC1
+000130 EC?? F0??      00200         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000134 6E??           00201         MOVWF   r0x04
+000136 CFF3 F000      00202         MOVFF   PRODL, r0x05
+00013A CFF4 F000      00203         MOVFF   PRODH, r0x06
+00013E CFE9 F000      00204         MOVFF   FSR0L, r0x07
+000142 0E08           00205         MOVLW   0x08
+000144 26E1           00206         ADDWF   FSR1L, F
+000146 D???           00207         BRA     _00211_DS_
+000148                00208 _00200_DS_:
+                      00209 ;       .line   63; led.c       ligaled(6);
+000148 0E06           00210         MOVLW   0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00014A 6EE5           00211         MOVWF   POSTDEC1
+00014C EC?? F0??      00212         CALL    _ligaled
+000150 52E6           00213         MOVF    POSTINC1, F
+                      00214 ;       .line   64; led.c       ligaled(1);
+000152 0E01           00215         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  6
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000154 6EE5           00216         MOVWF   POSTDEC1
+000156 EC?? F0??      00217         CALL    _ligaled
+00015A 52E6           00218         MOVF    POSTINC1, F
+                      00219 ;       .line   65; led.c       for(j = 0; j < tempo; j++);
+Message[1301]: Using default destination of 0 (Access Bank).
+00015C 6A??           00220         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+00015E 6A??           00221         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000160 6A??           00222         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000162 6A??           00223         CLRF    r0x07
+000164                00224 _00214_DS_:
+000164 50??           00225         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000166 6EE5           00226         MOVWF   POSTDEC1
+000168 50??           00227         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00016A 6EE5           00228         MOVWF   POSTDEC1
+00016C 50??           00229         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00016E 6EE5           00230         MOVWF   POSTDEC1
+000170 50??           00231         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000172 6EE5           00232         MOVWF   POSTDEC1
+000174 50??           00233         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000176 6EE5           00234         MOVWF   POSTDEC1
+000178 50??           00235         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00017A 6EE5           00236         MOVWF   POSTDEC1
+00017C 50??           00237         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00017E 6EE5           00238         MOVWF   POSTDEC1
+000180 50??           00239         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000182 6EE5           00240         MOVWF   POSTDEC1
+000184 EC?? F0??      00241         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+000188 6E??           00242         MOVWF   r0x08
+00018A 0E08           00243         MOVLW   0x08
+00018C 26E1           00244         ADDWF   FSR1L, F
+00018E 50??           00245         MOVF    r0x08, W
+000190 E0??           00246         BZ      _00201_DS_
+000192 0E3F           00247         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000194 6EE5           00248         MOVWF   POSTDEC1
+000196 0E80           00249         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000198 6EE5           00250         MOVWF   POSTDEC1
+00019A 0E00           00251         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00019C 6EE5           00252         MOVWF   POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  7
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00019E 0E00           00253         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0001A0 6EE5           00254         MOVWF   POSTDEC1
+0001A2 50??           00255         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001A4 6EE5           00256         MOVWF   POSTDEC1
+0001A6 50??           00257         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001A8 6EE5           00258         MOVWF   POSTDEC1
+0001AA 50??           00259         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001AC 6EE5           00260         MOVWF   POSTDEC1
+0001AE 50??           00261         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001B0 6EE5           00262         MOVWF   POSTDEC1
+0001B2 EC?? F0??      00263         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0001B6 6E??           00264         MOVWF   r0x04
+0001B8 CFF3 F000      00265         MOVFF   PRODL, r0x05
+0001BC CFF4 F000      00266         MOVFF   PRODH, r0x06
+0001C0 CFE9 F000      00267         MOVFF   FSR0L, r0x07
+0001C4 0E08           00268         MOVLW   0x08
+0001C6 26E1           00269         ADDWF   FSR1L, F
+0001C8 D???           00270         BRA     _00214_DS_
+0001CA                00271 _00201_DS_:
+                      00272 ;       .line   66; led.c       ligaled(7);
+0001CA 0E07           00273         MOVLW   0x07
+Message[1301]: Using default destination of 0 (Access Bank).
+0001CC 6EE5           00274         MOVWF   POSTDEC1
+0001CE EC?? F0??      00275         CALL    _ligaled
+0001D2 52E6           00276         MOVF    POSTINC1, F
+                      00277 ;       .line   67; led.c       ligaled(0);
+0001D4 0E00           00278         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0001D6 6EE5           00279         MOVWF   POSTDEC1
+0001D8 EC?? F0??      00280         CALL    _ligaled
+0001DC 52E6           00281         MOVF    POSTINC1, F
+                      00282 ;       .line   68; led.c       for(j = 0; j < tempo; j++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0001DE 6A??           00283         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0001E0 6A??           00284         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0001E2 6A??           00285         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0001E4 6A??           00286         CLRF    r0x07
+0001E6                00287 _00217_DS_:
+0001E6 50??           00288         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001E8 6EE5           00289         MOVWF   POSTDEC1
+0001EA 50??           00290         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001EC 6EE5           00291         MOVWF   POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  8
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0001EE 50??           00292         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001F0 6EE5           00293         MOVWF   POSTDEC1
+0001F2 50??           00294         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001F4 6EE5           00295         MOVWF   POSTDEC1
+0001F6 50??           00296         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001F8 6EE5           00297         MOVWF   POSTDEC1
+0001FA 50??           00298         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001FC 6EE5           00299         MOVWF   POSTDEC1
+0001FE 50??           00300         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000200 6EE5           00301         MOVWF   POSTDEC1
+000202 50??           00302         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000204 6EE5           00303         MOVWF   POSTDEC1
+000206 EC?? F0??      00304         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00020A 6E??           00305         MOVWF   r0x08
+00020C 0E08           00306         MOVLW   0x08
+00020E 26E1           00307         ADDWF   FSR1L, F
+000210 50??           00308         MOVF    r0x08, W
+000212 E0??           00309         BZ      _00202_DS_
+000214 0E3F           00310         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000216 6EE5           00311         MOVWF   POSTDEC1
+000218 0E80           00312         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00021A 6EE5           00313         MOVWF   POSTDEC1
+00021C 0E00           00314         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00021E 6EE5           00315         MOVWF   POSTDEC1
+000220 0E00           00316         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000222 6EE5           00317         MOVWF   POSTDEC1
+000224 50??           00318         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000226 6EE5           00319         MOVWF   POSTDEC1
+000228 50??           00320         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00022A 6EE5           00321         MOVWF   POSTDEC1
+00022C 50??           00322         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00022E 6EE5           00323         MOVWF   POSTDEC1
+000230 50??           00324         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000232 6EE5           00325         MOVWF   POSTDEC1
+000234 EC?? F0??      00326         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000238 6E??           00327         MOVWF   r0x04
+00023A CFF3 F000      00328         MOVFF   PRODL, r0x05
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE  9
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00023E CFF4 F000      00329         MOVFF   PRODH, r0x06
+000242 CFE9 F000      00330         MOVFF   FSR0L, r0x07
+000246 0E08           00331         MOVLW   0x08
+000248 26E1           00332         ADDWF   FSR1L, F
+00024A D???           00333         BRA     _00217_DS_
+00024C                00334 _00202_DS_:
+                      00335 ;       .line   69; led.c       desligaled(3);
+00024C 0E03           00336         MOVLW   0x03
+Message[1301]: Using default destination of 0 (Access Bank).
+00024E 6EE5           00337         MOVWF   POSTDEC1
+000250 EC?? F0??      00338         CALL    _desligaled
+000254 52E6           00339         MOVF    POSTINC1, F
+                      00340 ;       .line   70; led.c       desligaled(4);
+000256 0E04           00341         MOVLW   0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000258 6EE5           00342         MOVWF   POSTDEC1
+00025A EC?? F0??      00343         CALL    _desligaled
+00025E 52E6           00344         MOVF    POSTINC1, F
+                      00345 ;       .line   71; led.c       for(j = 0; j < tempo; j++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000260 6A??           00346         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000262 6A??           00347         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000264 6A??           00348         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000266 6A??           00349         CLRF    r0x07
+000268                00350 _00220_DS_:
+000268 50??           00351         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00026A 6EE5           00352         MOVWF   POSTDEC1
+00026C 50??           00353         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00026E 6EE5           00354         MOVWF   POSTDEC1
+000270 50??           00355         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000272 6EE5           00356         MOVWF   POSTDEC1
+000274 50??           00357         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000276 6EE5           00358         MOVWF   POSTDEC1
+000278 50??           00359         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00027A 6EE5           00360         MOVWF   POSTDEC1
+00027C 50??           00361         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00027E 6EE5           00362         MOVWF   POSTDEC1
+000280 50??           00363         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000282 6EE5           00364         MOVWF   POSTDEC1
+000284 50??           00365         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000286 6EE5           00366         MOVWF   POSTDEC1
+000288 EC?? F0??      00367         CALL    ___fslt
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 10
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00028C 6E??           00368         MOVWF   r0x08
+00028E 0E08           00369         MOVLW   0x08
+000290 26E1           00370         ADDWF   FSR1L, F
+000292 50??           00371         MOVF    r0x08, W
+000294 E0??           00372         BZ      _00203_DS_
+000296 0E3F           00373         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000298 6EE5           00374         MOVWF   POSTDEC1
+00029A 0E80           00375         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00029C 6EE5           00376         MOVWF   POSTDEC1
+00029E 0E00           00377         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0002A0 6EE5           00378         MOVWF   POSTDEC1
+0002A2 0E00           00379         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0002A4 6EE5           00380         MOVWF   POSTDEC1
+0002A6 50??           00381         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002A8 6EE5           00382         MOVWF   POSTDEC1
+0002AA 50??           00383         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002AC 6EE5           00384         MOVWF   POSTDEC1
+0002AE 50??           00385         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002B0 6EE5           00386         MOVWF   POSTDEC1
+0002B2 50??           00387         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002B4 6EE5           00388         MOVWF   POSTDEC1
+0002B6 EC?? F0??      00389         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0002BA 6E??           00390         MOVWF   r0x04
+0002BC CFF3 F000      00391         MOVFF   PRODL, r0x05
+0002C0 CFF4 F000      00392         MOVFF   PRODH, r0x06
+0002C4 CFE9 F000      00393         MOVFF   FSR0L, r0x07
+0002C8 0E08           00394         MOVLW   0x08
+0002CA 26E1           00395         ADDWF   FSR1L, F
+0002CC D???           00396         BRA     _00220_DS_
+0002CE                00397 _00203_DS_:
+                      00398 ;       .line   72; led.c       desligaled(5);
+0002CE 0E05           00399         MOVLW   0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0002D0 6EE5           00400         MOVWF   POSTDEC1
+0002D2 EC?? F0??      00401         CALL    _desligaled
+0002D6 52E6           00402         MOVF    POSTINC1, F
+                      00403 ;       .line   73; led.c       desligaled(2);
+0002D8 0E02           00404         MOVLW   0x02
+Message[1301]: Using default destination of 0 (Access Bank).
+0002DA 6EE5           00405         MOVWF   POSTDEC1
+0002DC EC?? F0??      00406         CALL    _desligaled
+0002E0 52E6           00407         MOVF    POSTINC1, F
+                      00408 ;       .line   74; led.c       for(j = 0; j < tempo; j++);
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 11
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+0002E2 6A??           00409         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0002E4 6A??           00410         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0002E6 6A??           00411         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0002E8 6A??           00412         CLRF    r0x07
+0002EA                00413 _00223_DS_:
+0002EA 50??           00414         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002EC 6EE5           00415         MOVWF   POSTDEC1
+0002EE 50??           00416         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002F0 6EE5           00417         MOVWF   POSTDEC1
+0002F2 50??           00418         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002F4 6EE5           00419         MOVWF   POSTDEC1
+0002F6 50??           00420         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002F8 6EE5           00421         MOVWF   POSTDEC1
+0002FA 50??           00422         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002FC 6EE5           00423         MOVWF   POSTDEC1
+0002FE 50??           00424         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000300 6EE5           00425         MOVWF   POSTDEC1
+000302 50??           00426         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000304 6EE5           00427         MOVWF   POSTDEC1
+000306 50??           00428         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000308 6EE5           00429         MOVWF   POSTDEC1
+00030A EC?? F0??      00430         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00030E 6E??           00431         MOVWF   r0x08
+000310 0E08           00432         MOVLW   0x08
+000312 26E1           00433         ADDWF   FSR1L, F
+000314 50??           00434         MOVF    r0x08, W
+000316 E0??           00435         BZ      _00204_DS_
+000318 0E3F           00436         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+00031A 6EE5           00437         MOVWF   POSTDEC1
+00031C 0E80           00438         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00031E 6EE5           00439         MOVWF   POSTDEC1
+000320 0E00           00440         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000322 6EE5           00441         MOVWF   POSTDEC1
+000324 0E00           00442         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000326 6EE5           00443         MOVWF   POSTDEC1
+000328 50??           00444         MOVF    r0x07, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 12
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00032A 6EE5           00445         MOVWF   POSTDEC1
+00032C 50??           00446         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00032E 6EE5           00447         MOVWF   POSTDEC1
+000330 50??           00448         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000332 6EE5           00449         MOVWF   POSTDEC1
+000334 50??           00450         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000336 6EE5           00451         MOVWF   POSTDEC1
+000338 EC?? F0??      00452         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+00033C 6E??           00453         MOVWF   r0x04
+00033E CFF3 F000      00454         MOVFF   PRODL, r0x05
+000342 CFF4 F000      00455         MOVFF   PRODH, r0x06
+000346 CFE9 F000      00456         MOVFF   FSR0L, r0x07
+00034A 0E08           00457         MOVLW   0x08
+00034C 26E1           00458         ADDWF   FSR1L, F
+00034E D???           00459         BRA     _00223_DS_
+000350                00460 _00204_DS_:
+                      00461 ;       .line   75; led.c       desligaled(6);
+000350 0E06           00462         MOVLW   0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000352 6EE5           00463         MOVWF   POSTDEC1
+000354 EC?? F0??      00464         CALL    _desligaled
+000358 52E6           00465         MOVF    POSTINC1, F
+                      00466 ;       .line   76; led.c       desligaled(1);
+00035A 0E01           00467         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+00035C 6EE5           00468         MOVWF   POSTDEC1
+00035E EC?? F0??      00469         CALL    _desligaled
+000362 52E6           00470         MOVF    POSTINC1, F
+                      00471 ;       .line   77; led.c       for(j = 0; j < tempo; j++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000364 6A??           00472         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000366 6A??           00473         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000368 6A??           00474         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00036A 6A??           00475         CLRF    r0x07
+00036C                00476 _00226_DS_:
+00036C 50??           00477         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00036E 6EE5           00478         MOVWF   POSTDEC1
+000370 50??           00479         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000372 6EE5           00480         MOVWF   POSTDEC1
+000374 50??           00481         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000376 6EE5           00482         MOVWF   POSTDEC1
+000378 50??           00483         MOVF    r0x00, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 13
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00037A 6EE5           00484         MOVWF   POSTDEC1
+00037C 50??           00485         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00037E 6EE5           00486         MOVWF   POSTDEC1
+000380 50??           00487         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000382 6EE5           00488         MOVWF   POSTDEC1
+000384 50??           00489         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000386 6EE5           00490         MOVWF   POSTDEC1
+000388 50??           00491         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00038A 6EE5           00492         MOVWF   POSTDEC1
+00038C EC?? F0??      00493         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+000390 6E??           00494         MOVWF   r0x08
+000392 0E08           00495         MOVLW   0x08
+000394 26E1           00496         ADDWF   FSR1L, F
+000396 50??           00497         MOVF    r0x08, W
+000398 E0??           00498         BZ      _00205_DS_
+00039A 0E3F           00499         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+00039C 6EE5           00500         MOVWF   POSTDEC1
+00039E 0E80           00501         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+0003A0 6EE5           00502         MOVWF   POSTDEC1
+0003A2 0E00           00503         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0003A4 6EE5           00504         MOVWF   POSTDEC1
+0003A6 0E00           00505         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0003A8 6EE5           00506         MOVWF   POSTDEC1
+0003AA 50??           00507         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003AC 6EE5           00508         MOVWF   POSTDEC1
+0003AE 50??           00509         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003B0 6EE5           00510         MOVWF   POSTDEC1
+0003B2 50??           00511         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003B4 6EE5           00512         MOVWF   POSTDEC1
+0003B6 50??           00513         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003B8 6EE5           00514         MOVWF   POSTDEC1
+0003BA EC?? F0??      00515         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0003BE 6E??           00516         MOVWF   r0x04
+0003C0 CFF3 F000      00517         MOVFF   PRODL, r0x05
+0003C4 CFF4 F000      00518         MOVFF   PRODH, r0x06
+0003C8 CFE9 F000      00519         MOVFF   FSR0L, r0x07
+0003CC 0E08           00520         MOVLW   0x08
+0003CE 26E1           00521         ADDWF   FSR1L, F
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 14
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0003D0 D???           00522         BRA     _00226_DS_
+0003D2                00523 _00205_DS_:
+                      00524 ;       .line   78; led.c       desligaled(0);
+0003D2 0E00           00525         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0003D4 6EE5           00526         MOVWF   POSTDEC1
+0003D6 EC?? F0??      00527         CALL    _desligaled
+0003DA 52E6           00528         MOVF    POSTINC1, F
+                      00529 ;       .line   79; led.c       desligaled(7);
+0003DC 0E07           00530         MOVLW   0x07
+Message[1301]: Using default destination of 0 (Access Bank).
+0003DE 6EE5           00531         MOVWF   POSTDEC1
+0003E0 EC?? F0??      00532         CALL    _desligaled
+0003E4 52E6           00533         MOVF    POSTINC1, F
+                      00534 ;       .line   80; led.c       for(j = 0; j < tempo; j++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0003E6 6A??           00535         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0003E8 6A??           00536         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0003EA 6A??           00537         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0003EC 6A??           00538         CLRF    r0x07
+0003EE                00539 _00229_DS_:
+0003EE 50??           00540         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003F0 6EE5           00541         MOVWF   POSTDEC1
+0003F2 50??           00542         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003F4 6EE5           00543         MOVWF   POSTDEC1
+0003F6 50??           00544         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003F8 6EE5           00545         MOVWF   POSTDEC1
+0003FA 50??           00546         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003FC 6EE5           00547         MOVWF   POSTDEC1
+0003FE 50??           00548         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000400 6EE5           00549         MOVWF   POSTDEC1
+000402 50??           00550         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000404 6EE5           00551         MOVWF   POSTDEC1
+000406 50??           00552         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000408 6EE5           00553         MOVWF   POSTDEC1
+00040A 50??           00554         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00040C 6EE5           00555         MOVWF   POSTDEC1
+00040E EC?? F0??      00556         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+000412 6E??           00557         MOVWF   r0x08
+000414 0E08           00558         MOVLW   0x08
+000416 26E1           00559         ADDWF   FSR1L, F
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 15
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000418 50??           00560         MOVF    r0x08, W
+00041A E0??           00561         BZ      _00231_DS_
+00041C 0E3F           00562         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+00041E 6EE5           00563         MOVWF   POSTDEC1
+000420 0E80           00564         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000422 6EE5           00565         MOVWF   POSTDEC1
+000424 0E00           00566         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000426 6EE5           00567         MOVWF   POSTDEC1
+000428 0E00           00568         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00042A 6EE5           00569         MOVWF   POSTDEC1
+00042C 50??           00570         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00042E 6EE5           00571         MOVWF   POSTDEC1
+000430 50??           00572         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000432 6EE5           00573         MOVWF   POSTDEC1
+000434 50??           00574         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000436 6EE5           00575         MOVWF   POSTDEC1
+000438 50??           00576         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00043A 6EE5           00577         MOVWF   POSTDEC1
+00043C EC?? F0??      00578         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000440 6E??           00579         MOVWF   r0x04
+000442 CFF3 F000      00580         MOVFF   PRODL, r0x05
+000446 CFF4 F000      00581         MOVFF   PRODH, r0x06
+00044A CFE9 F000      00582         MOVFF   FSR0L, r0x07
+00044E 0E08           00583         MOVLW   0x08
+000450 26E1           00584         ADDWF   FSR1L, F
+000452 D???           00585         BRA     _00229_DS_
+000454                00586 _00231_DS_:
+000454 CFE4 F000      00587         MOVFF   PREINC1, r0x08
+000458 CFE4 F000      00588         MOVFF   PREINC1, r0x07
+00045C CFE4 F000      00589         MOVFF   PREINC1, r0x06
+000460 CFE4 F000      00590         MOVFF   PREINC1, r0x05
+000464 CFE4 F000      00591         MOVFF   PREINC1, r0x04
+000468 CFE4 F000      00592         MOVFF   PREINC1, r0x03
+00046C CFE4 F000      00593         MOVFF   PREINC1, r0x02
+000470 CFE4 F000      00594         MOVFF   PREINC1, r0x01
+000474 CFE4 F000      00595         MOVFF   PREINC1, r0x00
+000478 CFE4 FFD9      00596         MOVFF   PREINC1, FSR2L
+00047C 0012           00597         RETURN  
+                      00598 
+                      00599 ; ; Starting pCode block
+                      00600 S_led__sequencial       code
+000000                00601 _sequencial:
+                      00602 ;       .line   19; led.c       void sequencial(float tempo) {
+000000 CFD9 FFE5      00603         MOVFF   FSR2L, POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 16
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000004 CFE1 FFD9      00604         MOVFF   FSR1L, FSR2L
+000008 C??? F???      00605         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      00606         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      00607         MOVFF   r0x02, POSTDEC1
+000014 C??? F???      00608         MOVFF   r0x03, POSTDEC1
+000018 C??? F???      00609         MOVFF   r0x04, POSTDEC1
+00001C C??? F???      00610         MOVFF   r0x05, POSTDEC1
+000020 C??? F???      00611         MOVFF   r0x06, POSTDEC1
+000024 C??? F???      00612         MOVFF   r0x07, POSTDEC1
+000028 C??? F???      00613         MOVFF   r0x08, POSTDEC1
+00002C 0E02           00614         MOVLW   0x02
+00002E CFDB F000      00615         MOVFF   PLUSW2, r0x00
+000032 0E03           00616         MOVLW   0x03
+000034 CFDB F000      00617         MOVFF   PLUSW2, r0x01
+000038 0E04           00618         MOVLW   0x04
+00003A CFDB F000      00619         MOVFF   PLUSW2, r0x02
+00003E 0E05           00620         MOVLW   0x05
+000040 CFDB F000      00621         MOVFF   PLUSW2, r0x03
+                      00622 ;       .line   21; led.c       ligaled(0);
+000044 0E00           00623         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000046 6EE5           00624         MOVWF   POSTDEC1
+000048 EC?? F0??      00625         CALL    _ligaled
+00004C 52E6           00626         MOVF    POSTINC1, F
+                      00627 ;       .line   22; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+00004E 6A??           00628         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000050 6A??           00629         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000052 6A??           00630         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000054 6A??           00631         CLRF    r0x07
+000056                00632 _00147_DS_:
+000056 50??           00633         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000058 6EE5           00634         MOVWF   POSTDEC1
+00005A 50??           00635         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00005C 6EE5           00636         MOVWF   POSTDEC1
+00005E 50??           00637         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000060 6EE5           00638         MOVWF   POSTDEC1
+000062 50??           00639         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000064 6EE5           00640         MOVWF   POSTDEC1
+000066 50??           00641         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000068 6EE5           00642         MOVWF   POSTDEC1
+00006A 50??           00643         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00006C 6EE5           00644         MOVWF   POSTDEC1
+00006E 50??           00645         MOVF    r0x05, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 17
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+000070 6EE5           00646         MOVWF   POSTDEC1
+000072 50??           00647         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000074 6EE5           00648         MOVWF   POSTDEC1
+000076 EC?? F0??      00649         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00007A 6E??           00650         MOVWF   r0x08
+00007C 0E08           00651         MOVLW   0x08
+00007E 26E1           00652         ADDWF   FSR1L, F
+000080 50??           00653         MOVF    r0x08, W
+000082 E0??           00654         BZ      _00130_DS_
+000084 0E3F           00655         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000086 6EE5           00656         MOVWF   POSTDEC1
+000088 0E80           00657         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00008A 6EE5           00658         MOVWF   POSTDEC1
+00008C 0E00           00659         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00008E 6EE5           00660         MOVWF   POSTDEC1
+000090 0E00           00661         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000092 6EE5           00662         MOVWF   POSTDEC1
+000094 50??           00663         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000096 6EE5           00664         MOVWF   POSTDEC1
+000098 50??           00665         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00009A 6EE5           00666         MOVWF   POSTDEC1
+00009C 50??           00667         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00009E 6EE5           00668         MOVWF   POSTDEC1
+0000A0 50??           00669         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A2 6EE5           00670         MOVWF   POSTDEC1
+0000A4 EC?? F0??      00671         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0000A8 6E??           00672         MOVWF   r0x04
+0000AA CFF3 F000      00673         MOVFF   PRODL, r0x05
+0000AE CFF4 F000      00674         MOVFF   PRODH, r0x06
+0000B2 CFE9 F000      00675         MOVFF   FSR0L, r0x07
+0000B6 0E08           00676         MOVLW   0x08
+0000B8 26E1           00677         ADDWF   FSR1L, F
+0000BA D???           00678         BRA     _00147_DS_
+0000BC                00679 _00130_DS_:
+                      00680 ;       .line   23; led.c       ligaled(1);
+0000BC 0E01           00681         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+0000BE 6EE5           00682         MOVWF   POSTDEC1
+0000C0 EC?? F0??      00683         CALL    _ligaled
+0000C4 52E6           00684         MOVF    POSTINC1, F
+                      00685 ;       .line   24; led.c       for (i = 0; i < tempo; i++);
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 18
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+0000C6 6A??           00686         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0000C8 6A??           00687         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0000CA 6A??           00688         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0000CC 6A??           00689         CLRF    r0x07
+0000CE                00690 _00150_DS_:
+0000CE 50??           00691         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D0 6EE5           00692         MOVWF   POSTDEC1
+0000D2 50??           00693         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D4 6EE5           00694         MOVWF   POSTDEC1
+0000D6 50??           00695         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000D8 6EE5           00696         MOVWF   POSTDEC1
+0000DA 50??           00697         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000DC 6EE5           00698         MOVWF   POSTDEC1
+0000DE 50??           00699         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E0 6EE5           00700         MOVWF   POSTDEC1
+0000E2 50??           00701         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E4 6EE5           00702         MOVWF   POSTDEC1
+0000E6 50??           00703         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000E8 6EE5           00704         MOVWF   POSTDEC1
+0000EA 50??           00705         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0000EC 6EE5           00706         MOVWF   POSTDEC1
+0000EE EC?? F0??      00707         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+0000F2 6E??           00708         MOVWF   r0x08
+0000F4 0E08           00709         MOVLW   0x08
+0000F6 26E1           00710         ADDWF   FSR1L, F
+0000F8 50??           00711         MOVF    r0x08, W
+0000FA E0??           00712         BZ      _00131_DS_
+0000FC 0E3F           00713         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+0000FE 6EE5           00714         MOVWF   POSTDEC1
+000100 0E80           00715         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000102 6EE5           00716         MOVWF   POSTDEC1
+000104 0E00           00717         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000106 6EE5           00718         MOVWF   POSTDEC1
+000108 0E00           00719         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00010A 6EE5           00720         MOVWF   POSTDEC1
+00010C 50??           00721         MOVF    r0x07, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 19
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00010E 6EE5           00722         MOVWF   POSTDEC1
+000110 50??           00723         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000112 6EE5           00724         MOVWF   POSTDEC1
+000114 50??           00725         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000116 6EE5           00726         MOVWF   POSTDEC1
+000118 50??           00727         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00011A 6EE5           00728         MOVWF   POSTDEC1
+00011C EC?? F0??      00729         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000120 6E??           00730         MOVWF   r0x04
+000122 CFF3 F000      00731         MOVFF   PRODL, r0x05
+000126 CFF4 F000      00732         MOVFF   PRODH, r0x06
+00012A CFE9 F000      00733         MOVFF   FSR0L, r0x07
+00012E 0E08           00734         MOVLW   0x08
+000130 26E1           00735         ADDWF   FSR1L, F
+000132 D???           00736         BRA     _00150_DS_
+000134                00737 _00131_DS_:
+                      00738 ;       .line   25; led.c       ligaled(2);
+000134 0E02           00739         MOVLW   0x02
+Message[1301]: Using default destination of 0 (Access Bank).
+000136 6EE5           00740         MOVWF   POSTDEC1
+000138 EC?? F0??      00741         CALL    _ligaled
+00013C 52E6           00742         MOVF    POSTINC1, F
+                      00743 ;       .line   26; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+00013E 6A??           00744         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000140 6A??           00745         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000142 6A??           00746         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000144 6A??           00747         CLRF    r0x07
+000146                00748 _00153_DS_:
+000146 50??           00749         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000148 6EE5           00750         MOVWF   POSTDEC1
+00014A 50??           00751         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00014C 6EE5           00752         MOVWF   POSTDEC1
+00014E 50??           00753         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000150 6EE5           00754         MOVWF   POSTDEC1
+000152 50??           00755         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000154 6EE5           00756         MOVWF   POSTDEC1
+000156 50??           00757         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000158 6EE5           00758         MOVWF   POSTDEC1
+00015A 50??           00759         MOVF    r0x06, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 20
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00015C 6EE5           00760         MOVWF   POSTDEC1
+00015E 50??           00761         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000160 6EE5           00762         MOVWF   POSTDEC1
+000162 50??           00763         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000164 6EE5           00764         MOVWF   POSTDEC1
+000166 EC?? F0??      00765         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00016A 6E??           00766         MOVWF   r0x08
+00016C 0E08           00767         MOVLW   0x08
+00016E 26E1           00768         ADDWF   FSR1L, F
+000170 50??           00769         MOVF    r0x08, W
+000172 E0??           00770         BZ      _00132_DS_
+000174 0E3F           00771         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000176 6EE5           00772         MOVWF   POSTDEC1
+000178 0E80           00773         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00017A 6EE5           00774         MOVWF   POSTDEC1
+00017C 0E00           00775         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00017E 6EE5           00776         MOVWF   POSTDEC1
+000180 0E00           00777         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000182 6EE5           00778         MOVWF   POSTDEC1
+000184 50??           00779         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000186 6EE5           00780         MOVWF   POSTDEC1
+000188 50??           00781         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00018A 6EE5           00782         MOVWF   POSTDEC1
+00018C 50??           00783         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00018E 6EE5           00784         MOVWF   POSTDEC1
+000190 50??           00785         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000192 6EE5           00786         MOVWF   POSTDEC1
+000194 EC?? F0??      00787         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000198 6E??           00788         MOVWF   r0x04
+00019A CFF3 F000      00789         MOVFF   PRODL, r0x05
+00019E CFF4 F000      00790         MOVFF   PRODH, r0x06
+0001A2 CFE9 F000      00791         MOVFF   FSR0L, r0x07
+0001A6 0E08           00792         MOVLW   0x08
+0001A8 26E1           00793         ADDWF   FSR1L, F
+0001AA D???           00794         BRA     _00153_DS_
+0001AC                00795 _00132_DS_:
+                      00796 ;       .line   27; led.c       ligaled(3);
+0001AC 0E03           00797         MOVLW   0x03
+Message[1301]: Using default destination of 0 (Access Bank).
+0001AE 6EE5           00798         MOVWF   POSTDEC1
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 21
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0001B0 EC?? F0??      00799         CALL    _ligaled
+0001B4 52E6           00800         MOVF    POSTINC1, F
+                      00801 ;       .line   28; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0001B6 6A??           00802         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0001B8 6A??           00803         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0001BA 6A??           00804         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0001BC 6A??           00805         CLRF    r0x07
+0001BE                00806 _00156_DS_:
+0001BE 50??           00807         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001C0 6EE5           00808         MOVWF   POSTDEC1
+0001C2 50??           00809         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001C4 6EE5           00810         MOVWF   POSTDEC1
+0001C6 50??           00811         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001C8 6EE5           00812         MOVWF   POSTDEC1
+0001CA 50??           00813         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001CC 6EE5           00814         MOVWF   POSTDEC1
+0001CE 50??           00815         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001D0 6EE5           00816         MOVWF   POSTDEC1
+0001D2 50??           00817         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001D4 6EE5           00818         MOVWF   POSTDEC1
+0001D6 50??           00819         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001D8 6EE5           00820         MOVWF   POSTDEC1
+0001DA 50??           00821         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001DC 6EE5           00822         MOVWF   POSTDEC1
+0001DE EC?? F0??      00823         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+0001E2 6E??           00824         MOVWF   r0x08
+0001E4 0E08           00825         MOVLW   0x08
+0001E6 26E1           00826         ADDWF   FSR1L, F
+0001E8 50??           00827         MOVF    r0x08, W
+0001EA E0??           00828         BZ      _00133_DS_
+0001EC 0E3F           00829         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+0001EE 6EE5           00830         MOVWF   POSTDEC1
+0001F0 0E80           00831         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+0001F2 6EE5           00832         MOVWF   POSTDEC1
+0001F4 0E00           00833         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0001F6 6EE5           00834         MOVWF   POSTDEC1
+0001F8 0E00           00835         MOVLW   0x00
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 22
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+0001FA 6EE5           00836         MOVWF   POSTDEC1
+0001FC 50??           00837         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0001FE 6EE5           00838         MOVWF   POSTDEC1
+000200 50??           00839         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000202 6EE5           00840         MOVWF   POSTDEC1
+000204 50??           00841         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000206 6EE5           00842         MOVWF   POSTDEC1
+000208 50??           00843         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00020A 6EE5           00844         MOVWF   POSTDEC1
+00020C EC?? F0??      00845         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000210 6E??           00846         MOVWF   r0x04
+000212 CFF3 F000      00847         MOVFF   PRODL, r0x05
+000216 CFF4 F000      00848         MOVFF   PRODH, r0x06
+00021A CFE9 F000      00849         MOVFF   FSR0L, r0x07
+00021E 0E08           00850         MOVLW   0x08
+000220 26E1           00851         ADDWF   FSR1L, F
+000222 D???           00852         BRA     _00156_DS_
+000224                00853 _00133_DS_:
+                      00854 ;       .line   29; led.c       ligaled(4);
+000224 0E04           00855         MOVLW   0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000226 6EE5           00856         MOVWF   POSTDEC1
+000228 EC?? F0??      00857         CALL    _ligaled
+00022C 52E6           00858         MOVF    POSTINC1, F
+                      00859 ;       .line   30; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+00022E 6A??           00860         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000230 6A??           00861         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000232 6A??           00862         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000234 6A??           00863         CLRF    r0x07
+000236                00864 _00159_DS_:
+000236 50??           00865         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000238 6EE5           00866         MOVWF   POSTDEC1
+00023A 50??           00867         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00023C 6EE5           00868         MOVWF   POSTDEC1
+00023E 50??           00869         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000240 6EE5           00870         MOVWF   POSTDEC1
+000242 50??           00871         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000244 6EE5           00872         MOVWF   POSTDEC1
+000246 50??           00873         MOVF    r0x07, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 23
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+000248 6EE5           00874         MOVWF   POSTDEC1
+00024A 50??           00875         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00024C 6EE5           00876         MOVWF   POSTDEC1
+00024E 50??           00877         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000250 6EE5           00878         MOVWF   POSTDEC1
+000252 50??           00879         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000254 6EE5           00880         MOVWF   POSTDEC1
+000256 EC?? F0??      00881         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00025A 6E??           00882         MOVWF   r0x08
+00025C 0E08           00883         MOVLW   0x08
+00025E 26E1           00884         ADDWF   FSR1L, F
+000260 50??           00885         MOVF    r0x08, W
+000262 E0??           00886         BZ      _00134_DS_
+000264 0E3F           00887         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000266 6EE5           00888         MOVWF   POSTDEC1
+000268 0E80           00889         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00026A 6EE5           00890         MOVWF   POSTDEC1
+00026C 0E00           00891         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00026E 6EE5           00892         MOVWF   POSTDEC1
+000270 0E00           00893         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000272 6EE5           00894         MOVWF   POSTDEC1
+000274 50??           00895         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000276 6EE5           00896         MOVWF   POSTDEC1
+000278 50??           00897         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00027A 6EE5           00898         MOVWF   POSTDEC1
+00027C 50??           00899         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00027E 6EE5           00900         MOVWF   POSTDEC1
+000280 50??           00901         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000282 6EE5           00902         MOVWF   POSTDEC1
+000284 EC?? F0??      00903         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000288 6E??           00904         MOVWF   r0x04
+00028A CFF3 F000      00905         MOVFF   PRODL, r0x05
+00028E CFF4 F000      00906         MOVFF   PRODH, r0x06
+000292 CFE9 F000      00907         MOVFF   FSR0L, r0x07
+000296 0E08           00908         MOVLW   0x08
+000298 26E1           00909         ADDWF   FSR1L, F
+00029A D???           00910         BRA     _00159_DS_
+00029C                00911 _00134_DS_:
+                      00912 ;       .line   31; led.c       ligaled(5);
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 24
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00029C 0E05           00913         MOVLW   0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00029E 6EE5           00914         MOVWF   POSTDEC1
+0002A0 EC?? F0??      00915         CALL    _ligaled
+0002A4 52E6           00916         MOVF    POSTINC1, F
+                      00917 ;       .line   32; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0002A6 6A??           00918         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0002A8 6A??           00919         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0002AA 6A??           00920         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0002AC 6A??           00921         CLRF    r0x07
+0002AE                00922 _00162_DS_:
+0002AE 50??           00923         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002B0 6EE5           00924         MOVWF   POSTDEC1
+0002B2 50??           00925         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002B4 6EE5           00926         MOVWF   POSTDEC1
+0002B6 50??           00927         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002B8 6EE5           00928         MOVWF   POSTDEC1
+0002BA 50??           00929         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002BC 6EE5           00930         MOVWF   POSTDEC1
+0002BE 50??           00931         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002C0 6EE5           00932         MOVWF   POSTDEC1
+0002C2 50??           00933         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002C4 6EE5           00934         MOVWF   POSTDEC1
+0002C6 50??           00935         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002C8 6EE5           00936         MOVWF   POSTDEC1
+0002CA 50??           00937         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002CC 6EE5           00938         MOVWF   POSTDEC1
+0002CE EC?? F0??      00939         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+0002D2 6E??           00940         MOVWF   r0x08
+0002D4 0E08           00941         MOVLW   0x08
+0002D6 26E1           00942         ADDWF   FSR1L, F
+0002D8 50??           00943         MOVF    r0x08, W
+0002DA E0??           00944         BZ      _00135_DS_
+0002DC 0E3F           00945         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+0002DE 6EE5           00946         MOVWF   POSTDEC1
+0002E0 0E80           00947         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+0002E2 6EE5           00948         MOVWF   POSTDEC1
+0002E4 0E00           00949         MOVLW   0x00
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 25
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+0002E6 6EE5           00950         MOVWF   POSTDEC1
+0002E8 0E00           00951         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0002EA 6EE5           00952         MOVWF   POSTDEC1
+0002EC 50??           00953         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002EE 6EE5           00954         MOVWF   POSTDEC1
+0002F0 50??           00955         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002F2 6EE5           00956         MOVWF   POSTDEC1
+0002F4 50??           00957         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002F6 6EE5           00958         MOVWF   POSTDEC1
+0002F8 50??           00959         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0002FA 6EE5           00960         MOVWF   POSTDEC1
+0002FC EC?? F0??      00961         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000300 6E??           00962         MOVWF   r0x04
+000302 CFF3 F000      00963         MOVFF   PRODL, r0x05
+000306 CFF4 F000      00964         MOVFF   PRODH, r0x06
+00030A CFE9 F000      00965         MOVFF   FSR0L, r0x07
+00030E 0E08           00966         MOVLW   0x08
+000310 26E1           00967         ADDWF   FSR1L, F
+000312 D???           00968         BRA     _00162_DS_
+000314                00969 _00135_DS_:
+                      00970 ;       .line   33; led.c       ligaled(6);
+000314 0E06           00971         MOVLW   0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000316 6EE5           00972         MOVWF   POSTDEC1
+000318 EC?? F0??      00973         CALL    _ligaled
+00031C 52E6           00974         MOVF    POSTINC1, F
+                      00975 ;       .line   34; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+00031E 6A??           00976         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000320 6A??           00977         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000322 6A??           00978         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000324 6A??           00979         CLRF    r0x07
+000326                00980 _00165_DS_:
+000326 50??           00981         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000328 6EE5           00982         MOVWF   POSTDEC1
+00032A 50??           00983         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00032C 6EE5           00984         MOVWF   POSTDEC1
+00032E 50??           00985         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000330 6EE5           00986         MOVWF   POSTDEC1
+000332 50??           00987         MOVF    r0x00, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 26
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+000334 6EE5           00988         MOVWF   POSTDEC1
+000336 50??           00989         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000338 6EE5           00990         MOVWF   POSTDEC1
+00033A 50??           00991         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00033C 6EE5           00992         MOVWF   POSTDEC1
+00033E 50??           00993         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000340 6EE5           00994         MOVWF   POSTDEC1
+000342 50??           00995         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000344 6EE5           00996         MOVWF   POSTDEC1
+000346 EC?? F0??      00997         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00034A 6E??           00998         MOVWF   r0x08
+00034C 0E08           00999         MOVLW   0x08
+00034E 26E1           01000         ADDWF   FSR1L, F
+000350 50??           01001         MOVF    r0x08, W
+000352 E0??           01002         BZ      _00136_DS_
+000354 0E3F           01003         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000356 6EE5           01004         MOVWF   POSTDEC1
+000358 0E80           01005         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00035A 6EE5           01006         MOVWF   POSTDEC1
+00035C 0E00           01007         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00035E 6EE5           01008         MOVWF   POSTDEC1
+000360 0E00           01009         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000362 6EE5           01010         MOVWF   POSTDEC1
+000364 50??           01011         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000366 6EE5           01012         MOVWF   POSTDEC1
+000368 50??           01013         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00036A 6EE5           01014         MOVWF   POSTDEC1
+00036C 50??           01015         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00036E 6EE5           01016         MOVWF   POSTDEC1
+000370 50??           01017         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000372 6EE5           01018         MOVWF   POSTDEC1
+000374 EC?? F0??      01019         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000378 6E??           01020         MOVWF   r0x04
+00037A CFF3 F000      01021         MOVFF   PRODL, r0x05
+00037E CFF4 F000      01022         MOVFF   PRODH, r0x06
+000382 CFE9 F000      01023         MOVFF   FSR0L, r0x07
+000386 0E08           01024         MOVLW   0x08
+000388 26E1           01025         ADDWF   FSR1L, F
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 27
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00038A D???           01026         BRA     _00165_DS_
+00038C                01027 _00136_DS_:
+                      01028 ;       .line   35; led.c       ligaled(7);
+00038C 0E07           01029         MOVLW   0x07
+Message[1301]: Using default destination of 0 (Access Bank).
+00038E 6EE5           01030         MOVWF   POSTDEC1
+000390 EC?? F0??      01031         CALL    _ligaled
+000394 52E6           01032         MOVF    POSTINC1, F
+                      01033 ;       .line   36; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000396 6A??           01034         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000398 6A??           01035         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00039A 6A??           01036         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00039C 6A??           01037         CLRF    r0x07
+00039E                01038 _00168_DS_:
+00039E 50??           01039         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003A0 6EE5           01040         MOVWF   POSTDEC1
+0003A2 50??           01041         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003A4 6EE5           01042         MOVWF   POSTDEC1
+0003A6 50??           01043         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003A8 6EE5           01044         MOVWF   POSTDEC1
+0003AA 50??           01045         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003AC 6EE5           01046         MOVWF   POSTDEC1
+0003AE 50??           01047         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003B0 6EE5           01048         MOVWF   POSTDEC1
+0003B2 50??           01049         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003B4 6EE5           01050         MOVWF   POSTDEC1
+0003B6 50??           01051         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003B8 6EE5           01052         MOVWF   POSTDEC1
+0003BA 50??           01053         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003BC 6EE5           01054         MOVWF   POSTDEC1
+0003BE EC?? F0??      01055         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+0003C2 6E??           01056         MOVWF   r0x08
+0003C4 0E08           01057         MOVLW   0x08
+0003C6 26E1           01058         ADDWF   FSR1L, F
+0003C8 50??           01059         MOVF    r0x08, W
+0003CA E0??           01060         BZ      _00137_DS_
+0003CC 0E3F           01061         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+0003CE 6EE5           01062         MOVWF   POSTDEC1
+0003D0 0E80           01063         MOVLW   0x80
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 28
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+0003D2 6EE5           01064         MOVWF   POSTDEC1
+0003D4 0E00           01065         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0003D6 6EE5           01066         MOVWF   POSTDEC1
+0003D8 0E00           01067         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0003DA 6EE5           01068         MOVWF   POSTDEC1
+0003DC 50??           01069         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003DE 6EE5           01070         MOVWF   POSTDEC1
+0003E0 50??           01071         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003E2 6EE5           01072         MOVWF   POSTDEC1
+0003E4 50??           01073         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003E6 6EE5           01074         MOVWF   POSTDEC1
+0003E8 50??           01075         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0003EA 6EE5           01076         MOVWF   POSTDEC1
+0003EC EC?? F0??      01077         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0003F0 6E??           01078         MOVWF   r0x04
+0003F2 CFF3 F000      01079         MOVFF   PRODL, r0x05
+0003F6 CFF4 F000      01080         MOVFF   PRODH, r0x06
+0003FA CFE9 F000      01081         MOVFF   FSR0L, r0x07
+0003FE 0E08           01082         MOVLW   0x08
+000400 26E1           01083         ADDWF   FSR1L, F
+000402 D???           01084         BRA     _00168_DS_
+000404                01085 _00137_DS_:
+                      01086 ;       .line   37; led.c       desligaled(0);
+000404 0E00           01087         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000406 6EE5           01088         MOVWF   POSTDEC1
+000408 EC?? F0??      01089         CALL    _desligaled
+00040C 52E6           01090         MOVF    POSTINC1, F
+                      01091 ;       .line   38; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+00040E 6A??           01092         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000410 6A??           01093         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000412 6A??           01094         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000414 6A??           01095         CLRF    r0x07
+000416                01096 _00171_DS_:
+000416 50??           01097         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000418 6EE5           01098         MOVWF   POSTDEC1
+00041A 50??           01099         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00041C 6EE5           01100         MOVWF   POSTDEC1
+00041E 50??           01101         MOVF    r0x01, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 29
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+000420 6EE5           01102         MOVWF   POSTDEC1
+000422 50??           01103         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000424 6EE5           01104         MOVWF   POSTDEC1
+000426 50??           01105         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000428 6EE5           01106         MOVWF   POSTDEC1
+00042A 50??           01107         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00042C 6EE5           01108         MOVWF   POSTDEC1
+00042E 50??           01109         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000430 6EE5           01110         MOVWF   POSTDEC1
+000432 50??           01111         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000434 6EE5           01112         MOVWF   POSTDEC1
+000436 EC?? F0??      01113         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00043A 6E??           01114         MOVWF   r0x08
+00043C 0E08           01115         MOVLW   0x08
+00043E 26E1           01116         ADDWF   FSR1L, F
+000440 50??           01117         MOVF    r0x08, W
+000442 E0??           01118         BZ      _00138_DS_
+000444 0E3F           01119         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000446 6EE5           01120         MOVWF   POSTDEC1
+000448 0E80           01121         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00044A 6EE5           01122         MOVWF   POSTDEC1
+00044C 0E00           01123         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00044E 6EE5           01124         MOVWF   POSTDEC1
+000450 0E00           01125         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000452 6EE5           01126         MOVWF   POSTDEC1
+000454 50??           01127         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000456 6EE5           01128         MOVWF   POSTDEC1
+000458 50??           01129         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00045A 6EE5           01130         MOVWF   POSTDEC1
+00045C 50??           01131         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00045E 6EE5           01132         MOVWF   POSTDEC1
+000460 50??           01133         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000462 6EE5           01134         MOVWF   POSTDEC1
+000464 EC?? F0??      01135         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000468 6E??           01136         MOVWF   r0x04
+00046A CFF3 F000      01137         MOVFF   PRODL, r0x05
+00046E CFF4 F000      01138         MOVFF   PRODH, r0x06
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 30
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000472 CFE9 F000      01139         MOVFF   FSR0L, r0x07
+000476 0E08           01140         MOVLW   0x08
+000478 26E1           01141         ADDWF   FSR1L, F
+00047A D???           01142         BRA     _00171_DS_
+00047C                01143 _00138_DS_:
+                      01144 ;       .line   39; led.c       desligaled(1);
+00047C 0E01           01145         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+00047E 6EE5           01146         MOVWF   POSTDEC1
+000480 EC?? F0??      01147         CALL    _desligaled
+000484 52E6           01148         MOVF    POSTINC1, F
+                      01149 ;       .line   40; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000486 6A??           01150         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000488 6A??           01151         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00048A 6A??           01152         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00048C 6A??           01153         CLRF    r0x07
+00048E                01154 _00174_DS_:
+00048E 50??           01155         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000490 6EE5           01156         MOVWF   POSTDEC1
+000492 50??           01157         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000494 6EE5           01158         MOVWF   POSTDEC1
+000496 50??           01159         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000498 6EE5           01160         MOVWF   POSTDEC1
+00049A 50??           01161         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00049C 6EE5           01162         MOVWF   POSTDEC1
+00049E 50??           01163         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004A0 6EE5           01164         MOVWF   POSTDEC1
+0004A2 50??           01165         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004A4 6EE5           01166         MOVWF   POSTDEC1
+0004A6 50??           01167         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004A8 6EE5           01168         MOVWF   POSTDEC1
+0004AA 50??           01169         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004AC 6EE5           01170         MOVWF   POSTDEC1
+0004AE EC?? F0??      01171         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+0004B2 6E??           01172         MOVWF   r0x08
+0004B4 0E08           01173         MOVLW   0x08
+0004B6 26E1           01174         ADDWF   FSR1L, F
+0004B8 50??           01175         MOVF    r0x08, W
+0004BA E0??           01176         BZ      _00139_DS_
+0004BC 0E3F           01177         MOVLW   0x3f
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 31
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+0004BE 6EE5           01178         MOVWF   POSTDEC1
+0004C0 0E80           01179         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+0004C2 6EE5           01180         MOVWF   POSTDEC1
+0004C4 0E00           01181         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0004C6 6EE5           01182         MOVWF   POSTDEC1
+0004C8 0E00           01183         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0004CA 6EE5           01184         MOVWF   POSTDEC1
+0004CC 50??           01185         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004CE 6EE5           01186         MOVWF   POSTDEC1
+0004D0 50??           01187         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004D2 6EE5           01188         MOVWF   POSTDEC1
+0004D4 50??           01189         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004D6 6EE5           01190         MOVWF   POSTDEC1
+0004D8 50??           01191         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0004DA 6EE5           01192         MOVWF   POSTDEC1
+0004DC EC?? F0??      01193         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0004E0 6E??           01194         MOVWF   r0x04
+0004E2 CFF3 F000      01195         MOVFF   PRODL, r0x05
+0004E6 CFF4 F000      01196         MOVFF   PRODH, r0x06
+0004EA CFE9 F000      01197         MOVFF   FSR0L, r0x07
+0004EE 0E08           01198         MOVLW   0x08
+0004F0 26E1           01199         ADDWF   FSR1L, F
+0004F2 D???           01200         BRA     _00174_DS_
+0004F4                01201 _00139_DS_:
+                      01202 ;       .line   41; led.c       desligaled(2);
+0004F4 0E02           01203         MOVLW   0x02
+Message[1301]: Using default destination of 0 (Access Bank).
+0004F6 6EE5           01204         MOVWF   POSTDEC1
+0004F8 EC?? F0??      01205         CALL    _desligaled
+0004FC 52E6           01206         MOVF    POSTINC1, F
+                      01207 ;       .line   42; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0004FE 6A??           01208         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000500 6A??           01209         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+000502 6A??           01210         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+000504 6A??           01211         CLRF    r0x07
+000506                01212 _00177_DS_:
+000506 50??           01213         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000508 6EE5           01214         MOVWF   POSTDEC1
+00050A 50??           01215         MOVF    r0x02, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 32
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00050C 6EE5           01216         MOVWF   POSTDEC1
+00050E 50??           01217         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000510 6EE5           01218         MOVWF   POSTDEC1
+000512 50??           01219         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000514 6EE5           01220         MOVWF   POSTDEC1
+000516 50??           01221         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000518 6EE5           01222         MOVWF   POSTDEC1
+00051A 50??           01223         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00051C 6EE5           01224         MOVWF   POSTDEC1
+00051E 50??           01225         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000520 6EE5           01226         MOVWF   POSTDEC1
+000522 50??           01227         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000524 6EE5           01228         MOVWF   POSTDEC1
+000526 EC?? F0??      01229         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00052A 6E??           01230         MOVWF   r0x08
+00052C 0E08           01231         MOVLW   0x08
+00052E 26E1           01232         ADDWF   FSR1L, F
+000530 50??           01233         MOVF    r0x08, W
+000532 E0??           01234         BZ      _00140_DS_
+000534 0E3F           01235         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000536 6EE5           01236         MOVWF   POSTDEC1
+000538 0E80           01237         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00053A 6EE5           01238         MOVWF   POSTDEC1
+00053C 0E00           01239         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00053E 6EE5           01240         MOVWF   POSTDEC1
+000540 0E00           01241         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000542 6EE5           01242         MOVWF   POSTDEC1
+000544 50??           01243         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000546 6EE5           01244         MOVWF   POSTDEC1
+000548 50??           01245         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00054A 6EE5           01246         MOVWF   POSTDEC1
+00054C 50??           01247         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00054E 6EE5           01248         MOVWF   POSTDEC1
+000550 50??           01249         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000552 6EE5           01250         MOVWF   POSTDEC1
+000554 EC?? F0??      01251         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 33
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000558 6E??           01252         MOVWF   r0x04
+00055A CFF3 F000      01253         MOVFF   PRODL, r0x05
+00055E CFF4 F000      01254         MOVFF   PRODH, r0x06
+000562 CFE9 F000      01255         MOVFF   FSR0L, r0x07
+000566 0E08           01256         MOVLW   0x08
+000568 26E1           01257         ADDWF   FSR1L, F
+00056A D???           01258         BRA     _00177_DS_
+00056C                01259 _00140_DS_:
+                      01260 ;       .line   43; led.c       desligaled(3);
+00056C 0E03           01261         MOVLW   0x03
+Message[1301]: Using default destination of 0 (Access Bank).
+00056E 6EE5           01262         MOVWF   POSTDEC1
+000570 EC?? F0??      01263         CALL    _desligaled
+000574 52E6           01264         MOVF    POSTINC1, F
+                      01265 ;       .line   44; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000576 6A??           01266         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000578 6A??           01267         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00057A 6A??           01268         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00057C 6A??           01269         CLRF    r0x07
+00057E                01270 _00180_DS_:
+00057E 50??           01271         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000580 6EE5           01272         MOVWF   POSTDEC1
+000582 50??           01273         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000584 6EE5           01274         MOVWF   POSTDEC1
+000586 50??           01275         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000588 6EE5           01276         MOVWF   POSTDEC1
+00058A 50??           01277         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00058C 6EE5           01278         MOVWF   POSTDEC1
+00058E 50??           01279         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000590 6EE5           01280         MOVWF   POSTDEC1
+000592 50??           01281         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000594 6EE5           01282         MOVWF   POSTDEC1
+000596 50??           01283         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000598 6EE5           01284         MOVWF   POSTDEC1
+00059A 50??           01285         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00059C 6EE5           01286         MOVWF   POSTDEC1
+00059E EC?? F0??      01287         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+0005A2 6E??           01288         MOVWF   r0x08
+0005A4 0E08           01289         MOVLW   0x08
+0005A6 26E1           01290         ADDWF   FSR1L, F
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 34
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0005A8 50??           01291         MOVF    r0x08, W
+0005AA E0??           01292         BZ      _00141_DS_
+0005AC 0E3F           01293         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+0005AE 6EE5           01294         MOVWF   POSTDEC1
+0005B0 0E80           01295         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+0005B2 6EE5           01296         MOVWF   POSTDEC1
+0005B4 0E00           01297         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0005B6 6EE5           01298         MOVWF   POSTDEC1
+0005B8 0E00           01299         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0005BA 6EE5           01300         MOVWF   POSTDEC1
+0005BC 50??           01301         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0005BE 6EE5           01302         MOVWF   POSTDEC1
+0005C0 50??           01303         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0005C2 6EE5           01304         MOVWF   POSTDEC1
+0005C4 50??           01305         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0005C6 6EE5           01306         MOVWF   POSTDEC1
+0005C8 50??           01307         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0005CA 6EE5           01308         MOVWF   POSTDEC1
+0005CC EC?? F0??      01309         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0005D0 6E??           01310         MOVWF   r0x04
+0005D2 CFF3 F000      01311         MOVFF   PRODL, r0x05
+0005D6 CFF4 F000      01312         MOVFF   PRODH, r0x06
+0005DA CFE9 F000      01313         MOVFF   FSR0L, r0x07
+0005DE 0E08           01314         MOVLW   0x08
+0005E0 26E1           01315         ADDWF   FSR1L, F
+0005E2 D???           01316         BRA     _00180_DS_
+0005E4                01317 _00141_DS_:
+                      01318 ;       .line   45; led.c       desligaled(4);
+0005E4 0E04           01319         MOVLW   0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0005E6 6EE5           01320         MOVWF   POSTDEC1
+0005E8 EC?? F0??      01321         CALL    _desligaled
+0005EC 52E6           01322         MOVF    POSTINC1, F
+                      01323 ;       .line   46; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0005EE 6A??           01324         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0005F0 6A??           01325         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0005F2 6A??           01326         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0005F4 6A??           01327         CLRF    r0x07
+0005F6                01328 _00183_DS_:
+0005F6 50??           01329         MOVF    r0x03, W
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 35
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+0005F8 6EE5           01330         MOVWF   POSTDEC1
+0005FA 50??           01331         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0005FC 6EE5           01332         MOVWF   POSTDEC1
+0005FE 50??           01333         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000600 6EE5           01334         MOVWF   POSTDEC1
+000602 50??           01335         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000604 6EE5           01336         MOVWF   POSTDEC1
+000606 50??           01337         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000608 6EE5           01338         MOVWF   POSTDEC1
+00060A 50??           01339         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00060C 6EE5           01340         MOVWF   POSTDEC1
+00060E 50??           01341         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000610 6EE5           01342         MOVWF   POSTDEC1
+000612 50??           01343         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000614 6EE5           01344         MOVWF   POSTDEC1
+000616 EC?? F0??      01345         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00061A 6E??           01346         MOVWF   r0x08
+00061C 0E08           01347         MOVLW   0x08
+00061E 26E1           01348         ADDWF   FSR1L, F
+000620 50??           01349         MOVF    r0x08, W
+000622 E0??           01350         BZ      _00142_DS_
+000624 0E3F           01351         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000626 6EE5           01352         MOVWF   POSTDEC1
+000628 0E80           01353         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00062A 6EE5           01354         MOVWF   POSTDEC1
+00062C 0E00           01355         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00062E 6EE5           01356         MOVWF   POSTDEC1
+000630 0E00           01357         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000632 6EE5           01358         MOVWF   POSTDEC1
+000634 50??           01359         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000636 6EE5           01360         MOVWF   POSTDEC1
+000638 50??           01361         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00063A 6EE5           01362         MOVWF   POSTDEC1
+00063C 50??           01363         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00063E 6EE5           01364         MOVWF   POSTDEC1
+000640 50??           01365         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 36
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000642 6EE5           01366         MOVWF   POSTDEC1
+000644 EC?? F0??      01367         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000648 6E??           01368         MOVWF   r0x04
+00064A CFF3 F000      01369         MOVFF   PRODL, r0x05
+00064E CFF4 F000      01370         MOVFF   PRODH, r0x06
+000652 CFE9 F000      01371         MOVFF   FSR0L, r0x07
+000656 0E08           01372         MOVLW   0x08
+000658 26E1           01373         ADDWF   FSR1L, F
+00065A D???           01374         BRA     _00183_DS_
+00065C                01375 _00142_DS_:
+                      01376 ;       .line   47; led.c       desligaled(5);
+00065C 0E05           01377         MOVLW   0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00065E 6EE5           01378         MOVWF   POSTDEC1
+000660 EC?? F0??      01379         CALL    _desligaled
+000664 52E6           01380         MOVF    POSTINC1, F
+                      01381 ;       .line   48; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000666 6A??           01382         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000668 6A??           01383         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00066A 6A??           01384         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00066C 6A??           01385         CLRF    r0x07
+00066E                01386 _00186_DS_:
+00066E 50??           01387         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000670 6EE5           01388         MOVWF   POSTDEC1
+000672 50??           01389         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000674 6EE5           01390         MOVWF   POSTDEC1
+000676 50??           01391         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000678 6EE5           01392         MOVWF   POSTDEC1
+00067A 50??           01393         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00067C 6EE5           01394         MOVWF   POSTDEC1
+00067E 50??           01395         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000680 6EE5           01396         MOVWF   POSTDEC1
+000682 50??           01397         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000684 6EE5           01398         MOVWF   POSTDEC1
+000686 50??           01399         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000688 6EE5           01400         MOVWF   POSTDEC1
+00068A 50??           01401         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00068C 6EE5           01402         MOVWF   POSTDEC1
+00068E EC?? F0??      01403         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 37
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000692 6E??           01404         MOVWF   r0x08
+000694 0E08           01405         MOVLW   0x08
+000696 26E1           01406         ADDWF   FSR1L, F
+000698 50??           01407         MOVF    r0x08, W
+00069A E0??           01408         BZ      _00143_DS_
+00069C 0E3F           01409         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+00069E 6EE5           01410         MOVWF   POSTDEC1
+0006A0 0E80           01411         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+0006A2 6EE5           01412         MOVWF   POSTDEC1
+0006A4 0E00           01413         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0006A6 6EE5           01414         MOVWF   POSTDEC1
+0006A8 0E00           01415         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+0006AA 6EE5           01416         MOVWF   POSTDEC1
+0006AC 50??           01417         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006AE 6EE5           01418         MOVWF   POSTDEC1
+0006B0 50??           01419         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006B2 6EE5           01420         MOVWF   POSTDEC1
+0006B4 50??           01421         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006B6 6EE5           01422         MOVWF   POSTDEC1
+0006B8 50??           01423         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006BA 6EE5           01424         MOVWF   POSTDEC1
+0006BC EC?? F0??      01425         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0006C0 6E??           01426         MOVWF   r0x04
+0006C2 CFF3 F000      01427         MOVFF   PRODL, r0x05
+0006C6 CFF4 F000      01428         MOVFF   PRODH, r0x06
+0006CA CFE9 F000      01429         MOVFF   FSR0L, r0x07
+0006CE 0E08           01430         MOVLW   0x08
+0006D0 26E1           01431         ADDWF   FSR1L, F
+0006D2 D???           01432         BRA     _00186_DS_
+0006D4                01433 _00143_DS_:
+                      01434 ;       .line   49; led.c       desligaled(6);
+0006D4 0E06           01435         MOVLW   0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+0006D6 6EE5           01436         MOVWF   POSTDEC1
+0006D8 EC?? F0??      01437         CALL    _desligaled
+0006DC 52E6           01438         MOVF    POSTINC1, F
+                      01439 ;       .line   50; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+0006DE 6A??           01440         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+0006E0 6A??           01441         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+0006E2 6A??           01442         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 38
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+0006E4 6A??           01443         CLRF    r0x07
+0006E6                01444 _00189_DS_:
+0006E6 50??           01445         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006E8 6EE5           01446         MOVWF   POSTDEC1
+0006EA 50??           01447         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006EC 6EE5           01448         MOVWF   POSTDEC1
+0006EE 50??           01449         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006F0 6EE5           01450         MOVWF   POSTDEC1
+0006F2 50??           01451         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006F4 6EE5           01452         MOVWF   POSTDEC1
+0006F6 50??           01453         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006F8 6EE5           01454         MOVWF   POSTDEC1
+0006FA 50??           01455         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0006FC 6EE5           01456         MOVWF   POSTDEC1
+0006FE 50??           01457         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000700 6EE5           01458         MOVWF   POSTDEC1
+000702 50??           01459         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000704 6EE5           01460         MOVWF   POSTDEC1
+000706 EC?? F0??      01461         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+00070A 6E??           01462         MOVWF   r0x08
+00070C 0E08           01463         MOVLW   0x08
+00070E 26E1           01464         ADDWF   FSR1L, F
+000710 50??           01465         MOVF    r0x08, W
+000712 E0??           01466         BZ      _00144_DS_
+000714 0E3F           01467         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+000716 6EE5           01468         MOVWF   POSTDEC1
+000718 0E80           01469         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+00071A 6EE5           01470         MOVWF   POSTDEC1
+00071C 0E00           01471         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00071E 6EE5           01472         MOVWF   POSTDEC1
+000720 0E00           01473         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000722 6EE5           01474         MOVWF   POSTDEC1
+000724 50??           01475         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000726 6EE5           01476         MOVWF   POSTDEC1
+000728 50??           01477         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00072A 6EE5           01478         MOVWF   POSTDEC1
+00072C 50??           01479         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 39
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00072E 6EE5           01480         MOVWF   POSTDEC1
+000730 50??           01481         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000732 6EE5           01482         MOVWF   POSTDEC1
+000734 EC?? F0??      01483         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+000738 6E??           01484         MOVWF   r0x04
+00073A CFF3 F000      01485         MOVFF   PRODL, r0x05
+00073E CFF4 F000      01486         MOVFF   PRODH, r0x06
+000742 CFE9 F000      01487         MOVFF   FSR0L, r0x07
+000746 0E08           01488         MOVLW   0x08
+000748 26E1           01489         ADDWF   FSR1L, F
+00074A D???           01490         BRA     _00189_DS_
+00074C                01491 _00144_DS_:
+                      01492 ;       .line   51; led.c       desligaled(7);
+00074C 0E07           01493         MOVLW   0x07
+Message[1301]: Using default destination of 0 (Access Bank).
+00074E 6EE5           01494         MOVWF   POSTDEC1
+000750 EC?? F0??      01495         CALL    _desligaled
+000754 52E6           01496         MOVF    POSTINC1, F
+                      01497 ;       .line   52; led.c       for (i = 0; i < tempo; i++);
+Message[1301]: Using default destination of 0 (Access Bank).
+000756 6A??           01498         CLRF    r0x04
+Message[1301]: Using default destination of 0 (Access Bank).
+000758 6A??           01499         CLRF    r0x05
+Message[1301]: Using default destination of 0 (Access Bank).
+00075A 6A??           01500         CLRF    r0x06
+Message[1301]: Using default destination of 0 (Access Bank).
+00075C 6A??           01501         CLRF    r0x07
+00075E                01502 _00192_DS_:
+00075E 50??           01503         MOVF    r0x03, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000760 6EE5           01504         MOVWF   POSTDEC1
+000762 50??           01505         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000764 6EE5           01506         MOVWF   POSTDEC1
+000766 50??           01507         MOVF    r0x01, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000768 6EE5           01508         MOVWF   POSTDEC1
+00076A 50??           01509         MOVF    r0x00, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00076C 6EE5           01510         MOVWF   POSTDEC1
+00076E 50??           01511         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000770 6EE5           01512         MOVWF   POSTDEC1
+000772 50??           01513         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000774 6EE5           01514         MOVWF   POSTDEC1
+000776 50??           01515         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000778 6EE5           01516         MOVWF   POSTDEC1
+00077A 50??           01517         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 40
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+00077C 6EE5           01518         MOVWF   POSTDEC1
+00077E EC?? F0??      01519         CALL    ___fslt
+Message[1301]: Using default destination of 0 (Access Bank).
+000782 6E??           01520         MOVWF   r0x08
+000784 0E08           01521         MOVLW   0x08
+000786 26E1           01522         ADDWF   FSR1L, F
+000788 50??           01523         MOVF    r0x08, W
+00078A E0??           01524         BZ      _00194_DS_
+00078C 0E3F           01525         MOVLW   0x3f
+Message[1301]: Using default destination of 0 (Access Bank).
+00078E 6EE5           01526         MOVWF   POSTDEC1
+000790 0E80           01527         MOVLW   0x80
+Message[1301]: Using default destination of 0 (Access Bank).
+000792 6EE5           01528         MOVWF   POSTDEC1
+000794 0E00           01529         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+000796 6EE5           01530         MOVWF   POSTDEC1
+000798 0E00           01531         MOVLW   0x00
+Message[1301]: Using default destination of 0 (Access Bank).
+00079A 6EE5           01532         MOVWF   POSTDEC1
+00079C 50??           01533         MOVF    r0x07, W
+Message[1301]: Using default destination of 0 (Access Bank).
+00079E 6EE5           01534         MOVWF   POSTDEC1
+0007A0 50??           01535         MOVF    r0x06, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0007A2 6EE5           01536         MOVWF   POSTDEC1
+0007A4 50??           01537         MOVF    r0x05, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0007A6 6EE5           01538         MOVWF   POSTDEC1
+0007A8 50??           01539         MOVF    r0x04, W
+Message[1301]: Using default destination of 0 (Access Bank).
+0007AA 6EE5           01540         MOVWF   POSTDEC1
+0007AC EC?? F0??      01541         CALL    ___fsadd
+Message[1301]: Using default destination of 0 (Access Bank).
+0007B0 6E??           01542         MOVWF   r0x04
+0007B2 CFF3 F000      01543         MOVFF   PRODL, r0x05
+0007B6 CFF4 F000      01544         MOVFF   PRODH, r0x06
+0007BA CFE9 F000      01545         MOVFF   FSR0L, r0x07
+0007BE 0E08           01546         MOVLW   0x08
+0007C0 26E1           01547         ADDWF   FSR1L, F
+0007C2 D???           01548         BRA     _00192_DS_
+0007C4                01549 _00194_DS_:
+0007C4 CFE4 F000      01550         MOVFF   PREINC1, r0x08
+0007C8 CFE4 F000      01551         MOVFF   PREINC1, r0x07
+0007CC CFE4 F000      01552         MOVFF   PREINC1, r0x06
+0007D0 CFE4 F000      01553         MOVFF   PREINC1, r0x05
+0007D4 CFE4 F000      01554         MOVFF   PREINC1, r0x04
+0007D8 CFE4 F000      01555         MOVFF   PREINC1, r0x03
+0007DC CFE4 F000      01556         MOVFF   PREINC1, r0x02
+0007E0 CFE4 F000      01557         MOVFF   PREINC1, r0x01
+0007E4 CFE4 F000      01558         MOVFF   PREINC1, r0x00
+0007E8 CFE4 FFD9      01559         MOVFF   PREINC1, FSR2L
+0007EC 0012           01560         RETURN  
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 41
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+                      01561 
+                      01562 ; ; Starting pCode block
+                      01563 S_led__desligaled       code
+000000                01564 _desligaled:
+                      01565 ;       .line   15; led.c       void desligaled(char num) {
+000000 CFD9 FFE5      01566         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      01567         MOVFF   FSR1L, FSR2L
+000008 C??? F???      01568         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      01569         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      01570         MOVFF   r0x02, POSTDEC1
+000014 0E02           01571         MOVLW   0x02
+000016 CFDB F000      01572         MOVFF   PLUSW2, r0x00
+                      01573 ;       .line   16; led.c       BitSet(PORTD, num);
+00001A EE0F F083      01574         LFSR    0x00, 0xf83
+00001E CFEF F000      01575         MOVFF   INDF0, r0x01
+000022 0E01           01576         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+000024 6E??           01577         MOVWF   r0x02
+000026 50??           01578         MOVF    r0x00, W
+000028 E0??           01579         BZ      _00122_DS_
+00002A E6??           01580         BN      _00125_DS_
+Message[1301]: Using default destination of 0 (Access Bank).
+00002C 6CE8           01581         NEGF    WREG
+00002E 90D8           01582         BCF     STATUS, 0
+000030                01583 _00123_DS_:
+000030 36??           01584         RLCF    r0x02, F
+000032 0F01           01585         ADDLW   0x01
+000034 E3??           01586         BNC     _00123_DS_
+000036 D???           01587         BRA     _00122_DS_
+000038                01588 _00125_DS_:
+000038 90D8           01589         BCF     STATUS, 0
+00003A                01590 _00124_DS_:
+00003A 32??           01591         RRCF    r0x02, F
+00003C 0F01           01592         ADDLW   0x01
+00003E E3??           01593         BNC     _00124_DS_
+000040                01594 _00122_DS_:
+000040 50??           01595         MOVF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000042 6E??           01596         MOVWF   r0x00
+000044 50??           01597         MOVF    r0x00, W
+000046 12??           01598         IORWF   r0x01, F
+000048 EE0F F083      01599         LFSR    0x00, 0xf83
+00004C C??? F???      01600         MOVFF   r0x01, INDF0
+000050 CFE4 F000      01601         MOVFF   PREINC1, r0x02
+000054 CFE4 F000      01602         MOVFF   PREINC1, r0x01
+000058 CFE4 F000      01603         MOVFF   PREINC1, r0x00
+00005C CFE4 FFD9      01604         MOVFF   PREINC1, FSR2L
+000060 0012           01605         RETURN  
+                      01606 
+                      01607 ; ; Starting pCode block
+                      01608 S_led__ligaled  code
+000000                01609 _ligaled:
+                      01610 ;       .line   11; led.c       void ligaled(char num) {
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 42
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+000000 CFD9 FFE5      01611         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      01612         MOVFF   FSR1L, FSR2L
+000008 C??? F???      01613         MOVFF   r0x00, POSTDEC1
+00000C C??? F???      01614         MOVFF   r0x01, POSTDEC1
+000010 C??? F???      01615         MOVFF   r0x02, POSTDEC1
+000014 0E02           01616         MOVLW   0x02
+000016 CFDB F000      01617         MOVFF   PLUSW2, r0x00
+                      01618 ;       .line   12; led.c       BitClr(PORTD, num);
+00001A EE0F F083      01619         LFSR    0x00, 0xf83
+00001E CFEF F000      01620         MOVFF   INDF0, r0x01
+000022 0E01           01621         MOVLW   0x01
+Message[1301]: Using default destination of 0 (Access Bank).
+000024 6E??           01622         MOVWF   r0x02
+000026 50??           01623         MOVF    r0x00, W
+000028 E0??           01624         BZ      _00112_DS_
+00002A E6??           01625         BN      _00115_DS_
+Message[1301]: Using default destination of 0 (Access Bank).
+00002C 6CE8           01626         NEGF    WREG
+00002E 90D8           01627         BCF     STATUS, 0
+000030                01628 _00113_DS_:
+000030 36??           01629         RLCF    r0x02, F
+000032 0F01           01630         ADDLW   0x01
+000034 E3??           01631         BNC     _00113_DS_
+000036 D???           01632         BRA     _00112_DS_
+000038                01633 _00115_DS_:
+000038 90D8           01634         BCF     STATUS, 0
+00003A                01635 _00114_DS_:
+00003A 32??           01636         RRCF    r0x02, F
+00003C 0F01           01637         ADDLW   0x01
+00003E E3??           01638         BNC     _00114_DS_
+000040                01639 _00112_DS_:
+000040 1C??           01640         COMF    r0x02, W
+Message[1301]: Using default destination of 0 (Access Bank).
+000042 6E??           01641         MOVWF   r0x00
+000044 50??           01642         MOVF    r0x00, W
+000046 16??           01643         ANDWF   r0x01, F
+000048 EE0F F083      01644         LFSR    0x00, 0xf83
+00004C C??? F???      01645         MOVFF   r0x01, INDF0
+000050 CFE4 F000      01646         MOVFF   PREINC1, r0x02
+000054 CFE4 F000      01647         MOVFF   PREINC1, r0x01
+000058 CFE4 F000      01648         MOVFF   PREINC1, r0x00
+00005C CFE4 FFD9      01649         MOVFF   PREINC1, FSR2L
+000060 0012           01650         RETURN  
+                      01651 
+                      01652 ; ; Starting pCode block
+                      01653 S_led__configled        code
+000000                01654 _configled:
+                      01655 ;       .line   6; led.c        void configled(void) {
+000000 CFD9 FFE5      01656         MOVFF   FSR2L, POSTDEC1
+000004 CFE1 FFD9      01657         MOVFF   FSR1L, FSR2L
+                      01658 ;       .line   7; led.c        TRISD = 0x00;
+000008 EE0F F095      01659         LFSR    0x00, 0xf95
+00000C 0E00           01660         MOVLW   0x00
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 43
+
+
+LOC    OBJECT CODE    LINE  SOURCE TEXT
+  VALUE
+
+Message[1301]: Using default destination of 0 (Access Bank).
+00000E 6EEF           01661         MOVWF   INDF0
+                      01662 ;       .line   8; led.c        PORTD = 0xFF;
+000010 EE0F F083      01663         LFSR    0x00, 0xf83
+000014 0EFF           01664         MOVLW   0xff
+Message[1301]: Using default destination of 0 (Access Bank).
+000016 6EEF           01665         MOVWF   INDF0
+000018 CFE4 FFD9      01666         MOVFF   PREINC1, FSR2L
+00001C 0012           01667         RETURN  
+                      01668 
+                      01669 
+                      01670 
+                      01671 ; Statistics:
+                      01672 ; code size:     3406 (0x0d4e) bytes ( 2.60%)
+                      01673 ;                1703 (0x06a7) words
+                      01674 ; udata size:       0 (0x0000) bytes ( 0.00%)
+                      01675 ; access size:      9 (0x0009) bytes
+                      01676 
+                      01677 
+                      01678         end
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 44
+
+
+SYMBOL TABLE
+  LABEL                             VALUE
+
+FSR0L                             00000FE9
+FSR1L                             00000FE1
+FSR2L                             00000FD9
+INDF0                             00000FEF
+PLUSW2                            00000FDB
+POSTDEC1                          00000FE5
+POSTINC1                          00000FE6
+PREINC1                           00000FE4
+PRODH                             00000FF4
+PRODL                             00000FF3
+STATUS                            00000FD8
+WREG                              00000FE8
+_00112_DS_                        00000040
+_00113_DS_                        00000030
+_00114_DS_                        0000003A
+_00115_DS_                        00000038
+_00122_DS_                        00000040
+_00123_DS_                        00000030
+_00124_DS_                        0000003A
+_00125_DS_                        00000038
+_00130_DS_                        000000BC
+_00131_DS_                        00000134
+_00132_DS_                        000001AC
+_00133_DS_                        00000224
+_00134_DS_                        0000029C
+_00135_DS_                        00000314
+_00136_DS_                        0000038C
+_00137_DS_                        00000404
+_00138_DS_                        0000047C
+_00139_DS_                        000004F4
+_00140_DS_                        0000056C
+_00141_DS_                        000005E4
+_00142_DS_                        0000065C
+_00143_DS_                        000006D4
+_00144_DS_                        0000074C
+_00147_DS_                        00000056
+_00150_DS_                        000000CE
+_00153_DS_                        00000146
+_00156_DS_                        000001BE
+_00159_DS_                        00000236
+_00162_DS_                        000002AE
+_00165_DS_                        00000326
+_00168_DS_                        0000039E
+_00171_DS_                        00000416
+_00174_DS_                        0000048E
+_00177_DS_                        00000506
+_00180_DS_                        0000057E
+_00183_DS_                        000005F6
+_00186_DS_                        0000066E
+_00189_DS_                        000006E6
+_00192_DS_                        0000075E
+_00194_DS_                        000007C4
+_00199_DS_                        000000C6
+gpasm-1.4.0 #1106 (Oct  6 2014) build/default   9-15-2016  09:41:18         PAGE 45
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_00200_DS_                        00000148
+_00201_DS_                        000001CA
+_00202_DS_                        0000024C
+_00203_DS_                        000002CE
+_00204_DS_                        00000350
+_00205_DS_                        000003D2
+_00208_DS_                        00000060
+_00211_DS_                        000000E2
+_00214_DS_                        00000164
+_00217_DS_                        000001E6
+_00220_DS_                        00000268
+_00223_DS_                        000002EA
+_00226_DS_                        0000036C
+_00229_DS_                        000003EE
+_00231_DS_                        00000454
+__18F4520                         00000001
+__ACC_RAM_LOW_END                 0000007F
+__CODE_END                        00007FFF
+__CODE_START                      00000000
+__EEPROM_END                      00F000FF
+__EEPROM_START                    00F00000
+__VECTOR_INT_HIGH                 00000008
+__VECTOR_INT_LOW                  00000018
+__VECTOR_RESET                    00000000
+___fsadd                          00000000
+___fslt                           00000000
+_atoa                             00000000
+_configled                        00000000
+_desligaled                       00000000
+_ligaled                          00000000
+_sequencial                       00000000
+r0x00                             00000000
+r0x01                             00000001
+r0x02                             00000002
+r0x03                             00000003
+r0x04                             00000004
+r0x05                             00000005
+r0x06                             00000006
+r0x07                             00000007
+r0x08                             00000008
+
+Errors   :     0
+Warnings :     0 reported,     0 suppressed
+Messages :   568 reported,     0 suppressed
+
+
